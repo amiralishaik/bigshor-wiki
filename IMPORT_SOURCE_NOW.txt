@@ -1,0 +1,5 @@
+# Import source archives
+
+This marker triggers the repository workflow to extract Plugins.zip, Themes.zip, and Doc.zip on branch BIGSHOR-WIKI.
+
+The workflow must validate archive paths and commit extracted source files. This marker is retained as an audit trail.
