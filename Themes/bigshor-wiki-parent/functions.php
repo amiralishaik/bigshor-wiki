@@ -310,3 +310,12 @@ add_filter('wp_sitemaps_posts_query_args', function($args, $post_type) {
     }
     return $args;
 }, 10, 2);
+
+/**
+ * Front-end performance improvements.
+ * Keep these conservative: no global script dependency removal or asynchronous CSS swapping.
+ */
+$bsw_performance_module = get_template_directory() . '/inc/performance-optimizations.php';
+if (is_readable($bsw_performance_module)) {
+    require_once $bsw_performance_module;
+}
