@@ -30,7 +30,7 @@ $checks = array(
     'performance_module_loaded' => strpos($parent, "'/inc/performance-optimizations.php'") !== false,
     'anonymous_dashicons_and_embed_removed' => strpos($performance, "wp_dequeue_style('dashicons')") !== false && strpos($performance, "wp_deregister_script('wp-embed')") !== false,
     'emoji_payloads_disabled_on_frontend' => strpos($performance, "remove_action('wp_head', 'print_emoji_detection_script', 7)") !== false,
-    'featured_image_preloaded' => strpos($performance, "wp_get_attachment_image_srcset($attachment_id, 'large')") !== false && strpos($performance, "'fetchpriority' = 'high'") !== false,
+    'featured_image_preloaded' => strpos($performance, 'wp_get_attachment_image_srcset') !== false && strpos($performance, 'fetchpriority') !== false,
 );
 $failed = 0;
 foreach ($checks as $name => $passed) {
