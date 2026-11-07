@@ -1,0 +1,60 @@
+name: Import uploaded BIGSHOR source archives
+
+on:
+  push:
+    branches:
+      - BIGSHOR-WIKI
+
+permissions:
+  contents: write
+
+jobs:
+  extract-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out uploaded branch
+        uses: actions/checkout@v4
+        with:
+          ref: BIGSHOR-WIKI
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract source archives safely
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          import stat
+
+          archives = ["Plugins.zip", "Themes.zip", "Doc.zip"]
+          for archive_name in archives:
+              archive = Path(archive_name)
+              if not archive.is_file():
+                  print(f"Skipping missing archive: {archive_name}")
+                  continue
+              with ZipFile(archive) as zf:
+                  for info in zf.infolist():
+                      name = info.filename.replace("\\", "/")
+                      parts = Path(name).parts
+                      if name.startswith("/") or ".." in parts:
+                          raise SystemExit(f"Unsafe archive path in {archive_name}: {name}")
+                      mode = info.external_attr >> 16
+                      if stat.S_ISLNK(mode):
+                          raise SystemExit(f"Symbolic link rejected: {name}")
+                  zf.extractall(".")
+              print(f"Extracted {archive_name}")
+
+          PY
+
+      - name: Commit extracted source
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Plugins Themes Doc docs plugins themes
+          if git diff --cached --quiet; then
+            echo "No new extracted source paths to commit."
+          else
+            git commit -m "Import BIGSHOR WIKI source from uploaded archives"
+            git push origin HEAD:BIGSHOR-WIKI
+          fi
