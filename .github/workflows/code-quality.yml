@@ -49,6 +49,15 @@ jobs:
             php -l "$file"
           done
 
+      - name: Check frontend JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check Themes/bigshor-wiki-parent/assets/wiki-enhancements.js
+          node --check Plugins/bigshor-wiki-admin-ui/assets/admin-ux-v15.js
+          node --check Plugins/bigshor-wiki-admin-ui/assets/admin-white-label.js
+          node --check Plugins/bigshor-wiki-article-studio/assets/article-studio.js
+
       - name: Run standalone core regression tests
         shell: bash
         run: |
