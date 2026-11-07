@@ -84,7 +84,7 @@ html[data-theme-mode="dark"] .site-header,html[data-theme-mode="dark"] .site-foo
 
 
 /* BIGSHOR responsive drawer accessibility refinement. */
-@media (max-width: 650px) {
+@media (max-width: 900px) {
   body.mw-sidebar-open { overflow: hidden; }
   body.mw-sidebar-open::before {
     content: "";
