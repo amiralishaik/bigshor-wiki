@@ -81,3 +81,45 @@ html[data-theme-mode="dark"] .site-header,html[data-theme-mode="dark"] .site-foo
 /* Modern logo and account portal image behavior */
 .mw-brand-mark{display:inline-flex;flex:0 0 42px;width:42px;height:42px;align-items:center;justify-content:center}
 .mw-brand-mark img{display:block;width:42px;height:42px;object-fit:contain}
+
+
+/* BIGSHOR responsive drawer accessibility refinement. */
+@media (max-width: 650px) {
+  body.mw-sidebar-open { overflow: hidden; }
+  body.mw-sidebar-open::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(16, 24, 40, .42);
+  }
+  #mw-sidebar.mw-sidebar {
+    display: block;
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 1001;
+    width: min(86vw, 360px);
+    height: 100vh;
+    height: 100dvh;
+    max-height: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 22px 18px 32px;
+    background: #fff;
+    border: 0;
+    border-right: 1px solid #d8dee8;
+    box-shadow: 8px 0 28px rgba(16, 24, 40, .16);
+    transform: translateX(-105%);
+    visibility: hidden;
+    transition: transform .22s ease, visibility .22s ease;
+  }
+  #mw-sidebar.mw-sidebar.is-open {
+    display: block;
+    transform: translateX(0);
+    visibility: visible;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #mw-sidebar.mw-sidebar { transition: none; }
+}
