@@ -1,9 +1,15 @@
 name: Import uploaded BIGSHOR source archives
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - BIGSHOR-WIKI
+    paths:
+      - "Plugins.zip"
+      - "Themes.zip"
+      - "Doc.zip"
+      - ".github/workflows/import-uploaded-archives.yml"
 
 permissions:
   contents: write
@@ -26,35 +32,58 @@ jobs:
           from zipfile import ZipFile
           import stat
 
-          archives = ["Plugins.zip", "Themes.zip", "Doc.zip"]
-          for archive_name in archives:
+          targets = {
+              "Plugins.zip": Path("source-import/plugins"),
+              "Themes.zip": Path("source-import/themes"),
+              "Doc.zip": Path("source-import/docs"),
+          }
+          for archive_name, target in targets.items():
               archive = Path(archive_name)
               if not archive.is_file():
                   print(f"Skipping missing archive: {archive_name}")
                   continue
+              target.mkdir(parents=True, exist_ok=True)
               with ZipFile(archive) as zf:
                   for info in zf.infolist():
-                      name = info.filename.replace("\\", "/")
+                      name = info.filename.replace("\\\\", "/")
                       parts = Path(name).parts
                       if name.startswith("/") or ".." in parts:
                           raise SystemExit(f"Unsafe archive path in {archive_name}: {name}")
                       mode = info.external_attr >> 16
                       if stat.S_ISLNK(mode):
                           raise SystemExit(f"Symbolic link rejected: {name}")
-                  zf.extractall(".")
-              print(f"Extracted {archive_name}")
-
+                  zf.extractall(target)
+              print(f"Extracted {archive_name} -> {target}")
           PY
+
+      - name: Record release baseline
+        shell: bash
+        run: |
+          mkdir -p docs
+          cat > docs/RELEASE-BASELINE.md <<'EOF'
+          # BIGSHOR WIKI release baseline
+
+          Imported source archives are staged under source-import/.
+
+          Latest supplied project package baseline (7 November 2026):
+          - Core plugin: 34.10.0
+          - Parent theme: 23.5.0
+          - Child theme: 23.6.0
+          - Admin UI plugin: 1.5.0
+          - Article Studio plugin: 1.4.0
+
+          These are the latest supplied project package versions known in this workspace. Inspect imported ZIP contents before claiming they match this baseline. Do not overwrite newer component versions with older archive contents.
+          EOF
 
       - name: Commit extracted source
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add source-import docs/RELEASE-BASELINE.md
           if git diff --cached --quiet; then
             echo "No new extracted source paths to commit."
           else
-            git commit -m "Import BIGSHOR WIKI source from uploaded archives"
+            git commit -m "Import BIGSHOR WIKI source archives and record release baseline"
             git push origin HEAD:BIGSHOR-WIKI
           fi
