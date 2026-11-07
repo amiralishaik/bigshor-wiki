@@ -24,6 +24,7 @@ $checks = array(
     'child_styles_load_after_parent_core_css' => strpos($child, "array('bigshor-wiki-core')") !== false,
     'admin_ui_enforces_supported_core_version' => strpos($admin, "version_compare(BSW_CORE_PLUGIN_VERSION, '34.2.0', '<')") !== false,
     'article_studio_requires_supported_core' => strpos($studio, "version_compare(BSW_CORE_PLUGIN_VERSION, '34.2.0', '<')") !== false,
+    'article_studio_release_version_aligned' => strpos($studio, 'Version: 1.4.0') !== false && strpos($studio, "define('BSW_STUDIO_VERSION', '1.4.0')") !== false,
 );
 $failed = 0;
 foreach ($checks as $name => $passed) {
