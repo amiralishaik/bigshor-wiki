@@ -1,0 +1,58 @@
+name: Build and publish BIGSHOR WIKI packages
+
+on:
+  push:
+    branches:
+      - BIGSHOR-WIKI
+      - main
+    paths-ignore:
+      - "**/*.zip"
+      - "docs/RELEASE-HISTORY.md"
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bigshor-wiki-release-packages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out latest source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build source archive and checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          REF_NAME="${GITHUB_REF_NAME}"
+          SAFE_REF="$(printf '%s' "$REF_NAME" | tr '/ ' '--')"
+          git archive --format=zip --output="dist/BIGSHOR_WIKI_SOURCE_${SAFE_REF}.zip" HEAD
+          (
+            cd dist
+            sha256sum *.zip > SHA256SUMS.txt
+          )
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: bigshor-wiki-packages-${{ github.ref_name }}
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Attach packages to published GitHub release
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh release upload "${GITHUB_REF_NAME}" dist/* --clobber
