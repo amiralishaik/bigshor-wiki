@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BIGSHOR WIKI Article Studio
  * Description: Custom visual and wiki-source article editor for BIGSHOR WIKI.
- * Version: 1.3.0
+ * Version: 1.4.0
  * Requires at least: 6.2
  * Requires PHP: 7.4
  * Author: BIGSHOR WIKI
@@ -10,7 +10,7 @@
  */
 if (!defined('ABSPATH')) exit;
 
-define('BSW_STUDIO_VERSION', '1.3.0');
+define('BSW_STUDIO_VERSION', '1.4.0');
 define('BSW_STUDIO_FILE', __FILE__);
 
 final class BSW_Article_Studio {
