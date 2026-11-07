@@ -20,6 +20,8 @@ $checks = array(
     'weighted_search_signals' => strpos($module, 'title_exact') !== false && strpos($module, 'content_match') !== false,
     'language_filter' => strpos($module, "_bsw_p7_language") !== false,
     'federation_monitoring' => strpos($module, 'bsw_phase60_federation_peers') !== false && strpos($module, 'last_sync_gmt') !== false,
+    'oversighter_can_view_suppressed_revisions' => strpos($module, "current_user_can('bsw_view_suppressed_content')") !== false,
+    'suppression_uses_dedicated_capabilities' => strpos($module, "'bsw_suppress_revisions'") !== false && strpos($module, "'bsw_unsuppress_revisions'") !== false,
 );
 $failed = 0;
 foreach ($checks as $name => $passed) {
