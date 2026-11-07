@@ -14,6 +14,7 @@ final class BSW_Phase51_Advanced_Platform {
     private static $bot_context = array();
 
     public static function boot() {
+        add_action('init', array(__CLASS__, 'enforce_cidr_blocks'), 1);
         add_action('init', array(__CLASS__, 'register_shortcodes'));
         add_action('admin_menu', array(__CLASS__, 'admin_menu'));
         add_action('add_meta_boxes_wiki_article', array(__CLASS__, 'revision_metabox'));
@@ -139,6 +140,18 @@ final class BSW_Phase51_Advanced_Platform {
         if($remain){$mask=(0xff << (8-$remain)) & 0xff;if((ord($a[$bytes])&$mask)!==(ord($b[$bytes])&$mask))return false;}
         return true;
     }
+    /** Enforce stored IP/CIDR restrictions before rendering public or authenticated pages. */
+    public static function enforce_cidr_blocks() {
+        // Preserve an administrator's ability to review and lift an accidental block.
+        if (is_user_logged_in() && current_user_can('manage_options')) return;
+        $ip = isset($_SERVER['REMOTE_ADDR']) ? trim((string) $_SERVER['REMOTE_ADDR']) : '';
+        if ($ip !== '' && self::is_cidr_restricted($ip)) {
+            status_header(403);
+            nocache_headers();
+            wp_die('Access to BIGSHOR WIKI is restricted for this network.', 'Access restricted', array('response' => 403));
+        }
+    }
+
     public static function is_cidr_restricted($ip=null) {
         $ip=$ip?:($_SERVER['REMOTE_ADDR']??''); if(!filter_var($ip,FILTER_VALIDATE_IP))return false;
         $rows=get_option('bsw51_cidr_blocks',array()); if(!is_array($rows))return false;
