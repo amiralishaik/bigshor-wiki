@@ -1,0 +1,57 @@
+name: BIGSHOR WIKI code quality
+
+on:
+  push:
+    branches:
+      - development/**
+  pull_request:
+    branches:
+      - BIGSHOR-WIKI
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bsw-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  php-quality:
+    name: PHP ${{ matrix.php }} lint and regression tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.4', '8.2', '8.4']
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: none
+
+      - name: Lint all PHP source files
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -d '' files < <(find Plugins Themes -type f -name '*.php' -print0)
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "No PHP files found under Plugins/ or Themes/." >&2
+            exit 1
+          fi
+          for file in "${files[@]}"; do
+            php -l "$file"
+          done
+
+      - name: Run standalone core regression tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/phase54-template-engine-regression.php
+          php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/phase63-static-regression.php
