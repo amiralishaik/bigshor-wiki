@@ -1,0 +1,19 @@
+BIGSHOR WIKI CORE v30.6.0 — PHASE 1: ARCHITECTURE & CONSOLIDATION
+
+Implemented
+- Centralised [bigshor_wiki_frontend_editor] registration in one canonical controller.
+- Removed competing Phase 40, 41 and 42 shortcode registrations from normal boot paths.
+- Canonical controller delegates to the existing Phase 42 wikitext editor, with Phase 41 fallback.
+- Disabled the superseded Phase 40 frontend save hook to avoid competing save handlers.
+- Added an administrator-only diagnostic notice for a missing canonical shortcode.
+- Established boundary: Core owns wiki data, editor and workflows; themes own presentation.
+- No database migration or content rewrite is performed.
+
+Compatibility and safety
+- Existing shortcode name, article post type, metadata and existing save contracts are retained.
+- Phase 41/42 save handlers remain for their distinct form action names.
+- No roles/capabilities are broadened by this release.
+
+Not included / validation limits
+- This is not a full MediaWiki VisualEditor implementation.
+- No live WordPress activation, browser, database, or role-matrix test was possible in this build environment.

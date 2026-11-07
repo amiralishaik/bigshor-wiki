@@ -1,0 +1,8 @@
+PHASE 37 IMPLEMENTATION NOTES
+- New file: includes/phase37-theme-integration.php
+- Loaded from the main plugin bootstrap after Phase 36.
+- No database tables or destructive migrations. Watchlist uses existing user meta key _bsw_watchlist.
+- REST writes use WordPress cookie authentication and REST nonce validation.
+- Public endpoints return only published BIGSHOR post types.
+- Existing search-suggest route was expanded in phase4-discovery.php rather than registering a duplicate route.
+- Existing community watchlist and history code was extended with News support and revision visibility guardrails.

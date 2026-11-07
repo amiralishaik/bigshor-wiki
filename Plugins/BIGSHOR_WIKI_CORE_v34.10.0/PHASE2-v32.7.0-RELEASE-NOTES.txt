@@ -1,0 +1,50 @@
+BIGSHOR WIKI — PHASE 2: ADVANCED WIKI ENGINE
+Release: Core 32.7.0 | Parent Theme 23.1.0 | Child Theme 23.2.0
+Baseline: Core 32.6.0
+
+IMPLEMENTED
+1. Balanced-brace nested template expansion with recursion depth and expansion budgets.
+2. Reusable wiki_template content type. Templates are private to the public site, visible in the wiki admin area, and restricted to administrators.
+3. Named and positional template arguments, including {{{parameter|default}}} substitution.
+4. Nested template calls and recursive template expansion within configured limits.
+5. Parser functions: #if, #ifeq, #ifexist, #switch, #expr, #len, #uc, #lc, #sub and #replace.
+6. Magic words: SITENAME, CURRENTYEAR, CURRENTMONTH, CURRENTDAY, CURRENTMONTHNAME, PAGENAME and FULLPAGENAME.
+7. Literal pipe/equal escapes: {{!}} and {{=}}.
+8. Safe arithmetic parser for #expr. No PHP eval, arbitrary code execution or template-provided PHP is used.
+9. Existing registered BIGSHOR infobox templates remain supported as a fallback.
+10. Existing article parser, citations, category handling, search, revisions, themes and other platform modules are retained.
+
+HOW TO CREATE A REUSABLE TEMPLATE
+- Open WordPress Dashboard > Wiki Articles > Wiki Templates (menu placement may vary with the registered post type).
+- Add a template; use the template title as its name and enter wikitext in the editor.
+- Publish it. Only published templates are expanded.
+- Example template body: Hello {{{name|friend}}}! You are a {{{role|reader}}}.
+- Use in an article: {{Greeting|name=Amir|role=contributor}}
+- Positional arguments are available as {{{1}}}, {{{2}}}, etc.
+
+PARSER FUNCTION EXAMPLES
+{{#if:condition|shown when non-empty|shown when empty}}
+{{#ifeq:yes|yes|matched|not matched}}
+{{#switch:blue|red=warm|blue=cool|default=unknown}}
+{{#expr:(12 + 8) / 2}}
+{{#ifexist:Existing Article|Article exists|No matching article}}
+{{#len:BIGSHOR}}
+{{#uc:bigshor}} / {{#lc:WIKI}}
+{{#sub:encyclopedia|0|4}}
+{{#replace:BIGSHOR Wiki|Wiki|WIKI}}
+{{!}} renders a literal pipe; {{=}} renders a literal equals sign.
+
+SAFETY / LIMITS
+- Maximum template expansion depth: 10.
+- Maximum expansion operations per source render: 180.
+- Maximum source length processed by this layer: 250,000 bytes.
+- Only published wiki_template records are used. Template authoring is administrator-only.
+- #expr accepts numeric literals, parentheses and + - * / % ^ only; division by zero and invalid/oversized results return an empty value.
+- Unknown template calls are preserved as source so editors can identify unsupported templates.
+- This is an expanded BIGSHOR parser subset, not full MediaWiki compatibility. Scribunto/Lua, arbitrary extension hooks, parser hooks, full template namespace semantics, all magic words, localisation aliases, and every MediaWiki parser function are not implemented.
+
+VALIDATION
+- Dedicated standalone regression tests cover nested parser functions, safe arithmetic, string functions, nested named templates and default parameters.
+- PHP syntax validation and ZIP integrity checks are included in the release report.
+- No live WordPress activation, real database migration, browser rendering, role matrix, penetration test, performance test or cross-browser test was available in this build environment.
+- Staging acceptance remains required before production deployment.

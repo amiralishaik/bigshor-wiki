@@ -1,0 +1,34 @@
+BIGSHOR WIKI — PHASE 4 RELEASE NOTES
+Core plugin: 30.9.0
+Parent theme: 21.7.0
+Child theme: 21.7.0
+
+PHASE 4: ADVANCED WIKITEXT ENGINE
+
+Implemented:
+- Introduces BSW_Phase47_Parser as the canonical MediaWiki-style source renderer.
+- Integrates the new parser with the existing wikitext editor conversion entry point while retaining the legacy parser implementation as a compatibility fallback.
+- Supports heading levels 2–6 with generated section IDs.
+- Supports paragraphs, bold, italic, internal article links, external links and attachment-backed File links.
+- Supports nested unordered and ordered lists, definition lists and blockquotes.
+- Supports fenced code blocks and simple wiki table row/cell syntax.
+- Supports basic single-level {{Infobox ...}} templates.
+- Supports named and unnamed references, including forward named-reference reuse, numbered citation links and a generated references list.
+- Recognises Category namespace source tags; taxonomy assignment/import is not automatic in this release.
+- Adds parser diagnostics for missing reference-list markers, unresolved named references and nested templates.
+- Adds article topic/category presentation styling and responsive table/reference/code styling.
+
+COMPATIBILITY / LIMITATIONS
+- This is a documented MediaWiki-style subset, not full MediaWiki parser compatibility.
+- Nested templates, parser functions, magic words, template transclusion, reference groups, advanced table attributes, galleries, language/interwiki links, redirects and complex citation templates are not implemented.
+- Basic infobox parameters are plain text; nested parameter markup is not evaluated.
+- Wiki file references resolve to existing WordPress attachment records only.
+- Category source tags are recognised but do not automatically create or assign WordPress topic terms.
+- Parser diagnostics are available as a PHP API; a dedicated editor diagnostics panel is not included yet.
+- Visual/source editor remains the Phase 3 editor; this phase upgrades source rendering, not the editor into MediaWiki VisualEditor.
+
+VALIDATION
+- PHP syntax lint was run across all packaged PHP files.
+- Parser smoke tests cover headings, infobox, bold/italic, internal links, nested lists, definition lists, blockquotes, named reference reuse and reference list generation.
+- ZIP integrity checks were run on all release archives.
+- No live WordPress activation, browser, database migration, security penetration or cross-role staging test is claimed.

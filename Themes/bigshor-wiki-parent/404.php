@@ -1,0 +1,1 @@
+<?php get_header(); ?><h1 class="page-title">Article not found</h1><p>We couldn't find that page. Search the encyclopedia or return to the <a href="<?php echo esc_url(home_url('/')); ?>">main page</a>.</p><?php get_search_form(); ?><?php get_footer(); ?>

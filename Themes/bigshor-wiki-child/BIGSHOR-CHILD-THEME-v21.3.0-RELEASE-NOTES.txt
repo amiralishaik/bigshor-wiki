@@ -1,0 +1,3 @@
+BIGSHOR Wiki Theme 21.3.0
+- Adds responsive presentation for attachment-backed wiki images and reference lists.
+- Retains existing layout and navigation.

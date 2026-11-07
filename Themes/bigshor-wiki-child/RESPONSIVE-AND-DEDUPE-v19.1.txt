@@ -1,0 +1,2 @@
+BIGSHOR WIKI CHILD THEME v19.1.0
+Brand-only responsive refinements. Parent theme owns structural responsive behaviour and the single navigation/search layout.

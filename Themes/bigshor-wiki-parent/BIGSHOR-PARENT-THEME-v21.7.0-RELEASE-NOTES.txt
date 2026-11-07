@@ -1,0 +1,2 @@
+BIGSHOR Parent Theme v21.7.0
+Phase 4 presentation update: styles for parser-generated wiki tables, infoboxes, references, categories, code blocks and blockquotes. Core parsing and editorial logic remain in the Core plugin.

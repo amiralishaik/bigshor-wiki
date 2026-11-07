@@ -1,0 +1,3 @@
+All component ZIP archives passed unzip -t integrity validation.
+Core PHP files linted: 89
+PHP syntax failures: 0

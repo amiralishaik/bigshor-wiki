@@ -1,0 +1,2 @@
+BIGSHOR Child Theme v21.7.0
+Phase 4 compatibility update: inherits the parent theme parser presentation system and includes responsive styling for generated wiki tables, references and article category navigation. No editorial logic is implemented in the child theme.

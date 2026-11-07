@@ -1,0 +1,11 @@
+BIGSHOR WIKI CORE 30.4.0
+- Section editing now includes nested subsections until the next heading at the same or higher level.
+- Wikitext table parsing now handles basic header/data rows, table wrappers and row separators more consistently.
+- Named reference definitions are processed before named self-closing references, supporting forward reuse.
+- Structured data always emits a valid Article wrapper; the selected subject type is represented under Article.about.
+- Article quality checks remain advisory and do not block authorised publication.
+
+Known limitations:
+- This is a supported wikitext subset, not full MediaWiki compatibility.
+- Complex nested templates, advanced table attributes, image options and full citation metadata are not yet implemented.
+- No live WordPress/browser test was possible in this build environment. Install on staging and test with a backup before production.

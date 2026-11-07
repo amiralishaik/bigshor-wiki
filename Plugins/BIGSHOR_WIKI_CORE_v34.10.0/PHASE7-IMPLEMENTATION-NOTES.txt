@@ -1,0 +1,18 @@
+BIGSHOR Wiki Core — Phase 7 (v31.2.0)
+
+Media and file management is built on the existing WordPress attachment library. No replacement media store, new database table, or destructive migration is introduced.
+
+Features:
+- Unified attachment metadata for creator, source URL, licence, attribution, permission notes, creation date and alt-text review state.
+- Image alt text editing from the attachment edit screen.
+- Rights review state and administrator-only verification control. Verification requires creator, licence and source fields to be present; it is an editorial flag, not a legal determination.
+- Compatibility reads and writes for the existing BIGSHOR Phase 3 / legacy media metadata keys.
+- Media Library columns for rights-review state and image alt-text presence.
+- Shortcodes: [bsw_media_gallery], [bsw_media_file id="123"], [bsw_media_download id="123"].
+- Responsive, lazy-loaded image gallery and file links.
+- Upload security continues to use WordPress's native Media Library and host MIME/size limits; this phase does not introduce a separate public upload endpoint.
+
+Limits:
+- Does not implement a separate cloud object store, image transformation/CDN, full digital asset management workflow, automated copyright detection, or a legal rights determination.
+- Gallery shortcode is for image attachments. Non-image files are exposed through the file/download shortcodes.
+- Live WordPress activation, browser, role/capability and actual upload tests require the target staging site.

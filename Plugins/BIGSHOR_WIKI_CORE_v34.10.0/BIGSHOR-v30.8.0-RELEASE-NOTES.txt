@@ -1,0 +1,11 @@
+BIGSHOR WIKI CORE v30.8.0 — PHASE 3
+Frontend Editor Framework
+
+- Adds preview and hide-preview controls to the canonical frontend editor.
+- Adds browser-local draft recovery with a seven-day recovery window and explicit restore confirmation.
+- Adds local recovery status and clear-recovery control.
+- Adds edit-summary capture stored in article metadata (_bsw_last_edit_summary and audit fields).
+- Retains existing WordPress capability checks, nonce verification, sanitisation, post-modified conflict check, revisions and pending-review behaviour.
+- No database schema migration; metadata is written only when an edit summary is supplied.
+
+Limitations: preview is a client-side rendering aid, not a server-authoritative preview; wikitext mode displays source text in preview rather than parsing it in-browser. Local recovery is browser/device-specific and is not a server autosave. Visual editor remains WordPress TinyMCE, not MediaWiki VisualEditor. Live WordPress/browser acceptance is pending.

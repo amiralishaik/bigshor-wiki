@@ -1,0 +1,6 @@
+BIGSHOR WIKI CHILD THEME 23.2.0
+- Adds responsive styles for Phase 51 search and namespace/language filters.
+- Adds disambiguation panel styles.
+- Adds side-by-side translation table and responsive mobile overflow styles.
+- Adds archived media version controls and exact-match search result styling.
+- Parent Theme 23.1.0 is unchanged.

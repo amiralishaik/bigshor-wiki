@@ -1,0 +1,18 @@
+BIGSHOR WIKI v34.10.0 — CONSOLIDATED RECONCILIATION
+
+Base: v34.9.0 platform upgrade.
+Integrated: Phase 70 automatic upload-time media optimiser from the v34.8.0 branch.
+Retained: Parent Theme v23.5.0; Child Theme v23.6.0; Admin UI v1.5.0; Article Studio v1.4.0.
+
+Changes:
+- Preserves v34.9.0 account system, role registration pages, modern image delivery and theme packages.
+- Adds Phase 70 media optimiser to Core loader.
+- Queues supported image uploads after WordPress metadata generation.
+- Generates AVIF/WebP sidecars for originals and WordPress-generated sizes when supported.
+- Preserves original files and provides a Media > Media Optimizer status/retry screen.
+- Keeps CDN hostname/path handling in generated sidecar URLs.
+
+Limitations:
+- Server AVIF/WebP encoder and WP-Cron availability are required.
+- Historical bulk media conversion is not included.
+- Not all features in the broad Wikipedia parity backlog are implemented or production-verified by this reconciliation release.

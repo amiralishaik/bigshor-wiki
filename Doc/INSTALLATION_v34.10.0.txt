@@ -1,0 +1,20 @@
+BIGSHOR WIKI CONSOLIDATED RELEASE v34.10.0
+
+This is a reconciliation release based on the v34.9.0 platform package. It retains the v34.9.0 theme, Admin UI and Article Studio packages, and integrates Phase 70 automatic media optimisation into Core v34.10.0.
+
+INSTALL ORDER
+1. Back up database, wp-content/plugins and wp-content/themes.
+2. Install/upgrade BIGSHOR WIKI Core v34.10.0.
+3. Keep/upgrade Parent Theme v23.5.0.
+4. Keep/upgrade Child Theme v23.6.0.
+5. Keep/upgrade Admin UI v1.5.0.
+6. Keep/upgrade Article Studio v1.4.0.
+7. Clear WordPress, object, page and CDN caches.
+8. Upload a test JPEG and PNG. Check Media > Media Optimizer after WP-Cron has run.
+
+IMPORTANT
+- The original upload is retained; AVIF/WebP sidecars are generated when the server image editor supports the required encoders.
+- Conversion is asynchronous and depends on a functioning WP-Cron runner.
+- This release does not bulk-convert historical media.
+- This is not a claim of full MediaWiki/Wikipedia feature parity. Advanced parser/template compatibility, complete moderation operations, exhaustive multilingual workflows, production API/bot coverage, and end-to-end browser/security/load testing remain separate acceptance items.
+- Test on staging before production. No live-site deployment is performed by this package build.

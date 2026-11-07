@@ -1,0 +1,1 @@
+BIGSHOR CHILD THEME v21.4.0 — Coordinated Phase 1 release. Version metadata aligned. Existing child-theme customisations retained; no wiki data or editorial permissions are owned by the child theme.

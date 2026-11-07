@@ -1,0 +1,13 @@
+PHASE 38 — READER EXPERIENCE, DISCUSSION, SEARCH AND CITATIONS
+Release: BIGSHOR Wiki Core 29.3.0
+
+- Adds a dedicated advanced search shortcode [bigshor_advanced_search] with Knowledge/News and topic filters, pagination and REST search endpoint.
+- Adds live suggestions using existing /bigshor/v1/search-suggest route.
+- Adds registered-user-only article discussions using WordPress native comments; comments remain subject to WordPress moderation settings.
+- Adds [bigshor_wiki_discussion] for dedicated Talk pages and supports native comments on wiki_article.
+- Adds [bigshor_wiki_citation] citation output with copy action; automatically appends citation box to single Knowledge and News content.
+- Adds [bigshor_wiki_history_compare] wrapper for existing revision history and comparison functionality.
+- Retains existing watchlists, page information, backlinks, article tools and editorial workflow.
+- No destructive database migration; native WordPress comments and revisions are used.
+- Revision comparison remains permission-gated by edit_post capability in the existing history shortcode.
+- This is not feature parity with all MediaWiki extensions or Wikipedia infrastructure. No live WordPress test has been performed.

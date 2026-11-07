@@ -1,0 +1,8 @@
+BIGSHOR PARENT THEME v21.8.1 — HOTFIX
+======================================
+- Guards bsw_protection_box() with function_exists() to prevent a PHP fatal error if another loaded component has already declared the same function.
+- Preserves the existing protection metabox callback and capability/nonce checks.
+- Audited named global function declarations in the supplied v21.8.0 parent-theme ZIP: no duplicate declarations were found within that archive.
+- The supplied ZIP therefore does not reproduce the exact duplicate declaration shown in the previously shared debug log. The live server may have a different/older theme copy, another component declaring the function, or files that differ from this ZIP.
+- This hotfix is defensive; verify the installed theme files and PHP error log after deployment.
+- PHP syntax and ZIP integrity checks are static checks, not live WordPress tests.

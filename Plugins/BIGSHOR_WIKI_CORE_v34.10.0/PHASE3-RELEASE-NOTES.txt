@@ -1,0 +1,16 @@
+BIGSHOR WIKI CORE v32.8.0 — PHASE 3
+Base: v32.7.0
+Parent Theme: v23.1.0 (unchanged)
+Child Theme: v23.2.0 (unchanged)
+
+Added Phase 3 editorial governance:
+- Moderation appeals content type and shortcode submission workflow.
+- Appeal review decisions and reviewer notes.
+- Four page-protection tiers with server-side capability enforcement.
+- Administrator revision suppression and reveal controls.
+- Governance dashboard for appeals, revisions, protected pages and audit events.
+- Article trash, restore and permanent-delete audit events.
+
+Compatibility: WordPress-native posts, revisions, roles, capabilities and admin-post actions.
+No destructive database migration.
+No live WordPress activation or production staging tests were performed.

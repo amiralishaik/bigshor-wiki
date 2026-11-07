@@ -1,0 +1,20 @@
+BIGSHOR WIKI THEME — PHASES 5–10
+
+Implemented in this theme package:
+- Phase 5: editorial article header/byline, generated on-page contents navigation, reading layout, print styling, related-content sections.
+- Phase 6: richer wiki article archive cards, archive search and pagination; existing WordPress search loop remains available.
+- Phase 7: entity profile template for the existing wiki_entity content type and author archive template.
+- Phase 8: contributor bylines, author archives, discussion/history/edit-proposal entry points using existing site routes.
+- Phase 9: responsive layouts, visible keyboard focus, reduced-motion support retained, print stylesheet.
+- Phase 10: cache-busted theme assets and schema duplicate-output guard for common SEO plugins.
+
+Compatibility:
+- No Core plugin files changed.
+- No post types, taxonomies, metadata, permalinks, or database tables changed.
+- Existing content and shortcodes are retained and used where available.
+- Entity template is conditional on the existing wiki_entity post type being registered by the active Core plugin or legacy fallback.
+
+Limitations:
+- Static PHP and ZIP checks do not replace activation/runtime testing on the user's WordPress staging site.
+- SEO plugin detection covers common Yoast, Rank Math and AIOSEO constants/classes; custom SEO integrations may need review.
+- The table of contents is generated in the browser from H2/H3 headings. It does not alter stored article content.

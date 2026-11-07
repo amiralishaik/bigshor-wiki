@@ -1,0 +1,39 @@
+BIGSHOR WIKI CORE 29.1.0 — PHASE 36 EDITORIAL GOVERNANCE
+
+BASELINE
+- Existing Core 29.0.0 source archive.
+- Parent/Child themes are not modified.
+- Intended active theme compatibility baseline supplied by site owner: 21.0.1 / 21.0.1.
+
+IMPLEMENTED
+1. Separate public BIGSHOR News content type at /news/ with News Categories taxonomy.
+2. Existing [bigshor_wiki_submit] shortcode upgraded to collect Knowledge or News submissions.
+3. Guest submissions remain disabled; contributor submissions require login, wiki_contributor role and verified email (or editorial capability).
+4. Required policy acceptance per submission, conflict disclosure, source URLs, and notability rationale for Knowledge.
+5. Basic duplicate-title screening and ten-minute per-user submission cooldown.
+6. Editorial review panel for Knowledge and News.
+7. Required source adequacy and editorial checklist.
+8. Knowledge publication requires a positive notability assessment.
+9. First independent reviewer required for all submissions.
+10. High-risk submissions require a second distinct reviewer; author cannot review their own submission.
+11. Publication guard blocks direct publication until applicable evidence checks and approvals are saved.
+12. Editorial governance dashboard and local audit event trail.
+13. [bigshor_news_recent] shortcode for published News articles.
+
+IMPORTANT OPERATING NOTES
+- Reviewer decisions must be saved before clicking Publish. If the first Publish attempt is blocked, save the completed review record and publish again.
+- High-risk status is editor-controlled; editors must classify sensitive content conservatively.
+- Existing published articles are not automatically re-reviewed or unpublished.
+- Existing guest submission route remains unavailable; the shortcode requires authentication.
+- No paid editorial submission or payment workflow is added.
+- Theme files are deliberately unchanged.
+
+LIMITATIONS / REQUIRED STAGING TESTS
+- This package has not been installed on the owner's live WordPress/Hostinger site.
+- Verify current theme version headers and active theme slugs in WordPress; the Library currently surfaces a v21.0.0 theme note, not an exact v21.0.1 archive.
+- Test with actual administrator, editor, moderator, contributor, subscriber and logged-out accounts.
+- Test email verification and SMTP delivery.
+- Test low-risk one-reviewer and high-risk two-distinct-reviewer paths.
+- Test direct REST/API publication attempts and any other plugins/integrations that can publish wiki_article or bsw_news.
+- Confirm existing importer and legacy review boxes do not conflict with the new panel.
+- Back up database and wp-content and install on staging first.

@@ -1,0 +1,5 @@
+<?php get_header(); while ( have_posts() ) : the_post(); if ( function_exists( 'bigshor_wiki_breadcrumbs' ) ) bigshor_wiki_breadcrumbs(); $types = get_the_terms( get_the_ID(), 'wiki_entity_type' ); $type_label = ( $types && ! is_wp_error( $types ) ) ? $types[0]->name : 'Knowledge profile'; ?>
+<header class="bsw-entity-header"><p class="bsw-eyebrow"><?php echo esc_html( $type_label ); ?> · BIGSHOR KNOWLEDGE GRAPH</p><h1 class="page-title"><?php the_title(); ?></h1><?php if ( has_excerpt() ) : ?><p class="bsw-article-deck"><?php echo esc_html( get_the_excerpt() ); ?></p><?php endif; ?></header>
+<div class="bsw-entity-layout"><?php if ( has_post_thumbnail() ) : ?><aside class="bsw-entity-visual"><?php the_post_thumbnail( 'large' ); ?></aside><?php endif; ?><article id="article-content" <?php post_class( 'article-body bsw-entity-content' ); ?>><?php the_content(); ?></article></div>
+<div class="wiki-meta">Profile updated <?php echo esc_html( get_the_modified_date() ); ?></div>
+<?php endwhile; get_footer();

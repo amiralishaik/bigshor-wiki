@@ -1,0 +1,11 @@
+BIGSHOR WIKI CORE 30.5.0
+- Wikitext named references are now collected before reference calls are resolved, so forward references and repeated named references work in the supported syntax.
+- Added safe [[File:...]] rendering backed only by existing WordPress attachment records; no arbitrary external image URL or file path is accepted.
+- Image alt text is taken from the attachment metadata unless explicitly supplied in the supported syntax; captions are escaped.
+- Existing section editor, conflict detection, role checks and WordPress revision workflow retained.
+
+Known limitations:
+- This remains a limited MediaWiki-style syntax subset, not full MediaWiki compatibility.
+- File syntax resolves existing attachment IDs or attachment slugs; advanced options, galleries, licensing inference and upload-from-wikitext are not supported.
+- Complex nested templates, parser functions and advanced table attributes remain unsupported.
+- No live WordPress/browser test was possible. Test on staging with a database and file backup.

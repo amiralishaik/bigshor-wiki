@@ -1,0 +1,12 @@
+BIGSHOR WIKI THEME v19.1.0
+Responsive layout and repeated-interface cleanup.
+
+Changes:
+- Header search is suppressed on the homepage, search results and article archive templates where a page-level search field already exists.
+- Removed the repeated secondary sidebar navigation; the primary navigation is the single source of site navigation.
+- Homepage discovery links no longer repeat the same destinations already presented in quick links.
+- Added responsive rules for small phones through wide desktop displays, including flexible grids, long text, images, embeds, forms, tables, menus and article layouts.
+- Improved mobile navigation keyboard and outside-click behaviour.
+- No content, posts, media or plugin data is changed by the theme update.
+
+Install Parent v19.1.0 and Child v19.1.0; activate the child theme. Test on staging before production.

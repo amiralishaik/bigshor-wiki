@@ -1,0 +1,5 @@
+BIGSHOR WIKI CHILD THEME v21.5.0 — PHASE 2
+- Adds child-brand refinements for article tabs, contents navigation and infobox presentation.
+- Responsive refinements for narrow/mobile layouts.
+- Presentation-only update; no content or database changes.
+- Requires BIGSHOR Wiki Parent Theme v21.5.0 and Core v30.7.0 for the complete Phase 2 experience.

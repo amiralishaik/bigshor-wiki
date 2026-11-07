@@ -1,0 +1,4 @@
+BIGSHOR WIKI PARENT THEME v21.5.0 — PHASE 2
+- Adds responsive article framework refinements for infoboxes, content tables, figures and images.
+- Presentation-only update; no content or database changes.
+- Requires BIGSHOR Wiki Core v30.7.0 for the complete Phase 2 article framework.

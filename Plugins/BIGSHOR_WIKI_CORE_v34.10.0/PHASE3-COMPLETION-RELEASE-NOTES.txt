@@ -1,0 +1,6 @@
+BIGSHOR WIKI CORE v32.9.0 — PHASE 3 COMPLETION
+Base: v32.8.0
+Parent Theme: v23.1.0 unchanged
+Child Theme: v23.2.0 unchanged
+
+Added deletion discussion lifecycle, editorial approval queue, Trash restoration dashboard and audit integration. Existing Phase 8/48/49/50/51/55 functionality retained.

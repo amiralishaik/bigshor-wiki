@@ -1,0 +1,15 @@
+BIGSHOR WIKI CORE v30.7.0 — PHASE 2: ARTICLE FRAMEWORK & LAYOUT
+
+Implemented
+- Adds a canonical Phase 2 article presentation layer for wiki_article pages.
+- Replaces the earlier Phase 41 presentation callback at runtime while retaining its editing/save and revision workflow methods.
+- Provides article action tabs (Read, Edit, Edit source, View history, Talk), capability-gated edit links, lead/summary presentation, structured infobox rendering, nested heading-aware contents navigation, stable section anchors, and responsive/print styles.
+- Preserves article post_content and existing infobox metadata. Supports the existing _bsw_infobox and legacy _bsw_p1_infobox_rows data shapes.
+- Keeps presentation in the Core integration layer and theme CSS in the parent/child themes.
+
+Compatibility and limitations
+- Existing WordPress post content and metadata are not migrated or rewritten.
+- Heading parsing covers rendered HTML headings h2–h6. It is not a complete MediaWiki section parser.
+- Existing Phase 41 editor and save routines remain the editing authority; Phase 2 does not add VisualEditor functionality.
+- History tab delegates to the existing BIGSHOR history shortcode if installed; revision capability depends on the existing Core revision module.
+- No live WordPress/browser test was available in this build environment.

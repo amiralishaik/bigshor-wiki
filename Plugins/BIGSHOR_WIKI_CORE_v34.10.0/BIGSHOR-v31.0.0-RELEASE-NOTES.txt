@@ -1,0 +1,24 @@
+BIGSHOR CORE v31.0.0 — PHASE 5 RELEASE NOTES
+================================================
+Phase: Template & Infobox System
+Parent theme: 21.8.0
+Child theme: 21.8.0
+
+Implemented:
+- Added a reusable template registry owned by the Core plugin.
+- Added built-in Person, Organisation, Company, Place, Event, Book and Creative Work infobox definitions.
+- Added typed fields: text, URL, date, number and WordPress attachment image.
+- Added administrator-only Tools > BIGSHOR Templates JSON management screen with nonce, capability checks and validation.
+- Added parser integration for single-level {{Infobox Type|key=value}} templates.
+- Unknown or invalid templates remain visible in source rather than being silently removed.
+- Added [bsw_infobox] shortcode for registered template output.
+- Added responsive and print infobox styles to parent and child themes.
+- No destructive database migration; registry is stored in a versioned WordPress option.
+- Existing article content is not rewritten during upgrade.
+
+Compatibility / limitations:
+- This is a BIGSHOR template registry, not full MediaWiki template-language compatibility.
+- Nested templates, parser functions, template transclusion, parameter defaults/conditionals, Lua modules and template sandboxing are not implemented.
+- Template field definitions are configured by administrators through JSON; there is no drag-and-drop visual template builder in this release.
+- Images must reference existing WordPress attachment IDs.
+- Live WordPress activation/browser/role tests must be completed on staging.

@@ -1,0 +1,2 @@
+BIGSHOR PARENT THEME v21.8.0 — PHASE 5
+Adds responsive and print styling for registered BIGSHOR infoboxes. Theme remains presentation-only; template data and rendering logic are owned by the Core plugin.

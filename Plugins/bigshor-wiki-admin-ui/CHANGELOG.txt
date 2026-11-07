@@ -1,0 +1,16 @@
+BIGSHOR WIKI ADMIN UI CHANGELOG
+
+v1.4.0
+- Extended the BIGSHOR design system to all WordPress administration and edit screens.
+- Unified post edit forms, custom post-type edit screens, taxonomy management, media, users, comments, moderation, plugin cards and settings.
+- Added responsive form layouts, improved list-table hierarchy, input focus states, editor surfaces, metabox cards and accessible reduced-motion handling.
+- Retained existing navigation shell and Article Studio integration.
+- No WordPress core or public theme modifications.
+
+v1.3.0
+- Added a dedicated Article Studio navigation item and custom editor integration.
+
+v1.2.0
+- Added desktop sidebar collapse, mobile drawer, light/dark mode and menu search.
+
+1.5.0 — Unified workspace landing page, global command search (Ctrl/Cmd+K), responsive dashboard cards, reusable admin table/form patterns and screen-wide UX refinements.

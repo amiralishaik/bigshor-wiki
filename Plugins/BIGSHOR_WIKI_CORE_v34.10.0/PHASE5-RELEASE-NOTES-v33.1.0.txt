@@ -1,0 +1,25 @@
+BIGSHOR WIKI CORE v33.1.0 — PHASE 5 COMPLETION
+Baseline: v33.0.0
+Parent theme: v23.1.0 (unchanged)
+Child theme: v23.2.0 (unchanged)
+
+Added:
+- Structured editor-maintained knowledge entities and article relationships.
+- Controlled entity types and relation types with bounded, validated input.
+- Exact-label topic discovery and related-article suggestions.
+- Public read-only knowledge graph REST endpoint for published wiki articles.
+- Optional [bsw_knowledge_graph] frontend shortcode.
+- Schema.org Thing JSON-LD nodes for editor-entered entities.
+- Knowledge Graph editorial coverage dashboard.
+- Safer outbound AI requests using WordPress safe HTTP, TLS verification, URL rejection, no redirects and response-size limits.
+- Shared per-user AI request throttling across editorial-assist and claim-review endpoints.
+
+Retained:
+- Editorial quality scoring, human fact-check status, source provenance, citation link checks, freshness and duplicate-title queues, CSV reporting, schema readiness, claim triage, AI editorial review and internal-link suggestions.
+
+Important limitations:
+- Entity and relationship data are supplied by editors and are not independently verified.
+- Related-article discovery uses exact shared entity labels, not semantic AI matching.
+- Citation URL checks establish reachability only.
+- AI output is advisory; it is never automatically saved or published.
+- Live WordPress staging and production acceptance tests remain outstanding.

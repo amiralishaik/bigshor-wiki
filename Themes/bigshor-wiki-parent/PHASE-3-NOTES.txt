@@ -1,0 +1,7 @@
+BIGSHOR Wiki — Phase 3: Global Website Layout
+
+This package builds on the Phase 2 parent theme. It refines the global header, navigation, page shell, sidebar, content container, footer, responsive breakpoints and keyboard skip navigation.
+
+The header now opens the main content landmark and footer closes it, allowing all WordPress templates to render inside the same consistent page layout. No content types, database records, URLs, permalinks or plugin files are changed.
+
+Install together with the matching BIGSHOR Wiki child theme. Back up the site and test on staging before production deployment. Static PHP and ZIP checks do not replace live WordPress testing.

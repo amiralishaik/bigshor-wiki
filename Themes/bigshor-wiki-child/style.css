@@ -1,0 +1,933 @@
+/*
+Theme Name: BIGSHOR Wiki Design (Child)
+Theme URI: https://bigshor.com/
+Description: Premium BIGSHOR brand layer for the BIGSHOR Wiki parent theme.
+Author: BIGSHOR
+Author URI: https://bigshor.com/
+Template: bigshor-wiki-parent
+Version: 23.6.0
+Requires at least: 6.4
+Requires PHP: 7.4
+Text Domain: bigshor-wiki-child
+*/
+
+/* BIGSHOR official brand system: red, black and white. */
+:root{
+ --bsw-navy:#202122;--bsw-navy-2:#54595d;--bsw-gold:#72777d;--bsw-ink:#202122;
+ --bsw-muted:#54595d;--bsw-line:#e5e9f0;--bsw-canvas:#f5f7fa;--bsw-paper:#fff;
+ --ink:var(--bsw-ink);--muted:var(--bsw-muted);--line:var(--bsw-line);--blue:#0645ad;
+ --bg:var(--bsw-canvas);--paper:var(--bsw-paper);--soft:#edf0f5;--max:1460px;
+}
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+body{background:var(--bsw-canvas);color:var(--bsw-ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-.01em}
+a{color:#0645ad;text-underline-offset:3px}
+a:hover{color:var(--bsw-navy);text-decoration:underline}
+.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--bsw-line);box-shadow:0 5px 24px rgba(20,36,59,.045)}
+.header-inner{max-width:1460px;padding:17px 32px;gap:30px}
+.brand{min-width:245px;gap:13px;color:var(--bsw-navy)}
+.brand-mark{width:46px;height:46px;border:0;border-radius:13px;background:linear-gradient(145deg,var(--bsw-navy),var(--bsw-navy-2));color:#fff;font:800 24px/1 Georgia,serif;box-shadow:0 5px 14px rgba(20,36,59,.18)}
+.brand-name{font-size:22px;font-weight:800;letter-spacing:-.8px;color:var(--bsw-navy)}
+.brand-tag{font-size:9px;letter-spacing:2px;color:#54595d;font-weight:750}
+.search-form{max-width:680px;gap:0}
+.search-form input{border:1px solid #dce2eb;border-radius:10px 0 0 10px;background:#f8fafc;padding:12px 15px;outline:none}
+.search-form input:focus{border-color:#7894b5;box-shadow:0 0 0 3px rgba(40,87,131,.1)}
+.search-form button,.button,.wp-block-button__link{border:1px solid var(--bsw-navy);background:var(--bsw-navy);color:#fff;border-radius:0 10px 10px 0;padding:11px 18px;transition:background .2s,transform .2s}
+.search-form button:hover,.button:hover,.wp-block-button__link:hover{background:var(--bsw-navy-2);color:#fff}
+.header-links{font-size:13px;font-weight:650}.header-links a{color:var(--bsw-navy);margin-left:16px}
+.header-nav{background:#fff;border-top:1px solid #f0f2f6}.header-nav-inner{max-width:1460px;padding:0 32px}
+.wiki-primary-menu{gap:7px}.wiki-primary-menu a{padding:12px 13px;color:#526176;font-size:12px;font-weight:750;letter-spacing:.035em;text-transform:uppercase;border-radius:8px}
+.wiki-primary-menu a:hover,.wiki-primary-menu .current-menu-item>a{background:#f1f4f8;color:var(--bsw-navy);text-decoration:none}
+.page-shell{max-width:1460px;grid-template-columns:225px minmax(0,1fr);gap:52px;padding:38px 32px 82px}
+.sidebar{font-size:13px}.sidebar-sticky{top:145px;max-height:calc(100vh - 165px);padding:0 4px 20px 0}
+.side-title{font-size:10px;letter-spacing:1.7px;color:#9a7543;font-weight:800;margin-bottom:13px}
+.side-nav a{padding:8px 11px;border:0;border-radius:8px;color:#536176;font-weight:550;transition:background .15s,color .15s}
+.side-nav a:hover,.side-nav .current-menu-item>a{background:#eaf0f7;color:var(--bsw-navy);border:0}
+.side-note{border:1px solid var(--bsw-line);border-radius:12px;background:#fff;padding:14px;margin-top:24px;line-height:1.65}
+.content{max-width:1120px;min-width:0;background:#fff;border:1px solid #e9edf3;border-radius:18px;padding:34px 42px;box-shadow:0 10px 34px rgba(20,36,59,.035)}
+.breadcrumbs{font-size:12px;color:#8a94a4;margin:0 0 18px}.breadcrumbs a{color:#526d8e}
+.page-title{font-family:Georgia,"Times New Roman",serif;font-size:clamp(32px,4vw,46px);font-weight:600;letter-spacing:-1.1px;line-height:1.12;color:var(--bsw-navy);border-bottom:1px solid var(--bsw-line);padding-bottom:18px;margin-bottom:12px}
+.subtitle{font-size:14px;color:#788397;margin:0 0 24px}
+.home-intro{position:relative;overflow:hidden;border:0;border-radius:16px;background:linear-gradient(120deg,#202122 0%,#203e61 72%,#345879 100%);padding:42px 44px;margin:0 0 28px;color:#fff;box-shadow:0 14px 34px rgba(20,36,59,.14)}
+.home-intro:after{content:"B";position:absolute;right:35px;top:-55px;font:700 240px/1 Georgia,serif;color:rgba(255,255,255,.055);pointer-events:none}
+.home-intro h1{position:relative;z-index:1;font:600 clamp(30px,4vw,44px)/1.13 Georgia,serif;letter-spacing:-.8px;margin:0 0 13px;color:#fff}
+.home-intro p{position:relative;z-index:1;color:rgba(255,255,255,.78);font-size:16px;max-width:720px;line-height:1.7}
+.home-grid{gap:16px}.home-card,.wiki-panel{border:1px solid var(--bsw-line);border-radius:13px;background:#fff;padding:22px;transition:transform .18s,box-shadow .18s,border-color .18s}
+.home-card:hover,.wiki-panel:hover{transform:translateY(-2px);border-color:#c9d4e2;box-shadow:0 12px 25px rgba(20,36,59,.07)}
+.home-card h2,.wiki-panel h2{font:650 19px/1.3 Georgia,serif;color:var(--bsw-navy);margin:0 0 9px}
+.home-card p,.wiki-panel p{color:#6c7789;font-size:13px;line-height:1.65}.home-card>a{display:inline-block;margin-top:13px;font-size:12px;font-weight:800;color:#315d89}
+.wiki-columns{gap:17px}.wiki-panel ul{padding-left:19px}.wiki-panel li{margin:8px 0;font-size:13px}
+.wiki-list li{padding:20px 0;border-bottom:1px solid #edf0f4}.wiki-list h2{font:650 21px/1.35 Georgia,serif;margin:0 0 7px}.wiki-list h2 a{color:var(--bsw-navy)}
+.wiki-meta{font-size:12px;color:#8993a2}.wiki-list .excerpt{font-size:14px;color:#657184;line-height:1.7}
+.article-tools{border:1px solid var(--bsw-line);border-radius:10px;background:#f8fafc;padding:12px 15px;margin:18px 0;align-items:center}
+.wiki-community-tools{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 22px}.wiki-community-tools a{border:1px solid var(--bsw-line);border-radius:8px;padding:7px 11px;font-size:12px;font-weight:650;color:#42536b;background:#fff}
+.article-body{font-family:Georgia,"Times New Roman",serif;font-size:18px;line-height:1.82;color:#273448}.article-body h2,.article-body h3{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--bsw-navy);font-weight:700;border-bottom:1px solid var(--bsw-line);padding-bottom:9px;margin-top:38px}.article-body h2{font-size:25px}.article-body h3{font-size:20px}.article-body a{color:#0645ad}.article-body blockquote{border-left:4px solid var(--bsw-gold);background:#f8f6f1;border-radius:0 10px 10px 0;color:#596477;padding:15px 20px}
+.wiki-infobox{border:1px solid #dfe5ed;border-radius:12px;background:#f8fafc;overflow:hidden}.wiki-infobox-title{background:var(--bsw-navy);color:#fff;padding:12px;font-weight:700}.wiki-infobox-body{padding:14px}.wiki-infobox img{border-radius:8px}
+.article-body table,.wiki-history{border-collapse:separate;border-spacing:0;width:100%;border:1px solid var(--bsw-line);border-radius:10px;overflow:hidden}.article-body th,.article-body td,.wiki-history th,.wiki-history td{border-bottom:1px solid var(--bsw-line);padding:10px 12px}.article-body th,.wiki-history th{background:#f4f6f9;text-align:left;color:var(--bsw-navy)}
+.wiki-toc{border:1px solid var(--bsw-line);border-radius:12px;background:#f8fafc;padding:16px 20px}.wiki-toc a{color:#315d89}
+.wiki-categories{border-top:1px solid var(--bsw-line);padding-top:14px;margin-top:20px;font-size:13px;color:#54595d}
+.pagination a,.pagination span{border:1px solid var(--bsw-line);border-radius:7px;padding:8px 13px}.pagination span.current{background:var(--bsw-navy);color:#fff;border-color:var(--bsw-navy)}
+.site-footer{background:#111f33;border:0;color:#bdc7d5;padding:34px 32px}.site-footer a{color:#e3c18b}.footer-inner{max-width:1460px}.footer-nav ul{padding:0 32px}.footer-nav a{color:#d1d9e4}
+.bsw-stat-grid>div,.bsw-topic-card,.bsw-founder-card,.bsw-media-card{border:1px solid var(--bsw-line);border-radius:12px;background:#fff}.bsw-stat-grid>div{padding:20px}.bsw-stat-grid strong{color:var(--bsw-navy)}
+.bsw-submit-form,.bsw-v3-form,.bsw-auth,.bsw-guide,.bsw-report-form{border-radius:12px}.bsw-submit-form input,.bsw-submit-form textarea,.bsw-v3-form input,.bsw-v3-form textarea,.bsw-v3-form select{border:1px solid #d7dee8;border-radius:8px;padding:11px 12px}.bsw-auth button,.bsw-ai-assistant button{background:var(--bsw-navy);border-radius:8px}
+:focus-visible{outline:3px solid rgba(196,154,85,.65);outline-offset:2px}
+@media(max-width:1000px){.header-inner{padding:14px 20px;flex-wrap:wrap}.header-inner .search-form{order:3;flex-basis:100%;max-width:none}.header-links{margin-left:auto}.page-shell{grid-template-columns:1fr;gap:20px;padding:22px 20px 50px}.sidebar-sticky{position:static;max-height:none}.sidebar .side-nav{display:flex;gap:5px;flex-wrap:wrap}.sidebar .side-nav a{padding:7px 9px}.side-note{display:none}.content{max-width:none;padding:28px 30px}.site-header{position:relative}}
+@media(max-width:640px){.header-inner{padding:12px 15px;gap:12px}.brand{min-width:0}.brand-mark{width:40px;height:40px}.brand-name{font-size:19px}.brand-tag{font-size:8px}.header-links{font-size:12px}.header-links a{margin-left:9px}.header-nav-inner{padding:0 12px}.wiki-primary-menu{flex-wrap:nowrap;overflow-x:auto}.wiki-primary-menu a{white-space:nowrap;padding:10px 11px}.page-shell{padding:14px 10px 35px}.content{padding:22px 17px;border-radius:13px}.home-intro{padding:30px 23px}.home-intro:after{right:0;font-size:170px}.home-grid,.wiki-columns{grid-template-columns:1fr}.page-title{font-size:32px}.article-body{font-size:17px}.wiki-infobox{float:none;width:100%;max-width:100%;margin:0 0 20px}.article-tools{display:block}.article-tools span{display:block;margin:4px 0}.bsw-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.site-footer{padding:28px 18px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+@media print{body{background:#fff}.content{border:0;box-shadow:none;padding:0}.page-shell{display:block;padding:0}.home-intro{background:#fff;color:#202122;box-shadow:none}.home-intro h1,.home-intro p{color:#202122}.site-header,.sidebar,.site-footer{display:none!important}}
+
+/* ==========================================================
+   BIGSHOR WIKI — PHASE 2 BRAND IDENTITY SYSTEM
+   Parent = presentation framework; child = brand expression.
+   ========================================================== */
+:root{
+  /* Brand palette */
+  --bsw-brand-primary:#202122;
+  --bsw-brand-primary-hover:#54595d;
+  --bsw-brand-accent:#72777d;
+  --bsw-brand-accent-soft:#f8f3e9;
+  --bsw-brand-link:#0645ad;
+  --bsw-brand-link-hover:#202122;
+  /* Neutral palette */
+  --bsw-text:#202122;
+  --bsw-text-secondary:#536176;
+  --bsw-text-subtle:#788397;
+  --bsw-border:#e5e9f0;
+  --bsw-border-strong:#cbd4e0;
+  --bsw-surface:#ffffff;
+  --bsw-surface-soft:#f5f7fa;
+  --bsw-surface-raised:#ffffff;
+  /* Shape, depth and rhythm */
+  --bsw-radius-sm:7px;
+  --bsw-radius-md:12px;
+  --bsw-radius-lg:18px;
+  --bsw-shadow-sm:0 4px 14px rgba(20,36,59,.045);
+  --bsw-shadow-md:0 12px 30px rgba(20,36,59,.075);
+  --bsw-content-width:1460px;
+  --bsw-reading-width:76ch;
+  --bsw-focus-ring:0 0 0 3px rgba(196,154,85,.28);
+  /* Backward-compatible theme aliases */
+  --bsw-navy:var(--bsw-brand-primary);
+  --bsw-navy-2:var(--bsw-brand-primary-hover);
+  --bsw-gold:var(--bsw-brand-accent);
+  --bsw-ink:var(--bsw-text);
+  --bsw-muted:var(--bsw-text-secondary);
+  --bsw-line:var(--bsw-border);
+  --bsw-canvas:var(--bsw-surface-soft);
+  --bsw-paper:var(--bsw-surface);
+}
+
+/* Typography hierarchy: premium identity outside, comfortable reading inside. */
+body{color:var(--bsw-text);background:var(--bsw-surface-soft);font-size:16px;line-height:1.65}
+.brand-name{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:800;letter-spacing:-.045em}
+.brand-tag{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.page-title,.home-intro h1,.home-card h2,.wiki-panel h2,.wiki-list h2{font-family:Georgia,"Times New Roman",serif}
+.article-body{max-width:var(--bsw-reading-width);font-size:18px;line-height:1.82;color:#273448}
+.article-body h2,.article-body h3,.article-body h4{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-.025em}
+
+/* Consistent interaction language. */
+a{color:var(--bsw-brand-link);text-underline-offset:3px}
+a:hover{color:var(--bsw-brand-link-hover)}
+button,.button,.wiki-button,.wp-block-button__link,.search-form button,.bsw-submit-form button,.bsw-v3-form button,.bsw-auth button,.bsw-ai-assistant button{
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-weight:700;transition:background-color .18s ease,border-color .18s ease,color .18s ease,box-shadow .18s ease,transform .18s ease;
+}
+.button,.wiki-button,.wp-block-button__link,.bsw-submit-form button,.bsw-v3-form button,.bsw-auth button,.bsw-ai-assistant button{
+  border:1px solid var(--bsw-brand-primary);border-radius:var(--bsw-radius-sm);background:var(--bsw-brand-primary);color:#fff;padding:10px 16px;
+}
+.button:hover,.wiki-button:hover,.wp-block-button__link:hover,.bsw-submit-form button:hover,.bsw-v3-form button:hover,.bsw-auth button:hover,.bsw-ai-assistant button:hover{
+  border-color:var(--bsw-brand-primary-hover);background:var(--bsw-brand-primary-hover);color:#fff;text-decoration:none;transform:translateY(-1px);
+}
+.search-form button{border-radius:0 var(--bsw-radius-sm) var(--bsw-radius-sm) 0}
+.search-form input,.bsw-submit-form input,.bsw-submit-form textarea,.bsw-v3-form input,.bsw-v3-form textarea,.bsw-v3-form select,.bsw-report-form select{
+  border-color:var(--bsw-border-strong);border-radius:var(--bsw-radius-sm);background:#fff;color:var(--bsw-text);
+}
+.search-form input:focus,.bsw-submit-form input:focus,.bsw-submit-form textarea:focus,.bsw-v3-form input:focus,.bsw-v3-form textarea:focus,.bsw-v3-form select:focus{
+  outline:none;border-color:var(--bsw-brand-accent);box-shadow:var(--bsw-focus-ring);
+}
+:focus-visible{outline:3px solid var(--bsw-brand-accent);outline-offset:3px;box-shadow:var(--bsw-focus-ring)}
+::selection{background:rgba(196,154,85,.24);color:var(--bsw-text)}
+
+/* Editorial components use a restrained gold accent, not decorative noise. */
+.page-title{border-bottom-color:var(--bsw-border-strong)}
+.article-body blockquote{border-left-color:var(--bsw-brand-accent);background:var(--bsw-brand-accent-soft)}
+.wiki-infobox-title{background:var(--bsw-brand-primary);color:#fff}
+.wiki-toc,.wiki-infobox,.wiki-panel,.home-card,.bsw-topic-card,.bsw-founder-card,.bsw-media-card{border-color:var(--bsw-border)}
+.wiki-categories{border-color:var(--bsw-border-strong);background:var(--bsw-surface-soft)}
+.site-footer{background:#111f33;color:#bdc7d5}
+.site-footer a{color:#e3c18b}
+
+/* Keep all design tokens and components usable on small screens. */
+@media(max-width:640px){
+  .article-body{font-size:17px;line-height:1.78}
+  .brand-tag{letter-spacing:1.5px}
+  .content{box-shadow:0 5px 18px rgba(20,36,59,.035)}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+
+/* BIGSHOR Theme 18.0 — brand layer for phases 35–58 */
+:root{--bsw-theme-accent:var(--bsw-gold);--bsw-layout-width:1460px}
+.site-header{box-shadow:0 8px 28px rgba(20,36,59,.055)}.header-nav{background:#202122}.wiki-primary-menu a{color:#f5f7fa}.wiki-primary-menu a:hover,.wiki-primary-menu .current-menu-item>a{background:rgba(196,154,85,.18);color:#f2d9b1}
+.bsw-mobile-menu-toggle{border-color:var(--bsw-gold);color:var(--bsw-navy);font-weight:750}.bsw-theme-toggle{border-color:var(--bsw-gold);color:var(--bsw-navy)}
+.bsw-archive-card,.bsw-search-result{border-color:var(--bsw-line);border-radius:16px;box-shadow:0 10px 30px rgba(20,36,59,.055)}.bsw-archive-card h2,.bsw-search-result h2{font-family:Georgia,'Times New Roman',serif;color:var(--bsw-navy)}
+.bsw-card-meta,.bsw-eyebrow{color:#98713b}.bsw-card-link{color:var(--bsw-navy)}.bsw-reading-progress span{background:linear-gradient(90deg,var(--bsw-navy),var(--bsw-gold))}
+html[data-theme-mode="dark"] .site-header{background:rgba(13,25,42,.97)}html[data-theme-mode="dark"] .header-nav{background:#0b1421}html[data-theme-mode="dark"] .brand-name{color:#f0f3f8}html[data-theme-mode="dark"] .bsw-theme-toggle{background:#202122;color:#f0f3f8;border-color:var(--bsw-gold)}html[data-theme-mode="dark"] .bsw-archive-card h2,html[data-theme-mode="dark"] .bsw-search-result h2{color:#f0f3f8}
+
+/* v19 brand refinements */
+.bsw-save-article{box-shadow:0 3px 10px rgba(20,36,59,.06)}
+.bsw-reader-list li{box-shadow:0 6px 22px rgba(20,36,59,.035)}
+
+
+/* BIGSHOR v19.1.0 child-brand responsive refinements */
+@media(max-width:760px){.site-header{box-shadow:none}.bsw-home-hero{border-radius:12px}.bsw-home-section{margin-block:28px}.bsw-home-contribute{border-radius:12px}}
+@media(max-width:480px){.content{border-radius:0}.bsw-archive-card,.bsw-search-result{border-radius:12px}.bsw-article-actions a,.bsw-article-actions button{border-radius:7px}}
+
+
+/* BIGSHOR v20.0.0 adaptive device brand refinements */
+.bsw-drawer-heading strong{color:var(--bsw-navy);font-family:Georgia,serif;font-size:18px;letter-spacing:-.2px}
+.bsw-menu-close{border-radius:8px;color:var(--bsw-navy)}.bsw-menu-close:hover{background:#f1f4f8}
+.bsw-menu-backdrop{background:rgba(10,20,35,.48)}
+@media(min-width:768px) and (max-width:1023px){.bsw-mobile-menu-toggle{border-color:var(--bsw-gold);background:var(--bsw-navy);color:#fff;border-radius:9px;font-weight:700}.header-nav{border-right:1px solid var(--bsw-line)}}
+@media(max-width:767px){.bsw-mobile-menu-toggle{border-color:var(--bsw-gold);background:var(--bsw-navy);color:#fff;border-radius:9px;font-weight:700}.header-links a{font-size:11px}}
+
+/* BIGSHOR v20.0.1 — navigation and dark-mode consistency fixes.
+   This final layer intentionally overrides legacy responsive rules above. */
+:root{
+  --bsw-ui-bg:#ffffff;--bsw-ui-surface:#f5f7fa;--bsw-ui-surface-2:#edf1f6;
+  --bsw-ui-text:#202122;--bsw-ui-muted:#54595d;--bsw-ui-border:#dce3ec;
+  --bsw-ui-hover:#eaf0f7;--bsw-ui-shadow:0 18px 48px rgba(12,25,43,.18);
+}
+html[data-theme-mode="dark"]{
+  color-scheme:dark;
+  --bsw-ui-bg:#111c2c;--bsw-ui-surface:#202122;--bsw-ui-surface-2:#54595d;
+  --bsw-ui-text:#edf2f8;--bsw-ui-muted:#b4c0cf;--bsw-ui-border:#34465d;
+  --bsw-ui-hover:#263b55;--bsw-ui-shadow:0 18px 48px rgba(0,0,0,.48);
+  --bsw-canvas:#111c2c;--bsw-paper:#202122;--bsw-ink:#edf2f8;
+  --bsw-muted:#b4c0cf;--bsw-line:#34465d;--ink:#edf2f8;--muted:#b4c0cf;
+  --line:#34465d;--bg:#202122;--paper:#111c2c;--soft:#54595d;
+}
+
+/* Desktop/laptop: horizontal top navigation with reliable hover and keyboard dropdowns. */
+@media (min-width:1024px){
+  .bsw-mobile-menu-toggle,.bsw-drawer-heading,.bsw-menu-backdrop,.bsw-menu-close,.bsw-submenu-toggle{display:none!important}
+  .header-nav{display:block!important;position:relative!important;inset:auto!important;width:100%!important;max-width:none!important;height:auto!important;overflow:visible!important;transform:none!important;visibility:visible!important;background:var(--bsw-navy)!important;border:0!important;box-shadow:none!important}
+  .header-nav-inner{max-width:1540px;margin:0 auto;padding:0 clamp(18px,2.4vw,40px)!important;min-height:50px;display:block!important;overflow:visible!important}
+  .wiki-primary-menu{display:flex!important;flex-direction:row!important;align-items:stretch!important;flex-wrap:nowrap!important;gap:4px!important;list-style:none;margin:0;padding:0}
+  .wiki-primary-menu>li{position:relative;display:block!important;flex:0 0 auto}
+  .wiki-primary-menu>li>a{display:flex;align-items:center;min-height:50px;padding:12px clamp(10px,1.1vw,17px)!important;color:#f5f7fa!important;background:transparent!important;border-radius:0!important;font-size:13px;font-weight:650;white-space:nowrap}
+  .wiki-primary-menu>li:hover>a,.wiki-primary-menu>li:focus-within>a,.wiki-primary-menu>li.current-menu-item>a,.wiki-primary-menu>li.current-menu-ancestor>a{color:#f2d9b1!important;background:rgba(196,154,85,.18)!important}
+  .wiki-primary-menu .sub-menu{display:none;position:absolute;z-index:1100;top:100%;left:0;min-width:230px;max-width:min(340px,90vw);margin:0;padding:8px;list-style:none;background:var(--bsw-ui-bg)!important;border:1px solid var(--bsw-ui-border)!important;border-radius:0 0 12px 12px;box-shadow:var(--bsw-ui-shadow)!important}
+  .wiki-primary-menu li:hover>.sub-menu,.wiki-primary-menu li:focus-within>.sub-menu{display:block}
+  .wiki-primary-menu .sub-menu li{display:block;width:100%}
+  .wiki-primary-menu .sub-menu a{display:block;padding:10px 12px!important;color:var(--bsw-ui-text)!important;background:transparent!important;border-radius:7px;font-size:13px;white-space:normal}
+  .wiki-primary-menu .sub-menu a:hover,.wiki-primary-menu .sub-menu a:focus{background:var(--bsw-ui-hover)!important;color:var(--bsw-gold)!important}
+}
+
+/* Tablet and mobile: one consistent off-canvas drawer with tap-to-expand groups. */
+@media (max-width:1023px){
+  .bsw-mobile-menu-toggle{display:inline-flex!important;align-items:center;justify-content:center;gap:9px;min-height:44px;margin:0 18px 10px;padding:9px 15px;background:var(--bsw-navy)!important;color:#fff!important;border:1px solid var(--bsw-gold)!important;border-radius:9px;font-weight:700}
+  .header-nav{display:block!important;position:fixed!important;z-index:10020!important;top:0!important;bottom:0!important;left:0!important;right:auto!important;width:min(360px,88vw)!important;max-width:88vw!important;height:100vh!important;height:100dvh!important;margin:0!important;padding:0!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain;background:var(--bsw-ui-bg)!important;border:0!important;border-right:1px solid var(--bsw-ui-border)!important;box-shadow:var(--bsw-ui-shadow)!important;transform:translateX(-105%);visibility:hidden;transition:transform .24s ease,visibility .24s ease}
+  .header-nav.is-open{display:block!important;transform:translateX(0)!important;visibility:visible!important}
+  .header-nav-inner{display:block!important;width:100%!important;max-width:none!important;min-height:100%;padding:18px 16px 32px!important;overflow:visible!important}
+  .bsw-drawer-heading{display:flex!important;align-items:center;justify-content:space-between;gap:12px;padding:4px 2px 16px;margin:0 0 14px;border-bottom:1px solid var(--bsw-ui-border)}
+  .bsw-drawer-heading strong{color:var(--bsw-ui-text)!important}
+  .bsw-menu-close{display:inline-flex!important;align-items:center;justify-content:center;width:42px;height:42px;padding:0;background:transparent!important;color:var(--bsw-ui-text)!important;border:0;border-radius:8px;font-size:30px;line-height:1}
+  .bsw-menu-close:hover{background:var(--bsw-ui-hover)!important}
+  .wiki-primary-menu,.header-nav.is-open .wiki-primary-menu{display:flex!important;flex-direction:column!important;align-items:stretch!important;flex-wrap:nowrap!important;gap:4px!important;width:100%!important;overflow:visible!important;list-style:none;margin:0;padding:0}
+  .wiki-primary-menu>li{display:grid!important;grid-template-columns:minmax(0,1fr) 44px!important;align-items:center;width:100%;border-bottom:1px solid var(--bsw-ui-border)}
+  .wiki-primary-menu>li>a{display:flex;align-items:center;min-height:46px;padding:11px 10px!important;color:var(--bsw-ui-text)!important;background:transparent!important;border-radius:8px!important;font-size:14px!important;font-weight:650;white-space:normal!important}
+  .wiki-primary-menu>li>a:hover,.wiki-primary-menu>li.current-menu-item>a,.wiki-primary-menu>li.current-menu-ancestor>a{background:var(--bsw-ui-hover)!important;color:var(--bsw-gold)!important}
+  .bsw-submenu-toggle{display:inline-flex!important;align-items:center;justify-content:center;width:42px;min-width:42px;height:42px;min-height:42px;padding:0;background:transparent!important;color:var(--bsw-ui-text)!important;border:0;border-radius:8px;font-size:20px}
+  .bsw-submenu-toggle:hover,.bsw-submenu-toggle[aria-expanded="true"]{background:var(--bsw-ui-hover)!important}
+  .bsw-submenu-toggle span{display:inline-block;transition:transform .18s ease}
+  .bsw-submenu-toggle[aria-expanded="true"] span{transform:rotate(180deg)}
+  .wiki-primary-menu .sub-menu,.header-nav.is-open .wiki-primary-menu .sub-menu{position:static!important;grid-column:1/-1!important;display:block!important;width:100%!important;min-width:0!important;max-width:none!important;margin:0!important;padding:2px 0 10px 14px!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important}
+  .wiki-primary-menu .sub-menu[hidden]{display:none!important}
+  .wiki-primary-menu .sub-menu li{display:block;width:100%}
+  .wiki-primary-menu .sub-menu a{display:block;padding:10px 12px!important;color:var(--bsw-ui-muted)!important;background:transparent!important;border-radius:7px;font-size:13px!important;white-space:normal!important}
+  .wiki-primary-menu .sub-menu a:hover,.wiki-primary-menu .sub-menu a:focus{color:var(--bsw-gold)!important;background:var(--bsw-ui-hover)!important}
+  .bsw-menu-backdrop{display:block!important;position:fixed!important;z-index:10010!important;inset:0!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important;background:rgba(5,12,22,.56)!important;border:0!important;opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease}
+  .bsw-menu-backdrop.is-visible{opacity:1;visibility:visible}
+  .bsw-menu-backdrop[hidden]{display:none!important}
+  body.bsw-menu-open{overflow:hidden!important}
+}
+
+/* Dark mode: explicitly theme every navigation state and common surfaces. */
+html[data-theme-mode="dark"] body,
+html[data-theme-mode="dark"] .site-header,
+html[data-theme-mode="dark"] .header-inner,
+html[data-theme-mode="dark"] .content,
+html[data-theme-mode="dark"] .page-shell,
+html[data-theme-mode="dark"] .site-footer,
+html[data-theme-mode="dark"] .home-card,
+html[data-theme-mode="dark"] .wiki-panel,
+html[data-theme-mode="dark"] .bsw-archive-card,
+html[data-theme-mode="dark"] .bsw-search-result,
+html[data-theme-mode="dark"] .bsw-topic-card,
+html[data-theme-mode="dark"] .bsw-founder-card,
+html[data-theme-mode="dark"] .bsw-media-card,
+html[data-theme-mode="dark"] .bsw-reader-list li{background:var(--bsw-ui-bg)!important;color:var(--bsw-ui-text)!important;border-color:var(--bsw-ui-border)!important}
+html[data-theme-mode="dark"] .header-nav{background:var(--bsw-navy)!important}
+html[data-theme-mode="dark"] .header-nav .sub-menu{background:var(--bsw-ui-bg)!important;border-color:var(--bsw-ui-border)!important}
+html[data-theme-mode="dark"] .header-nav .sub-menu a,
+html[data-theme-mode="dark"] .wiki-primary-menu>li>a{color:#edf2f8!important}
+html[data-theme-mode="dark"] .wiki-primary-menu>li:hover>a,
+html[data-theme-mode="dark"] .wiki-primary-menu>li:focus-within>a{background:rgba(196,154,85,.2)!important;color:#f2d9b1!important}
+html[data-theme-mode="dark"] .wiki-primary-menu .sub-menu a:hover,
+html[data-theme-mode="dark"] .wiki-primary-menu .sub-menu a:focus{background:var(--bsw-ui-hover)!important;color:#f2d9b1!important}
+html[data-theme-mode="dark"] .bsw-drawer-heading,
+html[data-theme-mode="dark"] .wiki-primary-menu>li{border-color:var(--bsw-ui-border)!important}
+html[data-theme-mode="dark"] .bsw-drawer-heading strong,
+html[data-theme-mode="dark"] .bsw-menu-close,
+html[data-theme-mode="dark"] .bsw-submenu-toggle{color:var(--bsw-ui-text)!important}
+html[data-theme-mode="dark"] .bsw-mobile-menu-toggle{background:var(--bsw-navy)!important;color:#fff!important}
+html[data-theme-mode="dark"] .bsw-theme-toggle{background:#54595d!important;color:#f4f6fa!important;border-color:var(--bsw-gold)!important}
+html[data-theme-mode="dark"] input,html[data-theme-mode="dark"] textarea,html[data-theme-mode="dark"] select{background:#202122!important;color:var(--bsw-ui-text)!important;border-color:var(--bsw-ui-border)!important}
+html[data-theme-mode="dark"] .search-form button,html[data-theme-mode="dark"] .button,html[data-theme-mode="dark"] .wiki-button{background:#54595d!important;color:var(--bsw-ui-text)!important;border-color:var(--bsw-ui-border)!important}
+html[data-theme-mode="dark"] .page-title,html[data-theme-mode="dark"] .article-body,
+html[data-theme-mode="dark"] .article-body h2,html[data-theme-mode="dark"] .article-body h3,
+html[data-theme-mode="dark"] .brand-name,html[data-theme-mode="dark"] .home-card h2,
+html[data-theme-mode="dark"] .wiki-panel h2{color:var(--bsw-ui-text)!important}
+html[data-theme-mode="dark"] .brand-tag,html[data-theme-mode="dark"] .subtitle,
+html[data-theme-mode="dark"] .wiki-meta,html[data-theme-mode="dark"] .home-card p,
+html[data-theme-mode="dark"] .bsw-card-meta{color:var(--bsw-ui-muted)!important}
+html[data-theme-mode="dark"] .home-intro,html[data-theme-mode="dark"] .wiki-infobox,
+html[data-theme-mode="dark"] .wiki-toc,html[data-theme-mode="dark"] .wiki-categories,
+html[data-theme-mode="dark"] .bsw-stat-grid>div{background:var(--bsw-ui-surface)!important;color:var(--bsw-ui-text)!important;border-color:var(--bsw-ui-border)!important}
+html[data-theme-mode="dark"] .wiki-infobox-title{background:#263d5c!important;color:#fff!important}
+html[data-theme-mode="dark"] a{color:#a9cdf5}
+html[data-theme-mode="dark"] .header-nav a{color:#edf2f8}
+html[data-theme-mode="dark"] .header-nav a:hover{color:#f2d9b1}
+
+@media(prefers-reduced-motion:reduce){.header-nav,.bsw-menu-backdrop,.bsw-submenu-toggle span{transition:none!important}}
+
+/* BIGSHOR News presentation — paired with the Core bsw_news content type. */
+.bsw-news-archive-header{margin-bottom:24px}
+.bsw-news-grid .bsw-news-card{height:100%;display:flex;flex-direction:column}
+.bsw-news-card .bsw-archive-card-body{display:flex;flex:1;flex-direction:column;align-items:flex-start}
+.bsw-news-card .bsw-news-excerpt{color:var(--bsw-muted,#54595d);font-size:14px;line-height:1.7}
+.bsw-news-card .bsw-card-link{margin-top:auto;padding-top:12px}
+.bsw-news-categories{margin:8px 0 12px;color:var(--bsw-muted,#54595d);font-size:12px;font-weight:650}
+.bsw-news-categories a{display:inline-block;margin:0 5px 4px 0;padding:4px 8px;border:1px solid var(--bsw-line,#e5e9f0);border-radius:20px;color:var(--bsw-navy,#202122);text-decoration:none}
+.bsw-news-featured-image{margin:22px 0 28px}
+.bsw-news-featured-image img{display:block;width:100%;height:auto;max-height:620px;object-fit:cover;border-radius:12px}
+.bsw-news-featured-image figcaption{margin-top:8px;color:var(--bsw-muted,#54595d);font-size:12px}
+.bsw-news-content{max-width:900px;margin:0 auto}
+.bsw-news-article-header{margin-bottom:20px}
+@media(max-width:760px){.bsw-news-grid{grid-template-columns:1fr}.bsw-news-featured-image img{max-height:420px}.bsw-news-content{font-size:17px}}
+
+
+/* BIGSHOR official logo and palette overrides */
+.brand-mark{
+  width:46px;height:46px;flex:0 0 46px;overflow:hidden;
+  border:0!important;border-radius:0!important;background:transparent!important;
+  box-shadow:none!important;padding:0!important;
+}
+.brand-mark img{display:block;width:100%;height:100%;object-fit:cover}
+.brand-name{color:#202122!important}
+.brand-tag{color:#0645ad!important}
+.site-header{border-bottom:2px solid #0645ad}
+.header-register,.search-form button,.button,.wp-block-button__link{
+  background:#0645ad!important;border-color:#0645ad!important;color:#fff!important;
+}
+.header-register:hover,.search-form button:hover,.button:hover,.wp-block-button__link:hover{
+  background:#202122!important;border-color:#202122!important;color:#fff!important;
+}
+.wiki-primary-menu a:hover,.wiki-primary-menu .current-menu-item>a{
+  background:#fff0f0!important;color:#202122!important;border-bottom:2px solid #0645ad;
+}
+.side-title{color:#0645ad!important}
+.side-nav a:hover,.side-nav .current-menu-item>a{
+  background:#fff0f0!important;color:#202122!important;border-left:3px solid #0645ad!important;
+}
+.page-title{color:#202122!important}
+a{color:#d90000}
+a:hover{color:#202122}
+.home-intro{
+  background:linear-gradient(120deg,#202122 0%,#191919 78%,#0645ad 145%)!important;
+}
+.home-intro:after{content:"BS"!important;color:rgba(255,255,255,.07)!important}
+.home-card:hover,.wiki-panel:hover{border-color:#0645ad}
+.article-tools a,.wiki-community-tools a:hover{color:#d90000}
+:focus-visible{outline:3px solid #0645ad!important;outline-offset:2px}
+
+/* BIGSHOR v20.0.6 — light-only appearance retained; original navy/gold design restored. */
+.bsw-theme-toggle{display:none!important}
+:root{color-scheme:light!important}
+html,body{color-scheme:light!important}
+
+
+/* BIGSHOR v20.0.7 — Wikipedia/MediaWiki-inspired colour system.
+   The supplied BS monogram image remains the only corporate red/white logo asset. */
+:root{
+ --ink:#202122; --muted:#54595d; --line:#a2a9b1; --blue:#0645ad;
+ --bg:#f8f9fa; --paper:#fff; --soft:#eaecf0; --green:#14866d;
+ --bsw-ink:#202122; --bsw-muted:#54595d; --bsw-line:#c8ccd1;
+ --bsw-canvas:#f8f9fa; --bsw-paper:#fff; --bsw-link:#0645ad;
+ --bsw-navy:#202122; --bsw-navy-2:#54595d; --bsw-gold:#72777d;
+ color-scheme:light;
+}
+html,body{background:#f8f9fa!important;color:#202122!important;color-scheme:light!important}
+a,.article-body a,.wiki-content a,.entry-content a{color:#0645ad!important}
+a:visited,.article-body a:visited,.wiki-content a:visited{color:#0b0080!important}
+a:hover,a:focus{color:#0645ad!important;text-decoration:underline!important}
+.site-header,.header-inner,.header-nav,.header-nav .sub-menu,.header-navigation{
+ background:#fff!important;color:#202122!important;border-color:#c8ccd1!important;
+ box-shadow:none!important;backdrop-filter:none!important
+}
+.site-header{border-bottom:1px solid #c8ccd1!important}
+.site-footer{background:#f8f9fa!important;color:#202122!important;border-top:1px solid #c8ccd1!important}
+.brand,.brand-name{color:#202122!important}
+.brand-tag{color:#54595d!important}
+.brand-mark{background:#fff!important;color:#202122!important;border:1px solid #a2a9b1!important;box-shadow:none!important}
+.content,.page-shell,.main-content,.wiki-content,.article-body,.entry-content,
+.home-card,.wiki-panel,.bsw-archive-card,.bsw-search-result,.bsw-topic-card,
+.bsw-founder-card,.bsw-media-card,.bsw-reader-list li,.wiki-infobox,.wiki-toc,
+.wiki-categories,.bsw-stat-grid>div,.widget,.sidebar,.card,.archive-card{
+ background:#fff!important;color:#202122!important;border-color:#c8ccd1!important;
+ box-shadow:none!important
+}
+h1,h2,h3,h4,h5,h6,.page-title,.article-title,.entry-title,.widget-title,
+.wiki-panel h2,.home-card h2{color:#202122!important}
+p,li,dd,dt,blockquote,label,small,.meta,.muted,.description{color:#202122}
+hr,.divider,.border,.card,.wiki-infobox,.wiki-toc{border-color:#c8ccd1!important}
+button,.button,.wiki-button,.search-form button,.wp-block-button__link,
+.header-register,.bsw-mobile-menu-toggle,.pagination a,.pagination span{
+ background:#f8f9fa!important;color:#202122!important;border:1px solid #a2a9b1!important;
+ border-radius:2px!important;box-shadow:none!important;text-shadow:none!important
+}
+button:hover,.button:hover,.wiki-button:hover,.search-form button:hover,
+.wp-block-button__link:hover,.header-register:hover,.bsw-mobile-menu-toggle:hover,
+.pagination a:hover{background:#eaecf0!important;color:#202122!important;border-color:#72777d!important}
+button:focus,.button:focus,input:focus,textarea:focus,select:focus,a:focus{
+ outline:2px solid #36c!important;outline-offset:1px
+}
+input,textarea,select,.search-form input{
+ background:#fff!important;color:#202122!important;border:1px solid #a2a9b1!important;
+ border-radius:2px!important;box-shadow:none!important
+}
+.wiki-primary-menu,.wiki-primary-menu a,.header-nav a,.header-nav .sub-menu a{
+ background:#fff!important;color:#202122!important;border-color:#c8ccd1!important
+}
+.wiki-primary-menu a:hover,.wiki-primary-menu .current-menu-item>a,
+.header-nav .sub-menu a:hover{background:#eaecf0!important;color:#202122!important}
+.wiki-infobox-title,.section-heading,.bsw-section-heading{
+ background:#eaecf0!important;color:#202122!important;border-color:#c8ccd1!important
+}
+.badge,.tag,.category-label,.bsw-eyebrow,.brand-tag,.side-title,
+.bsw-card-meta,.wiki-meta{background:transparent!important;color:#54595d!important}
+blockquote{border-left:3px solid #a2a9b1!important;background:#f8f9fa!important}
+table,th,td{border-color:#c8ccd1!important}
+th{background:#eaecf0!important;color:#202122!important}
+tr:nth-child(even){background:#f8f9fa!important}
+.bsw-theme-toggle{display:none!important}
+
+
+
+
+/* v20.0.8 screenshot corrections: consistent light MediaWiki palette and mobile contrast */
+:root{--ink:#202122;--muted:#54595d;--line:#c8ccd1;--blue:#0645ad;--bg:#f8f9fa;--paper:#fff;--soft:#eaecf0;--bsw-ink:#202122;--bsw-muted:#54595d;--bsw-line:#c8ccd1;--bsw-canvas:#f8f9fa;--bsw-paper:#fff;--bsw-link:#0645ad;color-scheme:light!important}
+html,body{background:#fff!important;color:#202122!important;color-scheme:light!important}
+.bsw-home{background:#fff!important;color:#202122!important}
+.bsw-home-hero{background:#f8f9fa!important;color:#202122!important;border:1px solid #c8ccd1!important;border-radius:4px!important;box-shadow:none!important}
+.bsw-home-hero .bsw-eyebrow{color:#54595d!important}
+.bsw-home-hero h1,.bsw-home-hero h1 span{color:#202122!important;text-shadow:none!important}
+.bsw-home-hero .bsw-home-lede,.bsw-home-hero .bsw-home-search-hint{color:#54595d!important}
+.bsw-home-hero .bsw-orbit{border-color:#c8ccd1!important}
+.bsw-home-hero .bsw-orbit-core{background:#fff!important;color:#202122!important;border:1px solid #a2a9b1!important;box-shadow:none!important}
+.bsw-home-hero .bsw-orbit-core span{color:#0645ad!important}
+.bsw-home-hero .bsw-orbit-label{color:#54595d!important}
+.bsw-home-search input[type="search"],.bsw-home-search input[type="text"]{min-width:0;background:#fff!important;color:#202122!important;border:1px solid #a2a9b1!important;box-shadow:none!important}
+.bsw-home-search button,.bsw-home-search input[type="submit"]{background:#f8f9fa!important;color:#202122!important;border:1px solid #a2a9b1!important}
+.bsw-home-quicklinks a,.bsw-home-featured-content,.bsw-home-recent-content,.bsw-home-stats,.bsw-home-stats .bsw-stat-grid>div{background:#fff!important;color:#202122!important;border-color:#c8ccd1!important;box-shadow:none!important}
+.bsw-home-quicklinks a strong,.bsw-home-featured-content a,.bsw-home-recent-content a,.bsw-home .bsw-text-link,.bsw-home .bsw-discover-links a strong{color:#0645ad!important}
+.bsw-section-heading{background:#fff!important;color:#202122!important;border:0!important;border-bottom:1px solid #c8ccd1!important;box-shadow:none!important;padding:0 0 12px!important}
+.bsw-section-heading h2,.bsw-home-discover h2{color:#202122!important}
+.bsw-section-heading p:not(.bsw-eyebrow),.bsw-home-discover>div:first-child>p:not(.bsw-eyebrow){color:#54595d!important}
+.bsw-home-discover{background:#f8f9fa!important;color:#202122!important;border:1px solid #c8ccd1!important;border-radius:4px!important;box-shadow:none!important}
+.bsw-home-discover .bsw-eyebrow{color:#54595d!important}
+.bsw-discover-links a{border-color:#c8ccd1!important;color:#202122!important}
+.bsw-discover-links a span{color:#72777d!important}
+.bsw-home-button,.bsw-home-button:visited{background:#f8f9fa!important;color:#0645ad!important;border:1px solid #a2a9b1!important;border-radius:2px!important;box-shadow:none!important;text-shadow:none!important}
+.bsw-home-button:hover,.bsw-home-button:focus{background:#eaecf0!important;color:#0645ad!important}
+.bsw-home-button span,.bsw-home-button-light span{color:#0645ad!important}
+.bsw-home-contribute{background:#eaecf0!important;color:#202122!important;border:1px solid #c8ccd1!important;border-radius:4px!important;box-shadow:none!important}
+.bsw-home-contribute .bsw-eyebrow{color:#54595d!important}
+.bsw-home-contribute h2{color:#202122!important}
+.bsw-home-contribute p:not(.bsw-eyebrow){color:#54595d!important}
+.bsw-home-button-light,.bsw-home-button-light:visited{background:#fff!important;color:#0645ad!important;border:1px solid #a2a9b1!important}
+.bsw-home-button-light:hover{background:#f8f9fa!important;color:#0645ad!important}
+.bsw-home .bsw-eyebrow{background:transparent!important}
+.bsw-home h1,.bsw-home h2,.bsw-home h3{text-shadow:none!important}
+.bsw-home a:focus,.bsw-home button:focus,.bsw-home input:focus{outline:2px solid #36c!important;outline-offset:2px}
+.site-header,.header-inner,.header-nav,.header-nav .sub-menu,.header-navigation,.site-footer{background:#fff!important;color:#202122!important;border-color:#c8ccd1!important;box-shadow:none!important}
+.bsw-mobile-menu-toggle,.mobile-menu-toggle,.menu-toggle{background:#f8f9fa!important;color:#202122!important;border:1px solid #a2a9b1!important;border-radius:2px!important;box-shadow:none!important}
+@media(max-width:767px){
+ .bsw-home{padding-left:0!important;padding-right:0!important}
+ .bsw-home-hero{grid-template-columns:minmax(0,1fr)!important;padding:24px 18px!important;min-height:0!important;gap:16px!important}
+ .bsw-home-hero h1{font-size:clamp(30px,8vw,40px)!important;line-height:1.12!important}
+ .bsw-home-hero-aside{display:none!important}
+ .bsw-home-search form{display:flex!important;flex-wrap:nowrap!important;width:100%!important}
+ .bsw-home-search input[type="search"],.bsw-home-search input[type="text"]{width:100%!important;min-width:0!important}
+ .bsw-home-quicklinks{grid-template-columns:1fr!important}
+ .bsw-section-heading{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:8px!important}
+ .bsw-home-discover{grid-template-columns:minmax(0,1fr)!important;padding:22px 18px!important;gap:16px!important}
+ .bsw-home-contribute{display:flex!important;flex-direction:column!important;align-items:flex-start!important;padding:22px 18px!important}
+ .bsw-home-stats .bsw-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .bsw-home-featured-content,.bsw-home-recent-content{min-width:0!important}
+}
+@media(max-width:380px){.bsw-home-stats .bsw-stat-grid{grid-template-columns:1fr!important}}
+
+
+
+
+/* v20.0.9: final light navigation and BIGSHOR BS monogram corrections */
+:root{color-scheme:light!important}
+.header-nav,.header-nav.is-open{
+ background:#f8f9fa!important;color:#202122!important;
+ border-top:1px solid #c8ccd1!important;border-bottom:1px solid #c8ccd1!important;
+ box-shadow:none!important
+}
+.header-nav .wiki-primary-menu>li>a,
+.header-nav .wiki-primary-menu>li>a:link,
+.header-nav .wiki-primary-menu>li>a:visited{
+ color:#0645ad!important;background:transparent!important;
+ opacity:1!important;text-shadow:none!important
+}
+.header-nav .wiki-primary-menu>li>a:hover,
+.header-nav .wiki-primary-menu>li>a:focus,
+.header-nav .wiki-primary-menu>li.current-menu-item>a,
+.header-nav .wiki-primary-menu>li.current-menu-ancestor>a{
+ color:#202122!important;background:#eaecf0!important;
+ border-bottom-color:#72777d!important
+}
+.header-nav .wiki-primary-menu .sub-menu{
+ background:#fff!important;border:1px solid #c8ccd1!important;
+ box-shadow:0 4px 12px rgba(0,0,0,.08)!important
+}
+.header-nav .wiki-primary-menu .sub-menu a,
+.header-nav .wiki-primary-menu .sub-menu a:visited{
+ color:#0645ad!important;background:#fff!important;opacity:1!important
+}
+.header-nav .wiki-primary-menu .sub-menu a:hover,
+.header-nav .wiki-primary-menu .sub-menu a:focus{
+ color:#202122!important;background:#eaecf0!important
+}
+.bsw-home-hero .bsw-orbit-core.bsw-orbit-bs{
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ width:112px!important;height:112px!important;border-radius:0!important;
+ background:#f00!important;color:#fff!important;border:0!important;
+ box-shadow:none!important;font-family:Arial,Helvetica,sans-serif!important;
+ font-size:48px!important;font-weight:800!important;letter-spacing:-4px!important;
+ line-height:1!important
+}
+.bsw-home-hero .bsw-orbit-core.bsw-orbit-bs span{display:none!important}
+.bsw-home-hero .bsw-orbit-core.bsw-orbit-bs::first-letter{color:#fff!important}
+.bsw-home-hero .bsw-orbit-one,.bsw-home-hero .bsw-orbit-two{
+ border-color:#c8ccd1!important
+}
+.bsw-home-hero .bsw-orbit-label{color:#54595d!important}
+@media(max-width:767px){
+ .header-nav .wiki-primary-menu>li>a{color:#0645ad!important}
+ .header-nav .wiki-primary-menu>li>a:hover,
+ .header-nav .wiki-primary-menu>li.current-menu-item>a{color:#202122!important}
+}
+
+
+
+
+/* v20.1.0 expanded encyclopaedia homepage modules */
+.bsw-home-directory,.bsw-home-news{margin:34px 0;padding:26px;background:#fff;border:1px solid #c8ccd1;border-radius:4px}
+.bsw-home-directory-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:20px}
+.bsw-directory-card{display:flex;flex-direction:column;gap:7px;min-width:0;padding:16px;background:#f8f9fa;border:1px solid #c8ccd1;border-radius:3px;text-decoration:none!important}
+.bsw-directory-card strong{font-size:15px;color:#0645ad;overflow-wrap:anywhere}
+.bsw-directory-card span{font-size:12px;color:#54595d}
+.bsw-directory-card:hover{background:#eaecf0;border-color:#a2a9b1}
+.bsw-home-news-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}
+.bsw-news-card{padding:18px;background:#f8f9fa;border:1px solid #c8ccd1;border-radius:3px;min-width:0}
+.bsw-news-card-title{font-weight:600;color:#0645ad;text-decoration:none}
+.bsw-news-card p{margin:9px 0;color:#54595d;font-size:14px}
+.bsw-news-card time{font-size:12px;color:#72777d}
+.bsw-empty-note{color:#54595d;padding:10px 0}
+@media(max-width:900px){.bsw-home-directory-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.bsw-home-directory,.bsw-home-news{padding:18px;margin:24px 0}.bsw-home-directory-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.bsw-directory-card{padding:12px}.bsw-home-news-grid{grid-template-columns:1fr}}
+
+
+
+
+/* BIGSHOR Wiki — unified MediaWiki-inspired presentation, v20.2.0 */
+:root{
+ --wiki-bg:#f8f9fa;--wiki-paper:#fff;--wiki-text:#202122;--wiki-muted:#54595d;
+ --wiki-link:#0645ad;--wiki-visited:#0b0080;--wiki-border:#a2a9b1;
+ --wiki-soft-border:#c8ccd1;--wiki-panel:#eaecf0;--wiki-content-width:1440px;
+}
+html{background:var(--wiki-bg)}
+body{background:var(--wiki-bg);color:var(--wiki-text);font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6}
+a{color:var(--wiki-link);text-decoration:none}
+a:visited{color:var(--wiki-visited)}
+a:hover{text-decoration:underline}
+.site-header{background:var(--wiki-bg);border:0;border-bottom:1px solid var(--wiki-soft-border);box-shadow:none}
+.header-inner{max-width:var(--wiki-content-width);padding:12px 28px;gap:24px;min-height:78px}
+.brand{min-width:230px;gap:12px}
+.brand-mark{width:52px;height:52px;border:0;border-radius:0;background:transparent}
+.brand-mark img{width:52px;height:52px;object-fit:contain}
+.brand-name{font:normal 25px/1.1 Georgia,"Times New Roman",serif;letter-spacing:0;color:#202122}
+.brand-tag{font:11px/1.25 Arial,sans-serif;letter-spacing:.7px;text-transform:none;color:#54595d}
+.header-search,.header-inner>.search-form{flex:1;max-width:650px}
+.header-links{font-size:13px;color:#54595d}
+.header-links a{margin-left:12px}
+.header-register{font-weight:600}
+.header-nav{background:var(--wiki-bg);border:0;border-bottom:1px solid var(--wiki-soft-border);box-shadow:none}
+.header-nav-inner{max-width:var(--wiki-content-width);margin:auto;padding:0 28px}
+.header-nav-inner ul{display:flex;flex-wrap:wrap;gap:0;list-style:none;margin:0;padding:0}
+.header-nav-inner li{margin:0}
+.header-nav-inner a{display:block;padding:9px 13px;color:#0645ad;font-size:13px;border-bottom:2px solid transparent}
+.header-nav-inner a:hover,.header-nav-inner .current-menu-item>a{background:#eaecf0;text-decoration:none;border-bottom-color:#54595d}
+.bsw-mobile-menu-toggle{display:none}
+.page-shell{max-width:var(--wiki-content-width);margin:0 auto;padding:24px 28px 64px;display:block}
+.page-shell.no-sidebar{grid-template-columns:minmax(0,1fr)}
+.content{width:100%;max-width:100%;min-width:0}
+.breadcrumbs,.bsw-breadcrumbs{font-size:12px;color:#54595d;margin:0 0 14px;padding:0 0 8px;border-bottom:1px solid #eaecf0}
+.page-title,.bsw-article-header .page-title,.bsw-archive-header .page-title{font:normal 30px/1.25 Georgia,"Times New Roman",serif;letter-spacing:0;color:#202122;margin:0 0 12px;padding:0 0 9px;border-bottom:1px solid #a2a9b1}
+.bsw-eyebrow{font-size:11px;letter-spacing:.07em;color:#72777d;font-weight:600;margin:0 0 5px}
+.bsw-article-header,.bsw-archive-header,.bsw-entity-header{margin:0 0 20px;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none}
+.bsw-article-deck,.subtitle{font-size:14px;color:#54595d;max-width:75ch}
+.bsw-article-byline,.wiki-meta,.bsw-card-meta{font-size:12px;color:#72777d}
+.wiki-community-tools,.bsw-article-actions,.article-tools{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid #a2a9b1;border-top:1px solid #eaecf0;margin:18px 0 20px;padding:0;background:transparent}
+.wiki-community-tools a,.bsw-article-actions a,.bsw-article-actions button,.article-tools a,.article-tools span{display:inline-block;padding:8px 12px;font-size:13px;border:0;border-right:1px solid #eaecf0;background:transparent;color:#0645ad}
+.wiki-community-tools a:hover,.bsw-article-actions a:hover{background:#eaecf0;text-decoration:none}
+.bsw-article-layout{display:grid;grid-template-columns:minmax(0,1fr) 250px;grid-template-areas:"body rail";gap:28px;align-items:start}
+.bsw-article-layout>.article-body{grid-area:body;min-width:0}
+.bsw-article-rail{grid-area:rail;position:sticky;top:18px}
+.bsw-toc-card,.bsw-article-rail>div{background:#f8f9fa;border:1px solid #c8ccd1;border-radius:0;padding:14px;margin:0 0 14px}
+.bsw-toc-card h2,.bsw-article-rail h2{font:600 14px Arial,sans-serif;margin:0 0 8px;border-bottom:1px solid #c8ccd1;padding-bottom:6px}
+.article-body{font-size:15px;line-height:1.7;max-width:100%;color:#202122}
+.article-body h2{font:normal 22px/1.3 Georgia,"Times New Roman",serif;border-bottom:1px solid #a2a9b1;padding:0 0 5px;margin:28px 0 12px}
+.article-body h3{font:600 17px/1.35 Arial,sans-serif;margin:22px 0 8px}
+.article-body p{margin:0 0 14px}
+.article-body table{border-collapse:collapse;max-width:100%;font-size:13px}
+.article-body th,.article-body td{border:1px solid #a2a9b1;padding:7px 9px}
+.article-body th{background:#eaecf0}
+.article-body blockquote{margin:16px 0;padding:10px 16px;border-left:3px solid #a2a9b1;background:#f8f9fa;color:#54595d}
+.article-body figure,.article-body .wp-block-image{margin:16px 0;padding:5px;border:1px solid #c8ccd1;background:#f8f9fa}
+.article-body figcaption,.wp-element-caption{font-size:12px;color:#54595d;text-align:left;padding:5px}
+.bsw-archive-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.bsw-archive-card,.bsw-search-result,.wiki-list>li{background:#fff;border:1px solid #c8ccd1;border-radius:0;box-shadow:none;overflow:hidden}
+.bsw-archive-card{display:grid;grid-template-columns:180px minmax(0,1fr)}
+.bsw-archive-image img{display:block;width:100%;height:100%;min-height:160px;object-fit:cover}
+.bsw-archive-card-body{padding:15px}
+.bsw-archive-card h2,.bsw-search-result h2,.wiki-list h2{font:normal 20px/1.3 Georgia,"Times New Roman",serif;margin:4px 0 8px}
+.bsw-archive-card p,.bsw-search-result p{font-size:13px}
+.bsw-card-link{font-size:13px;font-weight:600}
+.bsw-search-results{max-width:900px}
+.bsw-search-result{padding:14px 16px;margin:0 0 12px}
+.bsw-entity-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:24px}
+.bsw-entity-visual{grid-column:2;grid-row:1}
+.bsw-entity-content{grid-column:1;grid-row:1}
+.bsw-news-article{max-width:1050px;margin:auto}
+.bsw-news-article-header .page-title{font-size:32px}
+.bsw-news-featured-image{margin:20px 0;background:#f8f9fa;border:1px solid #c8ccd1;padding:6px}
+.bsw-news-content{max-width:850px;margin:auto}
+.bsw-home{max-width:100%;font-family:Arial,sans-serif}
+.bsw-home-hero{border:1px solid #c8ccd1;border-radius:0;background:#f8f9fa;box-shadow:none}
+.bsw-home-section,.bsw-home-directory,.bsw-home-news{border:0;border-top:1px solid #a2a9b1;border-radius:0;background:#fff;padding:22px 0;margin:28px 0;box-shadow:none}
+.bsw-section-heading h2,.bsw-home-discover h2,.bsw-home-contribute h2{font:normal 23px/1.3 Georgia,"Times New Roman",serif}
+.bsw-home-quicklinks{border:1px solid #c8ccd1;border-radius:0;box-shadow:none}
+.bsw-home-quicklinks a{border-radius:0}
+.bsw-home-stats,.bsw-home-contribute,.bsw-home-discover{border-radius:0;box-shadow:none}
+.pagination{margin:24px 0}
+.pagination a,.pagination span{display:inline-block;padding:6px 10px;border:1px solid #c8ccd1;margin:0 3px 4px 0;font-size:13px}
+.site-footer{background:#f8f9fa;border-top:1px solid #c8ccd1;color:#54595d;margin-top:40px}
+.footer-inner{max-width:var(--wiki-content-width);margin:auto;padding:22px 28px;font-size:12px}
+.footer-nav{max-width:var(--wiki-content-width);margin:auto;padding:0 28px 18px}
+.footer-nav ul{display:flex;gap:18px;flex-wrap:wrap;list-style:none;padding:0;margin:0}
+.footer-nav a{font-size:12px}
+input,select,textarea{border-radius:0!important;border:1px solid #a2a9b1!important;box-shadow:none!important}
+button,.button,.wp-block-button__link{border-radius:2px!important;box-shadow:none!important}
+:focus-visible{outline:2px solid #36c!important;outline-offset:2px}
+@media(max-width:900px){
+ .header-inner{padding:10px 18px;flex-wrap:wrap}.brand{min-width:190px}
+ .header-nav-inner{padding:0 18px}
+ .page-shell{padding:20px 18px 50px}
+ .bsw-article-layout{grid-template-columns:minmax(0,1fr);grid-template-areas:"rail" "body"}
+ .bsw-article-rail{position:static}
+ .bsw-archive-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+ .header-inner{gap:10px}.brand{min-width:0;flex:1}.brand-name{font-size:21px}.brand-tag{font-size:9px}
+ .header-links{width:100%;margin:0;font-size:12px}
+ .header-nav{display:none}.header-nav.is-open{display:block}
+ .bsw-mobile-menu-toggle{display:flex;align-items:center;gap:8px;padding:9px 18px;background:#f8f9fa;border:0;border-top:1px solid #eaecf0;color:#0645ad;font-size:14px}
+ .header-nav-inner ul{display:block}.header-nav-inner a{padding:11px 14px;border-bottom:1px solid #eaecf0}
+ .page-shell{padding:16px 14px 40px}
+ .page-title,.bsw-article-header .page-title,.bsw-archive-header .page-title{font-size:25px}
+ .bsw-archive-card{grid-template-columns:110px minmax(0,1fr)}
+ .bsw-archive-image img{min-height:120px}
+ .bsw-archive-card-body{padding:10px}.bsw-archive-card h2{font-size:17px}
+ .bsw-entity-layout{grid-template-columns:1fr}.bsw-entity-visual,.bsw-entity-content{grid-column:1;grid-row:auto}
+ .bsw-article-actions a,.bsw-article-actions button{padding:7px 9px}
+ .footer-inner{padding:18px 14px}
+}
+
+
+
+/* Encyclopaedia portal homepage treatment */
+.bsw-home-hero{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:24px;padding:24px 26px;margin:0 0 20px;align-items:center}
+.bsw-home-hero h1{font:normal 30px/1.25 Georgia,"Times New Roman",serif;color:#202122;margin:4px 0 10px}
+.bsw-home-hero h1 span{color:#202122}
+.bsw-home-hero-lede,.bsw-home-lede{font-size:14px;color:#54595d;max-width:75ch}
+.bsw-home-hero-aside{max-width:190px;justify-self:center}
+.bsw-orbit{border-color:#c8ccd1!important}
+.bsw-orbit-core{background:#fff!important;color:#202122!important;border:1px solid #a2a9b1!important;box-shadow:none!important}
+.bsw-home-search{max-width:650px}
+.bsw-home-search .search-form{max-width:100%}
+.bsw-home-quicklinks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:18px 0 24px;background:#fff}
+.bsw-home-quicklinks>a{padding:14px 16px;border-right:1px solid #c8ccd1}
+.bsw-home-quicklinks>a:last-child{border-right:0}
+.bsw-home-section .bsw-section-heading,.bsw-home-directory .bsw-section-heading,.bsw-home-news .bsw-section-heading{margin-bottom:15px}
+.bsw-home-featured-content,.bsw-home-recent-content{background:#fff}
+.bsw-home-discover{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:22px;background:#f8f9fa;border:1px solid #c8ccd1}
+.bsw-home-contribute{padding:20px;background:#eaecf0;border:1px solid #c8ccd1}
+@media(max-width:640px){
+ .bsw-home-hero{grid-template-columns:1fr;padding:18px}
+ .bsw-home-hero-aside{display:none}
+ .bsw-home-hero h1{font-size:25px}
+ .bsw-home-quicklinks{grid-template-columns:1fr}
+ .bsw-home-quicklinks>a{border-right:0;border-bottom:1px solid #c8ccd1}
+ .bsw-home-discover{grid-template-columns:1fr;padding:16px}
+}
+
+
+
+/* BIGSHOR MediaWiki-style structural system */
+:root{--mw-blue:#0645ad;--mw-link:#0645ad;--mw-border:#a2a9b1;--mw-soft:#eaecf0;--mw-bg:#f8f9fa;--mw-text:#202122;--mw-muted:#54595d}
+html,body{background:#fff;color:var(--mw-text);font:14px/1.6 Arial,Helvetica,sans-serif}
+body{margin:0}
+a{color:var(--mw-blue)}a:visited{color:#0b0080}
+.mw-header{height:auto;background:#fff;border-bottom:1px solid #eaecf0}
+.mw-header-inner{max-width:1600px;margin:auto;min-height:74px;padding:10px 24px;display:flex;align-items:center;gap:28px}
+.mw-brand{display:flex;align-items:center;gap:12px;min-width:245px;color:#202122;text-decoration:none}
+.mw-brand:hover{text-decoration:none}
+.mw-brand img{width:42px;height:42px;object-fit:contain}
+.mw-brand strong{display:block;font:normal 23px/1.15 Georgia,"Times New Roman",serif;color:#202122}
+.mw-brand small{display:block;font:10px/1.3 Arial,sans-serif;letter-spacing:.5px;color:#54595d}
+.mw-search{flex:1;max-width:600px}
+.mw-search .search-form{display:flex;max-width:none;margin:0}
+.mw-search input[type=search],.mw-search input[type=text]{width:100%;height:36px;border:1px solid #72777d!important;border-radius:2px!important;padding:7px 10px;font-size:14px}
+.mw-search button,.mw-search input[type=submit]{height:36px;border:1px solid #72777d!important;border-radius:2px!important;background:#f8f9fa;color:#202122;padding:0 14px}
+.mw-personal-tools{margin-left:auto;display:flex;gap:16px;white-space:nowrap;font-size:13px}
+.mw-personal-tools a{text-decoration:none}
+.mw-sidebar-toggle{display:none}
+.mw-site-layout{max-width:1600px;margin:0 auto;display:grid;grid-template-columns:176px minmax(0,1fr);gap:30px;padding:0 24px}
+.mw-sidebar{padding:26px 0 40px;font-size:13px;min-width:0}
+.mw-sidebar-section{margin:0 0 22px}
+.mw-sidebar-section h2{font:normal 13px/1.4 Arial,sans-serif;color:#54595d;border-bottom:1px solid #c8ccd1;padding:0 0 5px;margin:0 0 6px}
+.mw-sidebar ul,.mw-sidebar .side-nav{list-style:none;margin:0;padding:0}
+.mw-sidebar li{margin:0;padding:3px 0}
+.mw-sidebar a{text-decoration:none;color:#0645ad}
+.mw-sidebar a:hover{text-decoration:underline}
+.mw-main-column{min-width:0;padding-top:20px}
+.mw-page-tabs{height:40px;display:flex;justify-content:space-between;align-items:stretch;border-bottom:1px solid #a2a9b1;margin:0 0 18px}
+.mw-tabs-left,.mw-tabs-right{display:flex;align-items:stretch;gap:18px}
+.mw-page-tabs a{display:flex;align-items:center;padding:0 4px;font-size:13px;text-decoration:none;color:#54595d;border-bottom:2px solid transparent}
+.mw-page-tabs a.is-active{color:#202122;border-bottom-color:#202122;font-weight:600}
+.mw-content{min-width:0;max-width:100%;padding:0 0 50px}
+.mw-content>.breadcrumbs,.mw-content>.bsw-breadcrumbs{font-size:12px;margin:0 0 12px;border:0;padding:0;color:#54595d}
+.mw-welcome{background:#f8f9fa;border:1px solid #c8ccd1;padding:17px 20px;margin:0 0 18px;text-align:center}
+.mw-welcome h1{font:normal 22px/1.3 Georgia,"Times New Roman",serif;margin:0 0 4px;color:#202122}
+.mw-welcome h1 strong{font-weight:600}
+.mw-welcome p{margin:0;color:#54595d;font-size:13px}
+.mw-welcome-stats{display:flex;justify-content:center;gap:28px;margin-top:9px;font-size:12px;color:#54595d}
+.mw-welcome-stats strong{color:#202122}
+.mw-home-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:stretch}
+.mw-panel{border:1px solid #a2a9b1;background:#fff;min-width:0;padding:0 14px 13px;overflow:hidden}
+.mw-panel>h2{font:normal 17px/1.3 Georgia,"Times New Roman",serif;margin:0 -14px 12px;padding:8px 14px;background:#eaecf0;border-bottom:1px solid #a2a9b1;color:#202122}
+.mw-panel h3{font:600 15px/1.35 Arial,sans-serif;margin:4px 0 7px}
+.mw-panel p{font-size:13px;line-height:1.55;margin:7px 0}
+.mw-featured-entry:after{content:"";display:block;clear:both}
+.mw-float-image{float:right;width:34%;max-width:190px;margin:0 0 10px 14px;padding:3px;border:1px solid #c8ccd1;background:#f8f9fa}
+.mw-float-image img{display:block;width:100%;height:auto}
+.mw-subheading{border-bottom:1px solid #c8ccd1;padding-bottom:4px;margin-top:12px!important}
+.mw-link-list,.mw-bullet-list,.mw-news-list,.mw-project-list{margin:6px 0 0;padding-left:20px}
+.mw-link-list li,.mw-bullet-list li,.mw-project-list li{margin:4px 0;font-size:13px}
+.mw-news-list{list-style:none;padding:0}
+.mw-news-list li{min-height:55px;margin:0 0 9px;padding:0 0 8px;border-bottom:1px solid #eaecf0;font-size:13px}
+.mw-news-thumb{float:left;width:64px;margin:0 10px 5px 0}
+.mw-news-thumb img{width:64px;height:48px;object-fit:cover}
+.mw-news-list small{display:block;color:#72777d;font-size:11px}
+.mw-more{text-align:right}
+.mw-picture{display:block;text-align:center}
+.mw-picture img{max-height:210px;width:auto;max-width:100%;object-fit:contain;border:1px solid #c8ccd1;padding:3px}
+.mw-project-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.mw-project-grid a{display:block;padding:10px;border:1px solid #c8ccd1;background:#f8f9fa;text-decoration:none}
+.mw-project-grid strong,.mw-project-grid small{display:block}
+.mw-project-grid strong{font-size:13px}.mw-project-grid small{font-size:11px;color:#54595d}
+.mw-listing-item{border-bottom:1px solid #c8ccd1;padding:12px 0}
+.mw-listing-item h2{font:normal 20px/1.3 Georgia,"Times New Roman",serif;margin:0}
+.mw-listing-meta{font-size:12px;color:#72777d;margin:3px 0}
+.mw-content .page-title,.mw-content .bsw-article-header .page-title,.mw-content .bsw-archive-header .page-title{font:normal 29px/1.25 Georgia,"Times New Roman",serif;border-bottom:1px solid #a2a9b1;padding:0 0 8px;margin:0 0 14px}
+.mw-content .bsw-article-header,.mw-content .bsw-archive-header,.mw-content .bsw-entity-header{background:transparent;border:0;border-radius:0;padding:0;margin:0 0 15px}
+.mw-content .bsw-article-actions{display:flex;gap:14px;flex-wrap:wrap;border-bottom:1px solid #a2a9b1;border-top:1px solid #eaecf0;background:transparent;border-radius:0;padding:0;margin:15px 0}
+.mw-content .bsw-article-actions a,.mw-content .bsw-article-actions button{padding:7px 4px;border:0;background:transparent;border-radius:0;color:#0645ad;font-size:13px}
+.mw-content .bsw-article-layout{display:grid;grid-template-columns:minmax(0,1fr) 230px;grid-template-areas:"body rail";gap:24px}
+.mw-content .bsw-article-layout>.article-body{grid-area:body;min-width:0}
+.mw-content .bsw-article-rail{grid-area:rail;position:static}
+.mw-content .bsw-toc-card{border:1px solid #a2a9b1;background:#f8f9fa;border-radius:0;padding:12px}
+.mw-content .article-body{font:15px/1.65 Arial,sans-serif;color:#202122}
+.mw-content .article-body h2{font:normal 21px/1.3 Georgia,"Times New Roman",serif;border-bottom:1px solid #a2a9b1;margin:24px 0 10px;padding-bottom:5px}
+.mw-content .article-body h3{font:600 16px Arial,sans-serif;margin:20px 0 8px}
+.mw-content .article-body figure,.mw-content .article-body .wp-block-image{border:1px solid #c8ccd1;background:#f8f9fa;padding:4px;border-radius:0}
+.mw-content .bsw-archive-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.mw-content .bsw-archive-card{border:1px solid #c8ccd1;border-radius:0;box-shadow:none}
+.mw-content .bsw-archive-card h2{font:normal 18px/1.3 Georgia,"Times New Roman",serif}
+.mw-content .bsw-news-article{max-width:100%}
+.mw-content .bsw-news-content{max-width:850px}
+.mw-content .bsw-entity-layout{grid-template-columns:minmax(0,1fr) 250px}
+.site-footer{margin-top:30px;background:#f8f9fa;border-top:1px solid #c8ccd1}
+.site-footer .footer-inner{max-width:1600px;margin:auto;padding:18px 24px;font-size:12px}
+@media(max-width:900px){
+ .mw-site-layout{grid-template-columns:150px minmax(0,1fr);gap:20px;padding:0 18px}
+ .mw-header-inner{padding:10px 18px;gap:16px}
+ .mw-brand{min-width:190px}
+ .mw-personal-tools{gap:10px}
+ .mw-content .bsw-article-layout{grid-template-columns:minmax(0,1fr);grid-template-areas:"rail" "body"}
+ .mw-content .bsw-article-rail{display:block}
+}
+@media(max-width:650px){
+ .mw-header-inner{min-height:60px;gap:10px;flex-wrap:wrap}
+ .mw-sidebar-toggle{display:block;border:1px solid #a2a9b1;background:#f8f9fa;padding:6px 9px;font-size:13px}
+ .mw-brand{min-width:0;flex:1;gap:7px}.mw-brand img{width:34px;height:34px}.mw-brand strong{font-size:19px}.mw-brand small{font-size:8px}
+ .mw-search{order:4;flex-basis:100%;max-width:none}
+ .mw-personal-tools{margin-left:0;font-size:12px}
+ .mw-site-layout{display:block;padding:0 13px}
+ .mw-sidebar{display:none;position:absolute;z-index:99;left:0;right:0;top:60px;background:#fff;padding:14px 18px;border-bottom:1px solid #a2a9b1;box-shadow:0 5px 12px #0002;max-height:70vh;overflow:auto}
+ .mw-sidebar.is-open{display:block}
+ .mw-sidebar-section{margin-bottom:14px}
+ .mw-main-column{padding-top:10px}
+ .mw-page-tabs{height:36px;margin-bottom:14px}
+ .mw-tabs-left,.mw-tabs-right{gap:10px}
+ .mw-page-tabs a{font-size:12px}
+ .mw-welcome{padding:12px}
+ .mw-welcome h1{font-size:19px}
+ .mw-welcome-stats{gap:14px;flex-wrap:wrap}
+ .mw-home-grid{grid-template-columns:1fr;gap:10px}
+ .mw-project-grid{grid-template-columns:1fr}
+ .mw-content .bsw-archive-grid{grid-template-columns:1fr}
+ .mw-content .bsw-archive-card{grid-template-columns:100px minmax(0,1fr)}
+ .mw-content .bsw-archive-image img{min-height:100px}
+ .mw-content .bsw-article-layout{display:flex;flex-direction:column}
+ .mw-content .bsw-article-rail{width:100%}
+ .mw-content .bsw-article-rail .bsw-toc-card{margin-bottom:12px}
+}
+
+/* BIGSHOR 20.6.0 responsive portal modules */
+.mw-panel{border-radius:2px}.bsw-page-tools a:hover{background:var(--soft)}.bsw-language-list p{font-size:12px;color:var(--muted)}
+
+/* v20.8.0 — unified Wikipedia-style article controls and editor presentation */
+.bsw41-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--line);padding:9px 0;margin:12px 0 20px;font:13px/1.4 Arial,sans-serif}
+.bsw41-tools a{display:inline-block;padding:7px 11px;border:1px solid var(--line);background:var(--bg);color:var(--ink);text-decoration:none}
+.bsw41-tools a:hover{border-color:#0645ad;color:#0645ad}
+.bsw41-editor{max-width:100%;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.bsw41-editor .wp-editor-wrap{margin:8px 0 18px}
+.bsw-references{clear:both}
+.bsw-ref{font:12px Arial,sans-serif;vertical-align:super}
+@media(max-width:600px){.bsw41-tools{gap:6px}.bsw41-tools a{padding:7px 9px;font-size:12px}.bsw41-editor{padding:14px}}
+
+/* Child-theme compatibility: preserve parent encyclopaedia editor layouts. */
+.bsw41-wrap,.bsw41-editor{box-sizing:border-box}.bsw41-wrap *,.bsw41-editor *{box-sizing:border-box}.bsw41-tabs{overflow-x:auto}.bsw41-editor .wp-editor-wrap{max-width:100%}.bsw41-infobox img{display:block;max-width:100%;height:auto;margin:0 auto 12px}
+
+/* BIGSHOR Wiki 21.1: infoboxes, reference lists and article quality UI */
+.bsw43-infobox{float:right;clear:right;width:min( min(100%, 340px), 38%);margin:0 0 1.25rem 1.5rem;border-collapse:collapse;background:var(--bsw-card,#f7f8fa);font-size:.94em}
+.bsw43-infobox caption{font-weight:700;padding:.75rem;background:var(--bsw-accent,#142b4a);color:#fff}
+.bsw43-infobox th,.bsw43-infobox td{padding:.5rem .65rem;border:1px solid rgba(120,130,145,.24);vertical-align:top;text-align:left}
+.bsw43-infobox th{width:38%;font-weight:650}
+.bsw43-wikitable{width:100%;border-collapse:collapse;margin:1rem 0}
+.bsw43-wikitable td,.bsw43-wikitable th{border:1px solid rgba(120,130,145,.35);padding:.55rem .7rem;text-align:left}
+.bsw43-wikitable tr:first-child{background:rgba(120,130,145,.12);font-weight:700}
+.bsw42-references{font-size:.92em;padding-left:2rem}
+.bsw42-ref{font-size:.78em;vertical-align:super}
+.bsw43-categories{border-top:1px solid rgba(120,130,145,.3);margin-top:2rem;padding:1rem 0;font-size:.9em}
+@media(max-width:680px){.bsw43-infobox{float:none;width:100%;margin:1rem 0}.bsw43-infobox th{width:35%}}
+
+
+.bsw42-wiki-file{margin:1rem auto;max-width:100%;text-align:center}
+.bsw42-wiki-file img{height:auto;max-width:100%;border-radius:3px}
+.bsw42-wiki-file figcaption{font-size:.9em;color:#606b78;margin-top:.35rem}
+.bsw42-references{font-size:.92em;line-height:1.55}
+
+/* Phase 2: responsive article framework refinements. */
+.bsw45-article .bsw45-tabs{border-color:var(--line)}.bsw45-article .bsw45-toc{border-radius:2px}.bsw45-article .bsw45-infobox{box-shadow:0 1px 2px rgba(0,0,0,.04)}@media(max-width:760px){.bsw45-article .bsw45-lead{display:block}.bsw45-article .bsw45-infobox{width:100%;max-width:100%}}
+
+/* BIGSHOR Phase 3 frontend editor controls */
+.bsw46-editor-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0}.bsw46-preview{background:#fff;border:1px solid #a2a9b1;padding:16px;margin:12px 0}.bsw46-save-state{font-size:13px}
+
+/* Phase 4 parser output */
+.bsw43-wikitable{border-collapse:collapse;width:100%;margin:1rem 0;background:#fff}.bsw43-wikitable th,.bsw43-wikitable td{border:1px solid #a2a9b1;padding:.55rem .7rem;text-align:left;vertical-align:top}.bsw43-wikitable th{background:#eaecf0}.bsw42-references{font-size:.92em;padding-left:2.5rem}.bsw42-references li{margin:.35rem 0}.bsw47-reference-list a{margin-left:.35rem}.bsw47-categories{border-top:1px solid #a2a9b1;margin-top:2rem;padding-top:.8rem;font-size:.9rem}.bsw47-categories a{margin:0 .2rem}article pre{overflow:auto;padding:1rem;background:#f8f9fa;border:1px solid #eaecf0;border-radius:4px}article blockquote{margin:1rem 0;padding:.25rem 1rem;border-left:4px solid #a2a9b1;background:#f8f9fa}
+
+
+/* Phase 5: reusable, typed infobox presentation */
+.bsw50-infobox{float:right;clear:right;width:min( min(100%, 22rem), 22rem);max-width:100%;margin:0 0 1.25rem 1.5rem;border-collapse:collapse;background:var(--bsw-surface,#fff);border:1px solid var(--bsw-border,#d8dee8);font-size:.94rem;line-height:1.45}
+.bsw50-infobox caption{caption-side:top;padding:.75rem .9rem;background:var(--bsw-navy,#102a43);color:#fff;font-weight:700;text-align:center}
+.bsw50-infobox th,.bsw50-infobox td{padding:.55rem .7rem;border-top:1px solid var(--bsw-border,#d8dee8);vertical-align:top;text-align:left}
+.bsw50-infobox th{width:38%;font-weight:650;background:rgba(16,42,67,.045)}
+.bsw50-infobox-image-row td{text-align:center;padding:.6rem}
+.bsw50-infobox-image{display:block;max-width:100%;height:auto;margin:0 auto;border-radius:3px}
+@media(max-width:700px){.bsw50-infobox{float:none;width:100%;margin:0 0 1rem}.bsw50-infobox th{width:40%}}
+@media print{.bsw50-infobox{float:right;break-inside:avoid;border:1px solid #777}}
+
+/* Phase 6 — child-theme refinements for structured references. */
+.bsw45-article .bsw6-references{background:var(--bsw-surface,#fff);padding:1rem 1.1rem;border:1px solid var(--bsw-border,#d8dee8);border-radius:4px}.bsw45-article .bsw6-references h2{margin-top:0}.bsw45-article .bsw6-references li{line-height:1.6}.bsw45-article .bsw6-citation a{font-weight:600}
+
+
+/* Phase 7 — child brand refinements for media cards */
+.bsw7-media-item{border-color:var(--bsw-border,#e5e9f0);border-radius:var(--bsw-radius-md,10px);box-shadow:0 3px 14px rgba(20,36,59,.035)}
+.bsw7-media-item figcaption strong{color:var(--bsw-brand-primary,#202122)}
+.bsw7-media-item figcaption small{color:var(--bsw-text-subtle,#788397)}
+.bsw7-download-link{color:var(--bsw-brand-link,#0645ad);background:var(--bsw-surface-soft,#f5f7fa)}
+
+/* Phases 8–10: article history, editorial review and quality indicators */
+.bsw-p8-history,.bsw-p9-governance,.bsw-p10-quality{margin:22px 0;padding:16px;border:1px solid var(--line,#d8dce2);border-radius:8px;background:var(--paper,#fff)}.bsw-p8-history li{padding:8px 0;border-bottom:1px solid var(--soft,#eaecf0)}.bsw-p10-quality ul{list-style:none;margin:12px 0;padding:0}.bsw-p10-quality li{padding:9px 0;border-bottom:1px solid var(--soft,#eaecf0)}.bsw-p10-quality small{display:block;color:var(--muted,#54595d);margin-left:24px}.bsw-p10-quality .pass{color:#16834a;font-weight:800}.bsw-p10-quality .needs{color:#a45b00;font-weight:800}.bsw-p10-meter{height:8px;background:#e5e7eb;border-radius:10px;overflow:hidden}.bsw-p10-meter span{display:block;height:100%;background:#315d89}@media(max-width:700px){.bsw-p8-history,.bsw-p10-quality{padding:12px}}
+
+/* Phase 8 — revision history presentation */
+.bsw-p8-history{margin:24px 0;padding:18px;border:1px solid var(--line,#d8dce2);border-radius:6px;background:var(--paper,#fff)}.bsw-p8-history li{padding:9px 0;border-bottom:1px solid var(--soft,#eaecf0)}
+
+/* Phase 9 — editorial governance status presentation */
+.bsw-p9-governance{margin:18px 0;padding:14px;border:1px solid var(--line,#d8dce2);border-left:4px solid #315d89;background:var(--paper,#fff)}.bsw-review-state{display:inline-block;padding:3px 8px;border-radius:4px;background:var(--soft,#eaecf0);font-size:12px;font-weight:700}
+
+/* Phase 10 — article quality intelligence presentation */
+.bsw-p10-quality{margin:22px 0;padding:16px;border:1px solid var(--line,#d8dce2);border-radius:8px;background:var(--paper,#fff)}.bsw-p10-quality ul{list-style:none;margin:12px 0;padding:0}.bsw-p10-quality li{padding:9px 0;border-bottom:1px solid var(--soft,#eaecf0)}.bsw-p10-quality small{display:block;color:var(--muted,#54595d);margin-left:24px}.bsw-p10-quality .pass{color:#16834a;font-weight:800}.bsw-p10-quality .needs{color:#a45b00;font-weight:800}.bsw-p10-meter{height:8px;background:#e5e7eb;border-radius:10px;overflow:hidden}.bsw-p10-meter span{display:block;height:100%;background:#315d89}@media(max-width:700px){.bsw-p8-history,.bsw-p10-quality{padding:12px}}
+
+
+/* BIGSHOR Phases 11–15: taxonomy navigation, search, talk and platform UI. */
+.bsw-knowledge-navigation ul{list-style:none;margin:.4rem 0;padding-left:1rem}.bsw-knowledge-navigation>ul{padding-left:0}.bsw-knowledge-navigation li{margin:.25rem 0}.bsw-knowledge-search{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin:1rem 0}.bsw-knowledge-search input[type=search]{flex:1 1 16rem;min-width:0}.bsw-knowledge-search input,.bsw-knowledge-search select,.bsw-knowledge-search button{min-height:2.65rem;padding:.55rem .75rem;border:1px solid #a2a9b1;border-radius:3px}.bsw-article-talk{margin:2rem 0;padding:1.25rem;border:1px solid #a2a9b1;border-radius:4px;background:#f8f9fa}.bsw-article-talk h2{margin-top:0}.bsw-article-talk .comment-list{padding-left:1.25rem}.bsw-article-talk textarea{max-width:100%}@media(max-width:600px){.bsw-knowledge-search{display:grid;grid-template-columns:1fr}.bsw-knowledge-search input,.bsw-knowledge-search select,.bsw-knowledge-search button{width:100%}}
+
+
+/* Phase 16: child theme brand polish while retaining encyclopaedia conventions. */
+:root{--bsw-brand-accent:#202122;--bsw-brand-link:#0645ad}
+.mw-brand strong{color:#202122}
+.mw-brand img{border-radius:0}
+.mw-appearance-toggle:hover,.mw-personal-tools a:hover{color:#0645ad}
+.mw-sidebar-section a:focus-visible,.mw-page-tabs a:focus-visible{outline:2px solid #0645ad;outline-offset:2px}
+
+
+/* Phase 51 — advanced wiki workflows */
+.bsw51-search{display:flex;flex-wrap:wrap;align-items:end;gap:10px;margin:1.25rem 0;padding:14px;background:#f8f9fa;border:1px solid #c8ccd1;border-radius:8px}
+.bsw51-search label{display:grid;gap:5px;font-size:13px;color:#54595d}
+.bsw51-search input,.bsw51-search select{min-height:40px;padding:8px 10px;border:1px solid #a2a9b1;border-radius:4px;background:#fff;color:#202122}
+.bsw51-search button,.bsw51-translation-editor button,.bsw51-media-versions button{min-height:40px;padding:8px 16px;border:1px solid #0645ad;border-radius:4px;background:#0645ad;color:#fff;font-weight:600;cursor:pointer}
+.bsw51-disambiguation{margin:1rem 0 1.5rem;padding:14px 18px;border:1px solid #a2a9b1;border-left:4px solid #72777d;background:#f8f9fa}
+.bsw51-disambiguation ul{margin:.5rem 0 0;padding-left:1.4rem}
+.bsw51-translation-editor{margin:1.5rem 0;overflow-x:auto}
+.bsw51-translation-editor table{width:100%;border-collapse:collapse}
+.bsw51-translation-editor th,.bsw51-translation-editor td{padding:10px;border:1px solid #c8ccd1;text-align:left;vertical-align:top}
+.bsw51-translation-editor textarea{width:100%;min-width:220px;min-height:88px;padding:8px;border:1px solid #a2a9b1;border-radius:4px}
+.bsw51-translation-editor input{max-width:100%;padding:8px;border:1px solid #a2a9b1;border-radius:4px}
+.bsw51-media-versions li{margin:12px 0;padding:10px;background:#f8f9fa;border:1px solid #c8ccd1}
+.bsw51-media-versions form{display:inline-block;margin-left:10px}
+.bsw51-exact-match{padding:10px 14px;background:#eaecf0;border-left:3px solid #0645ad}
+@media(max-width:700px){.bsw51-search{display:grid;grid-template-columns:1fr}.bsw51-search input,.bsw51-search select{width:100%}.bsw51-translation-editor td{min-width:240px}}
+
+/* Phase 68: child layer inherits responsive image sizing and account portal components. */
+.bsw-account-portal{container-type:inline-size}.bsw-account-portal a{text-underline-offset:3px}

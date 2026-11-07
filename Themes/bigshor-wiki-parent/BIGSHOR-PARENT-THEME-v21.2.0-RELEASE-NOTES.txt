@@ -1,0 +1,3 @@
+BIGSHOR Wiki Parent Theme 21.2.0
+- Version aligned with Core 30.4.0 release.
+- Existing layout, responsive templates and navigation retained.
