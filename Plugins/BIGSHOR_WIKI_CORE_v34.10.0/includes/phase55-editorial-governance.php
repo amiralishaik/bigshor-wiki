@@ -140,12 +140,13 @@ final class BSW_Phase55_Editorial_Governance {
     }
 
     public static function revision_visibility() {
-        if (!current_user_can('manage_options')) wp_die('Oversight permission required.',403);
         $revision_id=absint($_POST['revision_id']??0);
         check_admin_referer('bsw55_revision_'.$revision_id);
         $revision=wp_get_post_revision($revision_id);
         if (!$revision || get_post_type($revision->post_parent)!=='wiki_article') wp_die('Invalid revision.',404);
         $suppress=!empty($_POST['suppress']);
+        $required_capability=$suppress ? 'bsw_suppress_revisions' : 'bsw_unsuppress_revisions';
+        if (!current_user_can('manage_options') && !current_user_can($required_capability)) wp_die('Oversight permission required.',403);
         update_post_meta($revision_id,'_bsw55_suppressed',$suppress?'1':'0');
         update_post_meta($revision_id,'_bsw55_suppressed_by',$suppress?get_current_user_id():0);
         update_post_meta($revision_id,'_bsw55_suppressed_at',$suppress?current_time('mysql'):'');
@@ -155,7 +156,7 @@ final class BSW_Phase55_Editorial_Governance {
 
     public static function filter_suppressed_revision($post,$post_id) {
         if (!$post || !($post instanceof WP_Post) || $post->post_type!=='revision') return $post;
-        if (get_post_meta($post->ID,'_bsw55_suppressed',true)!=='1' || current_user_can('manage_options')) return $post;
+        if (get_post_meta($post->ID,'_bsw55_suppressed',true)!=='1' || current_user_can('manage_options') || current_user_can('bsw_view_suppressed_content')) return $post;
         $copy=clone $post;
         $copy->post_title='[Revision hidden by an oversight administrator]';
         $copy->post_content='';
