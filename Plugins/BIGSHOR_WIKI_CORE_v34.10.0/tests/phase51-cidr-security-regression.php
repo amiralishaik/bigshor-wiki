@@ -10,7 +10,7 @@ $checks = array(
     'ipv4_ipv6_binary_matching' => strpos($source, 'inet_pton($ip)') !== false && strpos($source, 'strlen($a)!==strlen($b)') !== false,
     'cidr_expiration_enforced' => strpos($source, '(int)$row[\'expires\']<time()') !== false,
     'encrypted_network_storage' => strpos($source, 'encrypt_network($network)') !== false && strpos($source, 'decrypt_network($row[\'network_enc\'])') !== false,
-    'network_hash_verified' => strpos($source, "hash_hmac('sha256',$network,wp_salt('auth'))") !== false,
+    'network_hash_verified' => strpos($source, 'hash_hmac(\'sha256\',$network,wp_salt(\'auth\'))') !== false,
 );
 $failed = 0;
 foreach ($checks as $name => $passed) {
