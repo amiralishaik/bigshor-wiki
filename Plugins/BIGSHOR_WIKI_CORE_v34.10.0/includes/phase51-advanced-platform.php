@@ -55,7 +55,7 @@ final class BSW_Phase51_Advanced_Platform {
 
     /* Revision suppression is reversible: revisions remain stored and oversight can reveal/restore them. */
     public static function filter_suppressed_revisions($children, $args) {
-        if (!is_array($children) || current_user_can('manage_options')) return $children;
+        if (!is_array($children) || current_user_can('manage_options') || current_user_can('bsw_view_suppressed_content')) return $children;
         foreach ($children as $id=>$revision) {
             if ($revision instanceof WP_Post && get_post_meta($revision->ID,'_bsw51_suppressed',true)) unset($children[$id]);
         }
