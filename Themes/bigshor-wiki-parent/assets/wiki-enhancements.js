@@ -72,6 +72,16 @@ document.addEventListener('DOMContentLoaded', function () {
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
       setOpen(false, true);
+      return;
+    }
+    if (event.key !== 'Tab' || !mobile.matches || button.getAttribute('aria-expanded') !== 'true') return;
+    var focusable = sidebar.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])');
+    if (!focusable.length) { event.preventDefault(); sidebar.focus(); return; }
+    var first = focusable[0], last = focusable[focusable.length - 1];
+    if (event.shiftKey && (document.activeElement === first || !sidebar.contains(document.activeElement))) {
+      event.preventDefault(); last.focus();
+    } else if (!event.shiftKey && (document.activeElement === last || !sidebar.contains(document.activeElement))) {
+      event.preventDefault(); first.focus();
     }
   });
   sidebar.addEventListener('click', function (event) {
