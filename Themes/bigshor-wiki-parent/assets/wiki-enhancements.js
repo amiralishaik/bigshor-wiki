@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var sidebar = document.getElementById('mw-sidebar');
   if (!button || !sidebar) return;
 
-  var mobile = window.matchMedia('(max-width: 650px)');
+  var mobile = window.matchMedia('(max-width: 900px)');
   function setOpen(open, restoreFocus) {
     sidebar.classList.toggle('is-open', open && mobile.matches);
     button.setAttribute('aria-expanded', open && mobile.matches ? 'true' : 'false');
