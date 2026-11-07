@@ -18,6 +18,7 @@ $checks = array(
     'accessible_sidebar_toggle' => strpos($header, 'aria-controls="mw-sidebar"') !== false && strpos($header, 'aria-expanded="false"') !== false,
     'desktop_tablet_primary_navigation' => strpos($header, 'class="mw-primary-navigation"') !== false && strpos($css, '.mw-primary-navigation{display:block') !== false,
     'mobile_drawer_keyboard_focus_trap' => strpos($js, "event.key !== 'Tab'") !== false && strpos($js, 'last.focus()') !== false && strpos($js, "event.key === 'Escape'") !== false,
+    'tablet_drawer_breakpoint_matches_styles' => strpos($js, "matchMedia('(max-width: 900px)')") !== false && strpos($css, '@media (max-width: 900px) {\n  body.mw-sidebar-open') !== false,
     'fallback_navigation_has_navy_styles' => strpos($css, '.mw-primary-navigation .side-nav') !== false,
     'phase70_media_optimizer_is_bootstrapped' => strpos($core, "'phase70-media-optimizer.php'") !== false,
     'accessible_appearance_panel' => strpos($header, 'id="mw-appearance-panel"') !== false && strpos($header, 'hidden') !== false,
