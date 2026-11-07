@@ -15,7 +15,7 @@ $checks = array(
     'accessible_sidebar_toggle' => strpos($header, 'aria-controls="mw-sidebar"') !== false && strpos($header, 'aria-expanded="false"') !== false,
     'accessible_appearance_panel' => strpos($header, 'id="mw-appearance-panel"') !== false && strpos($header, 'hidden') !== false,
     'child_styles_load_after_parent_core_css' => strpos($child, "array('bigshor-wiki-core')") !== false,
-    'admin_ui_requires_core' => strpos($admin, "if (!defined('BSW_CORE_PLUGIN_VERSION'))") !== false,
+    'admin_ui_enforces_supported_core_version' => strpos($admin, "version_compare(BSW_CORE_PLUGIN_VERSION, '34.2.0', '<')") !== false,
     'article_studio_requires_supported_core' => strpos($studio, "version_compare(BSW_CORE_PLUGIN_VERSION, '34.2.0', '<')") !== false,
 );
 $failed = 0;
