@@ -9,7 +9,7 @@ $studio = file_get_contents($root . '/Plugins/bigshor-wiki-article-studio/bigsho
 $checks = array(
     'single_authoritative_search_hook' => substr_count($parent, "add_action('pre_get_posts', 'bsw_theme_search_post_types'") === 1,
     'search_includes_all_wiki_content' => strpos($parent, "'wiki_article', 'wiki_entity', 'wiki_media', 'bsw_news'") !== false,
-    'search_respects_explicit_post_type' => strpos($parent, "|| $query->get('post_type')") !== false,
+    'search_respects_explicit_post_type' => strpos($parent, "|| \$query->get('post_type')") !== false,
     'legacy_search_override_removed' => strpos($parent, 'bsw_theme_v18_search_filter') === false,
     'theme_fallback_skips_active_core' => strpos($parent, "if (defined('BSW_CORE_PLUGIN_ACTIVE') && BSW_CORE_PLUGIN_ACTIVE) return;") !== false,
     'accessible_sidebar_toggle' => strpos($header, 'aria-controls="mw-sidebar"') !== false && strpos($header, 'aria-expanded="false"') !== false,
