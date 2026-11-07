@@ -4,6 +4,8 @@ $root = dirname(__DIR__, 3);
 $parent = file_get_contents($root . '/Themes/bigshor-wiki-parent/functions.php');
 $header = file_get_contents($root . '/Themes/bigshor-wiki-parent/header.php');
 $css = file_get_contents($root . '/Themes/bigshor-wiki-parent/assets/wiki-core.css');
+$js = file_get_contents($root . '/Themes/bigshor-wiki-parent/assets/wiki-enhancements.js');
+$core = file_get_contents($root . '/Plugins/BIGSHOR_WIKI_CORE_v34.10.0/bigshor-wiki-core.php');
 $child = file_get_contents($root . '/Themes/bigshor-wiki-child/functions.php');
 $admin = file_get_contents($root . '/Plugins/bigshor-wiki-admin-ui/bigshor-wiki-admin-ui.php');
 $studio = file_get_contents($root . '/Plugins/bigshor-wiki-article-studio/bigshor-wiki-article-studio.php');
@@ -15,6 +17,9 @@ $checks = array(
     'theme_fallback_skips_active_core' => strpos($parent, "if (defined('BSW_CORE_PLUGIN_ACTIVE') && BSW_CORE_PLUGIN_ACTIVE) return;") !== false,
     'accessible_sidebar_toggle' => strpos($header, 'aria-controls="mw-sidebar"') !== false && strpos($header, 'aria-expanded="false"') !== false,
     'desktop_tablet_primary_navigation' => strpos($header, 'class="mw-primary-navigation"') !== false && strpos($css, '.mw-primary-navigation{display:block') !== false,
+    'mobile_drawer_keyboard_focus_trap' => strpos($js, "event.key !== 'Tab'") !== false && strpos($js, 'last.focus()') !== false && strpos($js, "event.key === 'Escape'") !== false,
+    'fallback_navigation_has_navy_styles' => strpos($css, '.mw-primary-navigation .side-nav') !== false,
+    'phase70_media_optimizer_is_bootstrapped' => strpos($core, "'phase70-media-optimizer.php'") !== false,
     'accessible_appearance_panel' => strpos($header, 'id="mw-appearance-panel"') !== false && strpos($header, 'hidden') !== false,
     'child_styles_load_after_parent_core_css' => strpos($child, "array('bigshor-wiki-core')") !== false,
     'admin_ui_enforces_supported_core_version' => strpos($admin, "version_compare(BSW_CORE_PLUGIN_VERSION, '34.2.0', '<')") !== false,
