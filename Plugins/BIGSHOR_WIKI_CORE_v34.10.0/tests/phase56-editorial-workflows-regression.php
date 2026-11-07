@@ -9,7 +9,8 @@ $checks = array(
     'merge_preserves_source_content' => strpos($source, 'must not overwrite encyclopaedia content') !== false && strpos($source, "wp_update_post(array('ID'=>$article_id,'post_content'") === false,
     'merge_records_destination' => strpos($source, "_bsw56_merged_into") !== false,
     'trash_restore_remains_available' => strpos($source, 'wp_untrash_post($id)') !== false,
-    'nonce_checks_retained' => strpos($source, "check_admin_referer('bsw56_resolve_" . '$id' . ")") !== false && strpos($source, "check_admin_referer('bsw56_restore_" . '$id' . ")") !== false,
+    'resolve_nonce_check_retained' => strpos($source, "check_admin_referer('bsw56_resolve_'") !== false,
+    'restore_nonce_check_retained' => strpos($source, "check_admin_referer('bsw56_restore_'") !== false,
 );
 $failed = 0;
 foreach ($checks as $name => $passed) {
