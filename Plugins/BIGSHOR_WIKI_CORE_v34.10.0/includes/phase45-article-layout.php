@@ -87,10 +87,12 @@ final class BSW_Phase45_Article_Layout {
         return '<nav class="bsw45-toc" aria-labelledby="bsw45-toc-title-'.(int)$post_id.'"><div class="bsw45-toc-title"><strong id="bsw45-toc-title-'.(int)$post_id.'">Contents</strong><button type="button" class="bsw45-toc-toggle" aria-expanded="true" aria-controls="bsw45-toc-body-'.(int)$post_id.'">hide</button></div><div class="bsw45-toc-body" id="bsw45-toc-body-'.(int)$post_id.'">'.self::toc_nodes($tree, $post_id).'</div></nav>';
     }
     private static function headings($content) {
-        $items=array(); $n=0;
-        $content=preg_replace_callback('/<h([2-6])\b([^>]*)>(.*?)<\/h\1>/is',function($m) use (&$items,&$n){
+        $items=array(); $seen=array();
+        $content=preg_replace_callback('/<h([2-6])\\b([^>]*)>(.*?)<\\/h\\1>/is',function($m) use (&$items,&$seen){
             $title=trim(wp_strip_all_tags($m[3])); if($title==='') return $m[0];
-            $n++; $id='bsw45-section-'.$n; $items[]=array('index'=>count($items),'level'=>(int)$m[1],'title'=>$title,'id'=>$id);
+            $base='bsw-section-'.(function_exists('sanitize_title')?sanitize_title($title):sanitize_key($title)); if($base==='bsw-section-') $base='bsw-section-heading';
+            $id=$base; $suffix=2; while(isset($seen[$id])) { $id=$base.'-'.$suffix; $suffix++; } $seen[$id]=true;
+            $items[]=array('index'=>count($items),'level'=>(int)$m[1],'title'=>$title,'id'=>$id);
             $attrs=preg_replace('/\s+id\s*=\s*("[^"]*"|\'[^\']*\'|[^\s>]+)/i','',$m[2]);
             return '<h'.(int)$m[1].$attrs.' id="'.esc_attr($id).'">'.$m[3].'<a class="bsw45-section-anchor" href="#'.esc_attr($id).'" aria-label="Link to '.esc_attr($title).'">¶</a></h'.(int)$m[1].'>';
         },$content);
