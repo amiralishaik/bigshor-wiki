@@ -1,0 +1,16 @@
+BIGSHOR WIKI CORE v34.11.0 — RELEASE NOTES
+
+Article Studio v1.4.0 is now integrated as a native BIGSHOR WIKI Core module.
+- Added includes/article-studio.php to the Core bootstrap.
+- Moved Article Studio CSS and JavaScript into Core assets.
+- Preserved visual editing, wiki-source editing, article publishing, autosave/recovery,
+  references, infoboxes, comments, suggestions, review assignments and activity history.
+- Kept the existing Article Studio admin route and article edit redirects.
+- Removed the standalone editor implementation and legacy plugin assets.
+- Retained a small migration stub that automatically deactivates when Core is active.
+- BIGSHOR WIKI Admin UI remains a separate plugin and was not changed.
+- Added static regression coverage and CI execution for the Core integration.
+
+Upgrade note: update BIGSHOR WIKI Core to v34.11.0. The old Article Studio plugin
+stub will deactivate itself after Core is loaded. No content migration is required;
+existing article data and metadata keys are preserved.
