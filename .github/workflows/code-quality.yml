@@ -1,4 +1,5 @@
 name: BIGSHOR WIKI code quality
+# Article Studio editor checks run against the Core-bundled assets.
 
 on:
   push:
