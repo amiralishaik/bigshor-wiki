@@ -16,13 +16,26 @@ while ( have_posts() ) : the_post();
 </header>
 <div class="bsw-article-language-row">
   <span>BIGSHOR Wiki article</span>
-  <span class="bsw-article-page-meta">Article · <a href="<?php echo esc_url( add_query_arg( 'bsw_history', 1, get_permalink( $article_id ) ) ); ?>">Revision history</a></span>
+  <span class="bsw-article-page-meta">Article · <a href="<?php echo esc_url( $history_url ); ?>">Revision history</a></span>
 </div>
+<nav class="bsw-page-tools" aria-label="Article tools">
+  <a href="<?php echo esc_url( get_permalink( $article_id ) ); ?>" aria-current="page">Read</a>
+  <?php if ( current_user_can( 'edit_post', $article_id ) ) : ?>
+    <a href="<?php echo esc_url( $edit_url ); ?>">Edit</a>
+  <?php endif; ?>
+  <a href="<?php echo esc_url( $history_url ); ?>">View history</a>
+  <a href="#comments">Talk</a>
+  <button type="button" data-bsw-copy-link>Copy link</button>
+  <button type="button" onclick="window.print();return false;">Print</button>
+</nav>
 <div class="bsw-reading-progress" aria-hidden="true"><span></span></div>
 <article id="article-content" <?php post_class( 'article-body bsw-article-content' ); ?>>
   <?php the_content(); wp_link_pages( array( 'before' => '<nav class="bsw-page-links" aria-label="Article pages">Pages: ', 'after' => '</nav>' ) ); ?>
 </article>
-<div class="bsw-article-bottom-meta"><div><strong>Topics:</strong> <?php echo $terms ? wp_kses_post( $terms ) : esc_html__( 'Not yet categorised', 'bigshor-wiki' ); ?></div><div>First published <?php echo esc_html( get_the_date() ); ?> · Last updated <?php echo esc_html( get_the_modified_date() ); ?></div></div>
+<section class="bsw-article-bottom-meta" aria-label="Article metadata">
+  <div class="bsw-article-topics"><strong>Topics:</strong> <?php echo $terms ? wp_kses_post( $terms ) : esc_html__( 'Not yet categorised', 'bigshor-wiki' ); ?></div>
+  <div class="bsw-article-dates">First published <?php echo esc_html( get_the_date() ); ?> · Last updated <?php echo esc_html( get_the_modified_date() ); ?></div>
+</section>
 <?php if ( ! function_exists( 'bsw_theme_get_settings' ) || ( bsw_theme_get_settings()['show_related'] ?? '1' ) === '1' ) : ?>
 <section class="bsw-related-section"><h2>Related articles</h2><?php echo do_shortcode( '[bigshor_wiki_related limit="5"]' ); ?></section>
 <?php endif; ?>
