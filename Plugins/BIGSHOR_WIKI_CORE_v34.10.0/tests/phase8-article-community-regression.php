@@ -8,7 +8,7 @@ $checks=array(
  'discussion_topic_submission_is_authenticated'=>strpos($source,"admin_post_bsw_p8_talk")!==false&&strpos($source,'is_user_logged_in()')!==false,
  'discussion_submission_uses_nonce_and_honeypot'=>strpos($source,'check_admin_referer(\'bsw_p8_talk_\'.$id)')!==false&&strpos($source,'website')!==false,
  'discussion_topic_is_bound_to_article'=>strpos($source,"'_bsw_talk_article'")!==false,
- 'replies_use_wordpress_comment_system'=>strpos($source,'get_comment_form(')!==false&&strpos($source,'get_comments(')!==false,
+ 'replies_use_wordpress_comment_system'=>strpos($source,'comment_form(')!==false&&strpos($source,'ob_get_clean()')!==false&&strpos($source,'get_comments(')!==false,
  'community_ui_is_appended_to_article'=>strpos($source,'append_community')!==false&&strpos($source,'bsw-article-discussion')!==false
 );
 $failed=0;foreach($checks as $name=>$ok){echo ($ok?'PASS':'FAIL').' '.$name.PHP_EOL;if(!$ok)$failed++;}
