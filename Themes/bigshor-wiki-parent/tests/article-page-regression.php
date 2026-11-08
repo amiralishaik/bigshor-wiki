@@ -8,7 +8,7 @@ $checks = array(
     'copy_link_control_uses_theme_handler' => strpos($source, 'data-bsw-copy-link') !== false,
     'print_action_available' => strpos($source, 'window.print()') !== false,
     'edit_action_permission_gated' => strpos($source, "current_user_can( 'edit_post', \$article_id )") !== false,
-    'revision_history_link' => strpos($source, '\$history_url') !== false,
+    'revision_history_link' => strpos($source, '$history_url') !== false,
     'topic_taxonomy_preserved' => strpos($source, "'wiki_topic'") !== false,
     'talk_anchor_preserved' => strpos($source, 'href="#comments"') !== false,
 );
