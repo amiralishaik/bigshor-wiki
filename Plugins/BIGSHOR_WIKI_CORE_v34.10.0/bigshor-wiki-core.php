@@ -310,3 +310,7 @@ if (is_readable($bsw_phase69_path)) require_once $bsw_phase69_path;
 // Phase 70: automatic upload-time AVIF/WebP sidecar generation; originals are preserved.
 $bsw_phase70_path = $bsw_core_dir . 'phase70-media-optimizer.php';
 if (is_readable($bsw_phase70_path)) require_once $bsw_phase70_path;
+
+// Native Tools Hub: curated third-party resources inside BIGSHOR Control Centre.
+$bsw_tools_hub_path = $bsw_core_dir . 'tools-hub.php';
+if (is_readable($bsw_tools_hub_path)) require_once $bsw_tools_hub_path;
