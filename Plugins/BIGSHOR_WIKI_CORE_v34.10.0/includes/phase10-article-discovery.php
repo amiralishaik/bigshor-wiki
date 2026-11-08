@@ -30,6 +30,9 @@ final class BSW_Phase10_Article_Discovery {
 
     private static function search_ids($term) {
         if (strlen($term) < 2) return array();
+        $cache_key = class_exists('BSW_Phase11_Article_Hardening') ? BSW_Phase11_Article_Hardening::cache_key('search', $term) : 'bsw_p10_search_' . md5($term);
+        $cached = get_transient($cache_key);
+        if (is_array($cached)) return $cached;
         $ids = get_posts(array(
             'post_type'=>'wiki_article', 'post_status'=>'publish', 's'=>$term,
             'posts_per_page'=>100, 'fields'=>'ids', 'no_found_rows'=>true,
@@ -44,9 +47,11 @@ final class BSW_Phase10_Article_Discovery {
             'orderby'=>'title', 'order'=>'ASC'
         ));
         $combined = array_values(array_unique(array_merge(array_map('absint',(array)$ids),array_map('absint',(array)$alias_ids))));
-        return array_values(array_filter($combined, function($id) {
+        $result = array_values(array_filter($combined, function($id) {
             return $id && get_post_type($id)==='wiki_article' && get_post_status($id)==='publish';
         }));
+        set_transient($cache_key, $result, 10 * MINUTE_IN_SECONDS);
+        return $result;
     }
 
     public static function search_shortcode($atts=array()) {
@@ -87,20 +92,30 @@ final class BSW_Phase10_Article_Discovery {
 
     private static function related_articles($post_id,$term_ids) {
         if (!$term_ids) return array();
+        $term_ids = array_values(array_unique(array_map('absint', $term_ids)));
+        sort($term_ids);
+        $cache_key = class_exists('BSW_Phase11_Article_Hardening') ? BSW_Phase11_Article_Hardening::cache_key('related', (int)$post_id . '|' . implode(',', $term_ids)) : '';
+        $cached = $cache_key ? get_transient($cache_key) : false;
+        if (is_array($cached)) return $cached ? get_posts(array('post_type'=>'wiki_article','post_status'=>'publish','post__in'=>$cached,'orderby'=>'post__in','posts_per_page'=>6)) : array();
         $query = new WP_Query(array(
-            'post_type'=>'wiki_article','post_status'=>'publish','posts_per_page'=>6,
+            'post_type'=>'wiki_article','post_status'=>'publish','posts_per_page'=>6,'fields'=>'ids',
             'post__not_in'=>array((int)$post_id),'tax_query'=>array(array(
                 'taxonomy'=>'wiki_topic','field'=>'term_id','terms'=>$term_ids,'operator'=>'IN'
             )),
             'orderby'=>'modified','order'=>'DESC','no_found_rows'=>true
         ));
-        return $query->posts;
+        $ids = array_map('absint', $query->posts);
+        if ($cache_key) set_transient($cache_key, $ids, 10 * MINUTE_IN_SECONDS);
+        return $ids ? get_posts(array('post_type'=>'wiki_article','post_status'=>'publish','post__in'=>$ids,'orderby'=>'post__in','posts_per_page'=>6)) : array();
     }
 
     private static function backlinks($post_id) {
         global $wpdb;
         $url = get_permalink($post_id);
         if (!$url) return array();
+        $cache_key = class_exists('BSW_Phase11_Article_Hardening') ? BSW_Phase11_Article_Hardening::cache_key('backlinks', (int)$post_id . '|' . $url) : '';
+        $cached = $cache_key ? get_transient($cache_key) : false;
+        if (is_array($cached)) return $cached;
         $like = '%'.$wpdb->esc_like($url).'%';
         $ids = $wpdb->get_col($wpdb->prepare(
             "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status = %s AND ID != %d AND post_content LIKE %s ORDER BY post_modified_gmt DESC LIMIT 30",
@@ -112,6 +127,7 @@ final class BSW_Phase10_Article_Discovery {
             if (strpos($content,$url)!==false) $matches[]=(int)$id;
             if (count($matches)>=6) break;
         }
+        if ($cache_key) set_transient($cache_key, $matches, 10 * MINUTE_IN_SECONDS);
         return $matches;
     }
 
