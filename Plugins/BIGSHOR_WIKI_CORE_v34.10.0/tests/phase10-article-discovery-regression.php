@@ -4,7 +4,7 @@ $source = file_get_contents(dirname(__DIR__) . '/includes/phase10-article-discov
 $checks = array(
     'article_discovery_module_boots' => strpos($source, "BSW_Phase10_Article_Discovery::init()") !== false,
     'reusable_search_shortcode_registered' => strpos($source, "add_shortcode('bsw_article_search'") !== false,
-    'searches_published_article_titles_and_content' => strpos($source, "'post_type'=>'wiki_article', 'post_status'=>'publish', 's'=>$term") !== false,
+    'searches_published_article_titles_and_content' => strpos($source, "'post_type'=>'wiki_article', 'post_status'=>'publish', 's'=>\$term") !== false,
     'search_includes_editorial_alternative_names' => strpos($source, "'key'=>'_bsw_p9_aliases'") !== false && strpos($source, "'compare'=>'LIKE'") !== false,
     'search_input_is_bounded_and_minimum_length_checked' => strpos($source, "return mb_substr(\$value, 0, 100)") !== false && strpos($source, "strlen(\$term)<2") !== false,
     'search_results_are_public_only' => strpos($source, "get_post_status(\$id)==='publish'") !== false,
