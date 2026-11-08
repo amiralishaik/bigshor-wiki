@@ -8,7 +8,8 @@ $js = file_get_contents($root . '/Themes/bigshor-wiki-parent/assets/wiki-enhance
 $core = file_get_contents($root . '/Plugins/BIGSHOR_WIKI_CORE_v34.10.0/bigshor-wiki-core.php');
 $child = file_get_contents($root . '/Themes/bigshor-wiki-child/functions.php');
 $admin = file_get_contents($root . '/Plugins/bigshor-wiki-admin-ui/bigshor-wiki-admin-ui.php');
-$studio = file_get_contents($root . '/Plugins/bigshor-wiki-article-studio/bigshor-wiki-article-studio.php');
+$core_article_studio = file_get_contents($root . '/Plugins/BIGSHOR_WIKI_CORE_v34.10.0/includes/article-studio.php');
+$standalone_studio = $root . '/Plugins/bigshor-wiki-article-studio/bigshor-wiki-article-studio.php';
 $performance = file_get_contents($root . '/Themes/bigshor-wiki-parent/inc/performance-optimizations.php');
 $checks = array(
     'single_authoritative_search_hook' => substr_count($parent, "add_action('pre_get_posts', 'bsw_theme_search_post_types'") === 1,
@@ -25,8 +26,8 @@ $checks = array(
     'accessible_appearance_panel' => strpos($header, 'id="mw-appearance-panel"') !== false && strpos($header, 'hidden') !== false,
     'child_styles_load_after_parent_core_css' => strpos($child, "array('bigshor-wiki-core')") !== false,
     'admin_ui_enforces_supported_core_version' => strpos($admin, "version_compare(BSW_CORE_PLUGIN_VERSION, '34.2.0', '<')") !== false,
-    'article_studio_requires_supported_core' => strpos($studio, "version_compare(BSW_CORE_PLUGIN_VERSION, '34.2.0', '<')") !== false,
-    'article_studio_release_version_aligned' => strpos($studio, 'Version: 1.4.0') !== false && strpos($studio, "define('BSW_STUDIO_VERSION', '1.4.0')") !== false,
+    'article_studio_is_integrated_into_core' => strpos($core, "'article-studio.php'") !== false && strpos($core_article_studio, 'class BSW_Article_Studio') !== false,
+    'standalone_article_studio_plugin_removed' => !file_exists($standalone_studio),
     'performance_module_loaded' => strpos($parent, "'/inc/performance-optimizations.php'") !== false,
     'anonymous_dashicons_and_embed_removed' => strpos($performance, "wp_dequeue_style('dashicons')") !== false && strpos($performance, "wp_deregister_script('wp-embed')") !== false,
     'emoji_payloads_disabled_on_frontend' => strpos($performance, "remove_action('wp_head', 'print_emoji_detection_script', 7)") !== false,
