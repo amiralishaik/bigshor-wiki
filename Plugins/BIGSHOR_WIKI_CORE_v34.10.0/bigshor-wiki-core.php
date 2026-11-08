@@ -2,7 +2,7 @@
 /*
 Plugin Name: BIGSHOR Wiki Core
 Description: Independent content and community engine for BIGSHOR Wiki. Keeps wiki data and workflows active independently of the theme.
-Version: 34.11.0
+Version: 34.12.0
 Author: BIGSHOR
 Requires at least: 6.4
 Requires PHP: 7.4
@@ -10,7 +10,7 @@ License: GPL-2.0-or-later
 */
 if (!defined('ABSPATH')) exit;
 if (!defined('BSW_CORE_PLUGIN_ACTIVE')) define('BSW_CORE_PLUGIN_ACTIVE', true);
-if (!defined('BSW_CORE_PLUGIN_VERSION')) define('BSW_CORE_PLUGIN_VERSION', '34.11.0');
+if (!defined('BSW_CORE_PLUGIN_VERSION')) define('BSW_CORE_PLUGIN_VERSION', '34.12.0');
 $bsw_core_dir = plugin_dir_path(__FILE__) . 'includes/';
 
 /*
@@ -193,6 +193,14 @@ if (is_readable($bsw_article_phase9_path)) require_once $bsw_article_phase9_path
 // Article-page Phase 10: search, topic discovery, related articles and backlinks.
 $bsw_article_phase10_path = $bsw_core_dir . 'phase10-article-discovery.php';
 if (is_readable($bsw_article_phase10_path)) require_once $bsw_article_phase10_path;
+
+// Article-page Phase 11: bounded discovery caching, invalidation and media hardening.
+$bsw_article_phase11_path = $bsw_core_dir . 'phase11-article-hardening.php';
+if (is_readable($bsw_article_phase11_path)) require_once $bsw_article_phase11_path;
+
+// Article-page Phase 12: read-only final integration and release readiness checks.
+$bsw_article_phase12_path = $bsw_core_dir . 'phase12-article-release-integration.php';
+if (is_readable($bsw_article_phase12_path)) require_once $bsw_article_phase12_path;
 
 // Phase 3: frontend editor framework enhancements (preview, recovery, summaries).
 $bsw_phase46_path = $bsw_core_dir . 'phase46-frontend-editor.php';
