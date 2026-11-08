@@ -10,7 +10,7 @@ $checks=array(
  'restore_uses_native_revision_api'=>strpos($source,'wp_restore_post_revision(')!==false,
  'restore_and_compare_check_nonce_and_capability'=>strpos($source,'wp_verify_nonce($nonce')!==false && strpos($source,"current_user_can('edit_post',$id)")!==false,
  'revision_must_belong_to_target_article'=>strpos($source,'(int)$r->post_parent!==$id')!==false,
- 'restore_preserves_history_as_new_revision'=>strpos($source,'restoring creates a new revision')!==false,
+ 'restore_preserves_history_as_new_revision'=>strpos($source,'Restoring creates a new revision')!==false,
  'public_history_requires_read_permission'=>strpos($source,"current_user_can('read_post',$id)")!==false
 );
 $failed=0;foreach($checks as $name=>$ok){echo ($ok?'PASS':'FAIL').' '.$name.PHP_EOL;if(!$ok)$failed++;}
