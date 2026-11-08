@@ -8,7 +8,7 @@
 if (!defined('ABSPATH')) exit;
 if (!class_exists('BSW_Phase63_Production_Readiness')) {
 final class BSW_Phase63_Production_Readiness {
-    const VERSION = '34.3.0';
+    const VERSION = '34.12.0';
     const REPORT_OPTION = 'bsw_p63_last_preflight_report';
     const MAX_ARTICLES = 500;
 
@@ -109,7 +109,7 @@ final class BSW_Phase63_Production_Readiness {
         $checks[] = self::check('php_version', 'PHP version', self::version_at_least(PHP_VERSION, '7.4') ? 'pass' : 'fail', 'Detected PHP ' . PHP_VERSION . '; minimum supported version is 7.4.', true);
         $checks[] = self::check('https', 'HTTPS site URL', is_ssl() ? 'pass' : 'warning', is_ssl() ? 'The current request is using HTTPS.' : 'The current request is not HTTPS; verify the canonical site URL and reverse-proxy configuration.');
         $checks[] = self::check('core_loaded', 'BIGSHOR Core loaded', defined('BSW_CORE_PLUGIN_ACTIVE') && BSW_CORE_PLUGIN_ACTIVE ? 'pass' : 'fail', defined('BSW_CORE_PLUGIN_ACTIVE') ? 'Core bootstrap constant is present.' : 'Core bootstrap constant is missing.', true);
-        $checks[] = self::check('core_version', 'Core release version', defined('BSW_CORE_PLUGIN_VERSION') && BSW_CORE_PLUGIN_VERSION === self::VERSION ? 'pass' : 'warning', 'Loaded Core version: ' . (defined('BSW_CORE_PLUGIN_VERSION') ? BSW_CORE_PLUGIN_VERSION : 'unknown') . '; expected 34.3.0.');
+        $checks[] = self::check('core_version', 'Core release version', defined('BSW_CORE_PLUGIN_VERSION') && BSW_CORE_PLUGIN_VERSION === self::VERSION ? 'pass' : 'warning', 'Loaded Core version: ' . (defined('BSW_CORE_PLUGIN_VERSION') ? BSW_CORE_PLUGIN_VERSION : 'unknown') . '; expected ' . self::VERSION . '. ');
         $checks[] = self::check('schema_version', 'Database schema marker', get_option('bsw_core_schema_version') === (defined('BSW_CORE_PLUGIN_VERSION') ? BSW_CORE_PLUGIN_VERSION : '') ? 'pass' : 'warning', 'Schema marker: ' . (string)get_option('bsw_core_schema_version', 'not recorded') . '. Re-activate the plugin if the schema marker is outdated.');
         $checks[] = self::check('wiki_type', 'Wiki article content type', post_type_exists('wiki_article') ? 'pass' : 'fail', post_type_exists('wiki_article') ? 'wiki_article is registered.' : 'wiki_article is not registered.', true);
         $db_ok = isset($wpdb) && $wpdb->get_var('SELECT 1') == 1;
