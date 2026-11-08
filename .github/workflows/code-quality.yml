@@ -75,6 +75,8 @@ jobs:
           php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/phase5-knowledge-navigation-regression.php
           php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/phase6-article-quality-regression.php
           php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/phase7-revision-history-regression.php
+          php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/phase8-article-community-regression.php
+          php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/phase9-advanced-article-regression.php
           php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/phase6-citation-management-regression.php
           php Themes/bigshor-wiki-parent/tests/article-page-regression.php
 
