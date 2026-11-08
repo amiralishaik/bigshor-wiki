@@ -59,6 +59,11 @@ final class BSW_Phase8_Article_Community {
         update_user_meta(get_current_user_id(),'_bsw_p8_last_topic',time());
         wp_safe_redirect(get_permalink($id).'#bsw-talk-topic-'.(int)$topic);exit;
     }
+    private static function comment_form_html($topic_id) {
+        ob_start();
+        comment_form(array('title_reply'=>'Add a reply','label_submit'=>'Post reply','logged_in_as'=>'','comment_notes_before'=>'','comment_notes_after'=>''),$topic_id);
+        return (string)ob_get_clean();
+    }
     private static function discussions($article_id) {
         $q=new WP_Query(array('post_type'=>'wiki_talk','post_status'=>'publish','posts_per_page'=>40,'meta_key'=>'_bsw_talk_article','meta_value'=>(string)$article_id,'orderby'=>'date','order'=>'ASC','no_found_rows'=>true));
         $out='<section class="bsw-p8-discussions" aria-labelledby="bsw-p8-discussions-title"><h2 id="bsw-p8-discussions-title">Discussion topics</h2>';
@@ -69,7 +74,7 @@ final class BSW_Phase8_Article_Community {
             $out.='<div class="bsw-p8-replies"><h4>Replies</h4>';
             if($comments)$out.=wp_list_comments(array('style'=>'ol','short_ping'=>true,'echo'=>false),$comments);
             else $out.='<p>No replies yet.</p>';
-            if(is_user_logged_in()&&comments_open($tid))$out.=get_comment_form(array('title_reply'=>'Add a reply','label_submit'=>'Post reply','logged_in_as'=>'','comment_notes_before'=>'','comment_notes_after'=>''),$tid);
+            if(is_user_logged_in()&&comments_open($tid))$out.=self::comment_form_html($tid);
             elseif(!is_user_logged_in())$out.='<p><a href="'.esc_url(wp_login_url(get_permalink($article_id))).'">Sign in</a> to reply.</p>';
             $out.='</div></article>';
         }
