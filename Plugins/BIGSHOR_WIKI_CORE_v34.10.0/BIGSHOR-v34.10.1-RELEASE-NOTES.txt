@@ -1,0 +1,9 @@
+BIGSHOR WIKI CORE v34.10.1
+Native Tools Hub integration
+
+- Added a curated Tools Hub directly inside BIGSHOR Wiki Core.
+- Added category, keyword and free/freemium filters.
+- Added official provider links for research, SEO, writing, media, security, accessibility, analytics and development.
+- Registered Tools Hub under BIGSHOR Control Centre; no separate plugin is required.
+- Directory is read-only and administrator-only; third-party services remain external.
+- No database migration or external API dependency is introduced.
