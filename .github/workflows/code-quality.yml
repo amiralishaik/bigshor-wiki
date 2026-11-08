@@ -78,12 +78,14 @@ jobs:
           php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/phase8-article-community-regression.php
           php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/phase9-advanced-article-regression.php
           php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/phase10-article-discovery-regression.php
+          php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/phase11-article-hardening-regression.php
+          php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/phase12-article-release-regression.php
           php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/phase6-citation-management-regression.php
           php Themes/bigshor-wiki-parent/tests/article-page-regression.php
 
 
   package-core:
-    name: Package BIGSHOR WIKI Core v34.11.0
+    name: Package BIGSHOR WIKI Core v34.12.0
     runs-on: ubuntu-latest
     needs: php-quality
     steps:
@@ -95,12 +97,12 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p dist
-          zip -r dist/BIGSHOR_WIKI_CORE_v34.11.0.zip Plugins/BIGSHOR_WIKI_CORE_v34.10.0
+          zip -r dist/BIGSHOR_WIKI_CORE_v34.12.0.zip Plugins/BIGSHOR_WIKI_CORE_v34.10.0
 
       - name: Upload Core ZIP
         uses: actions/upload-artifact@v4
         with:
-          name: BIGSHOR_WIKI_CORE_v34.11.0
-          path: dist/BIGSHOR_WIKI_CORE_v34.11.0.zip
+          name: BIGSHOR_WIKI_CORE_v34.12.0
+          path: dist/BIGSHOR_WIKI_CORE_v34.12.0.zip
           if-no-files-found: error
           retention-days: 14
