@@ -4,7 +4,7 @@ $root = dirname(__DIR__);
 $main = file_get_contents($root . '/bigshor-wiki-core.php');
 $module = file_get_contents($root . '/includes/tools-hub.php');
 $checks = array(
-    'release_version_matches_current_core' => strpos($main, 'Version: 34.11.0') !== false && strpos($main, "BSW_CORE_PLUGIN_VERSION', '34.11.0'") !== false,
+    'release_version_matches_current_core' => strpos($main, 'Version: 34.12.0') !== false && strpos($main, "BSW_CORE_PLUGIN_VERSION', '34.12.0'") !== false,
     'module_bootstrap' => strpos($main, "tools-hub.php") !== false,
     'control_centre_parent' => strpos($module, "'bsw-control-centre'") !== false,
     'administrator_only' => strpos($module, "current_user_can('manage_options')") !== false,
