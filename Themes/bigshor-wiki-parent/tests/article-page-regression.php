@@ -12,7 +12,7 @@ $checks = array(
     'copy_link_control_uses_theme_handler' => strpos($source, 'data-bsw-copy-link') !== false && strpos($js, 'function setupCopyLinks()') !== false,
     'copy_link_has_legacy_browser_fallback' => strpos($js, "doc.execCommand('copy')") !== false,
     'print_control_uses_external_handler' => strpos($source, 'data-bsw-print') !== false && strpos($js, 'window.print()') !== false,
-    'edit_action_permission_gated' => strpos($source, "current_user_can( 'edit_post', \\$article_id )") !== false,
+    'edit_action_permission_gated' => strpos($source, 'current_user_can( ' . "'edit_post'" . ', $article_id )') !== false,
     'revision_history_link' => strpos($source, '$history_url') !== false,
     'published_and_modified_dates_have_machine_readable_values' => strpos($source, 'datetime="<?php echo esc_attr( $published_iso )') !== false && strpos($source, 'datetime="<?php echo esc_attr( $modified_iso )') !== false,
     'author_archive_link_available' => strpos($source, 'get_author_posts_url') !== false,
