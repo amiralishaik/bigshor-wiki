@@ -1,0 +1,62 @@
+name: Build BIGSHOR WIKI installable packages
+
+on:
+  push:
+    branches:
+      - BIGSHOR-WIKI
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: Package ${{ matrix.label }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - label: Core Plugin
+            source: Plugins/BIGSHOR_WIKI_CORE_v34.10.0
+            zip: BIGSHOR_WIKI_CORE_v34.12.0.zip
+            artifact: BIGSHOR_WIKI_CORE_v34.12.0
+          - label: Admin UI Plugin
+            source: Plugins/bigshor-wiki-admin-ui
+            zip: BIGSHOR_WIKI_ADMIN_UI.zip
+            artifact: BIGSHOR_WIKI_ADMIN_UI
+          - label: Parent Theme
+            source: Themes/bigshor-wiki-parent
+            zip: BIGSHOR_WIKI_PARENT_THEME.zip
+            artifact: BIGSHOR_WIKI_PARENT_THEME
+          - label: Child Theme
+            source: Themes/bigshor-wiki-child
+            zip: BIGSHOR_WIKI_CHILD_THEME.zip
+            artifact: BIGSHOR_WIKI_CHILD_THEME
+
+    steps:
+      - name: Check out stable branch
+        uses: actions/checkout@v4
+        with:
+          ref: BIGSHOR-WIKI
+
+      - name: Validate package source
+        shell: bash
+        run: |
+          test -d "${{ matrix.source }}"
+          test -n "$(find "${{ matrix.source }}" -type f -print -quit)"
+          echo "Packaging ${{ matrix.source }}"
+
+      - name: Create installable ZIP
+        shell: bash
+        run: |
+          zip -qr "${{ matrix.zip }}" "${{ matrix.source }}"
+          unzip -l "${{ matrix.zip }}"
+
+      - name: Upload individual package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.zip }}
+          if-no-files-found: error
+          retention-days: 14
