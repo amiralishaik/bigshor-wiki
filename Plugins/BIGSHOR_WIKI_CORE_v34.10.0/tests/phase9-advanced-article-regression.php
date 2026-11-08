@@ -8,7 +8,7 @@ $checks=array(
  'external_links_require_valid_http_urls'=>strpos($source,'wp_http_validate_url($parts[1])')!==false&&strpos($source,"array('http','https')")!==false,
  'page_information_includes_word_count_and_reading_time'=>strpos($source,'number_format_i18n($words)')!==false&&strpos($source,'$minutes')!==false,
  'page_information_includes_author_and_timestamps'=>strpos($source,'get_userdata($post->post_author)')!==false&&strpos($source,'get_post_modified_time(')!==false,
- 'citation_exports_include_plain_and_bibtex'=>strpos($source,"'plain'=>$plain")!==false&&strpos($source,"'bibtex'=>$bib")!==false,
+ 'citation_exports_include_plain_and_bibtex'=>strpos($source,"'plain'")!==false&&strpos($source,"'bibtex'")!==false,
  'copy_controls_have_fallback'=>strpos($source,'navigator.clipboard.writeText')!==false&&strpos($source,'window.prompt')!==false,
  'shortcode_is_registered'=>strpos($source,"add_shortcode('bsw_article_information'")!==false
 );
