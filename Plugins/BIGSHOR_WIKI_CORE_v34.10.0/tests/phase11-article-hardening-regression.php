@@ -14,7 +14,7 @@ $checks = array(
     'phase10_related_articles_are_cached' => strpos($discovery, "cache_key('related'") !== false,
     'phase10_backlinks_are_cached' => strpos($discovery, "cache_key('backlinks'") !== false,
     'cache_lifetime_is_bounded' => strpos($discovery, '10 * MINUTE_IN_SECONDS') !== false,
-    'phase70_async_processor_remains_authoritative' => strpos($hardening, 'BSW_Phase69_Modern_Image_Delivery') !== false && strpos($hardening, 'synchronous duplicate conversion is disabled') !== false,
+    'phase70_async_processor_remains_authoritative' => strpos($hardening, 'BSW_Phase69_Modern_Image_Delivery') !== false && strpos($hardening, 'disabled to avoid duplicate CPU and I/O') !== false,
 );
 $failed=0;
 foreach($checks as $name=>$passed){echo ($passed?'PASS':'FAIL').' '.$name.PHP_EOL;if(!$passed)$failed++;}
