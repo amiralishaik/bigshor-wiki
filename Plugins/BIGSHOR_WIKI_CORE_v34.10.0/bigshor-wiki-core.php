@@ -2,7 +2,7 @@
 /*
 Plugin Name: BIGSHOR Wiki Core
 Description: Independent content and community engine for BIGSHOR Wiki. Keeps wiki data and workflows active independently of the theme.
-Version: 34.10.0
+Version: 34.10.1
 Author: BIGSHOR
 Requires at least: 6.4
 Requires PHP: 7.4
@@ -10,7 +10,7 @@ License: GPL-2.0-or-later
 */
 if (!defined('ABSPATH')) exit;
 if (!defined('BSW_CORE_PLUGIN_ACTIVE')) define('BSW_CORE_PLUGIN_ACTIVE', true);
-if (!defined('BSW_CORE_PLUGIN_VERSION')) define('BSW_CORE_PLUGIN_VERSION', '34.10.0');
+if (!defined('BSW_CORE_PLUGIN_VERSION')) define('BSW_CORE_PLUGIN_VERSION', '34.10.1');
 $bsw_core_dir = plugin_dir_path(__FILE__) . 'includes/';
 
 /*
