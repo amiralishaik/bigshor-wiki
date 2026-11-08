@@ -100,7 +100,7 @@ final class BSW_Phase6_Citation_Manager {
         $citation_id = 'bsw6-cite-' . $id . '-' . $occurrence;
         self::$occurrences[$post_id][$id][] = $citation_id;
         $label = trim((string)$atts['label']);
-        return '<sup class="bsw6-citation" id="'.esc_attr($citation_id).'"><a href="#bsw6-ref-'.esc_attr($id).'" aria-label="Reference '.$number.', citation '.$occurrence.'">'.($label !== '' ? esc_html($label) : '['.$number.']').'</a></sup>');
+        return '<sup class="bsw6-citation" id="'.esc_attr($citation_id).'"><a href="#bsw6-ref-'.esc_attr($id).'" aria-label="Reference '.$number.', citation '.$occurrence.'">'.($label !== '' ? esc_html($label) : '['.$number.']').'</a></sup>';
     }
 
     public static function references_shortcode($atts = array()) {
