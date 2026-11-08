@@ -6,7 +6,7 @@ $module = file_get_contents($root . '/includes/phase63-production-readiness.php'
 $governance = file_get_contents($root . '/includes/phase55-editorial-governance.php');
 $legacy_governance = file_get_contents($root . '/includes/phase51-advanced-platform.php');
 $checks = array(
-    'release_version' => strpos($main, "Version: 34.10.0") !== false && strpos($main, "BSW_CORE_PLUGIN_VERSION', '34.10.0'") !== false,
+    'release_version' => strpos($main, "Version: 34.11.0") !== false && strpos($main, "BSW_CORE_PLUGIN_VERSION', '34.11.0'") !== false,
     'module_bootstrap' => strpos($main, "phase63-production-readiness.php") !== false,
     'admin_capability' => strpos($module, "current_user_can('manage_options')") !== false,
     'nonce_protection' => strpos($module, 'check_admin_referer') !== false,
