@@ -150,8 +150,12 @@ function bsw_theme_meta_description(){
 }
 add_action('wp_head','bsw_theme_meta_description',5);
 
-// Allow searching wiki articles and media alongside standard WordPress content.
-add_filter('pre_get_posts',function($q){ if(!is_admin() && $q->is_main_query() && $q->is_search()) $q->set('post_type',array('post','page','wiki_article','wiki_media','bsw_news')); });
+// Keep one authoritative search filter so later theme layers cannot silently overwrite the searchable content types.
+function bsw_theme_search_post_types($query) {
+    if (is_admin() || !$query->is_main_query() || !$query->is_search() || $query->get('post_type')) return;
+    $query->set('post_type', array('post', 'page', 'wiki_article', 'wiki_entity', 'wiki_media', 'bsw_news'));
+}
+add_action('pre_get_posts', 'bsw_theme_search_post_types', 20);
 
 // Keep the site usable with no menu configured.
 function bigshor_wiki_primary_menu(){
@@ -231,13 +235,6 @@ function bsw_theme_v18_reading_progress() {
 }
 add_action('wp_body_open','bsw_theme_v18_reading_progress',5);
 
-function bsw_theme_v18_search_filter($query) {
-    if (!is_admin() && $query->is_main_query() && $query->is_search() && empty($_GET['post_type'])) {
-        $query->set('post_type',array('wiki_article','wiki_entity','post','page'));
-    }
-}
-add_action('pre_get_posts','bsw_theme_v18_search_filter');
-
 function bsw_theme_v18_excerpt_more($more) { return '…'; }
 add_filter('excerpt_more','bsw_theme_v18_excerpt_more');
 
@@ -313,3 +310,12 @@ add_filter('wp_sitemaps_posts_query_args', function($args, $post_type) {
     }
     return $args;
 }, 10, 2);
+
+/**
+ * Front-end performance improvements.
+ * Keep these conservative: no global script dependency removal or asynchronous CSS swapping.
+ */
+$bsw_performance_module = get_template_directory() . '/inc/performance-optimizations.php';
+if (is_readable($bsw_performance_module)) {
+    require_once $bsw_performance_module;
+}

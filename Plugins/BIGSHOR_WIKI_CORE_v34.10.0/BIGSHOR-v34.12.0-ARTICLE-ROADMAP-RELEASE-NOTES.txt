@@ -1,0 +1,20 @@
+BIGSHOR WIKI Core 34.12.0 — Article Page Roadmap Completion
+
+Phases 11 and 12 complete the 12-phase article-page roadmap on the development branch.
+
+Phase 11 — Performance, Accessibility and Security
+- Added bounded 10-minute transient caching for article search results, topic-related articles and incoming-link lists.
+- Cache generations are advanced when wiki articles are saved, deleted, trashed, restored, or their wiki_topic assignments change.
+- Existing public-only result filtering, query sanitisation, escaped output, bounded result sizes and accessible labels remain in place.
+- Disabled Phase 69 synchronous image conversion while retaining its existing picture-markup compatibility. Phase 70 remains the single asynchronous upload-time conversion path, preventing duplicate CPU and disk work.
+- Original uploaded images remain untouched and are still the fallback.
+
+Phase 12 — Final Integration and Production Readiness
+- Added a read-only Tools → Article Release Check screen for administrators.
+- Checks Core version, article modules, shortcode registration, cache invalidation, background image processing and duplicate conversion.
+- Aligned the production-readiness diagnostic version with Core 34.12.0.
+- Added regression gates for Phases 11 and 12.
+- Updated the development package target to BIGSHOR_WIKI_CORE_v34.12.0.
+
+Release boundary
+This is a development-branch completion and CI/package build, not a production deployment. PR #1 remains draft/unmerged and the production branch/live website remain unchanged. Staging WordPress validation, browser accessibility review, real upload/cron verification, load testing and security assessment remain required before an approved production release.

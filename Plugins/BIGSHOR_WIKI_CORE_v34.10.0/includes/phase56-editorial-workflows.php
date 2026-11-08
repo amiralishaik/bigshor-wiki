@@ -94,25 +94,35 @@ final class BSW_Phase56_Editorial_Workflows {
         return $commentdata;
     }
 
+    private static function can_manage_workflow() {
+        return current_user_can('manage_options') || current_user_can('edit_others_posts');
+    }
+
     public static function resolve_deletion() {
-        if (!current_user_can('edit_others_posts')) wp_die('Editorial permission required.',403);
+        if (!self::can_manage_workflow()) wp_die('Editorial permission required.',403);
         $id=absint($_POST['discussion_id']??0);
         check_admin_referer('bsw56_resolve_'.$id);
         $discussion=get_post($id);
         if (!$discussion || $discussion->post_type!==self::DISCUSSION_TYPE || get_post_meta($id,'_bsw56_state',true)!=='open') wp_die('Open deletion discussion not found.',404);
+        // Avoid self-adjudication: only a site administrator may resolve their own proposal.
+        if ((int) $discussion->post_author === get_current_user_id() && !current_user_can('manage_options')) {
+            wp_die('A different editor must resolve your deletion proposal.',403);
+        }
         $article_id=absint(get_post_meta($id,'_bsw56_article_id',true));
         $article=get_post($article_id);
         if (!$article || $article->post_type!=='wiki_article') wp_die('Related article no longer exists.',404);
         $outcome=sanitize_key($_POST['outcome']??'');
         if (!in_array($outcome,array('keep','delete','merge'),true)) wp_die('Invalid resolution.',400);
         $note=sanitize_textarea_field(wp_unslash($_POST['resolution_note']??''));
+        if (strlen($note) < 10 || strlen($note) > 2000) wp_die('Provide a resolution note of 10–2,000 characters.',400);
         if ($outcome==='merge') {
             $target_id=absint($_POST['merge_target']??0);
             if (!$target_id || $target_id===$article_id || get_post_type($target_id)!=='wiki_article' || get_post_status($target_id)!=='publish') wp_die('Choose another published BIGSHOR article as the merge destination.',400);
             $target_url=get_permalink($target_id);
+            // Preserve the source article and its revisions. A merge decision records
+            // the destination; it must not overwrite encyclopaedia content.
             update_post_meta($article_id,'_bsw_redirect_target',$target_url);
             update_post_meta($article_id,'_bsw56_merged_into',$target_id);
-            wp_update_post(array('ID'=>$article_id,'post_content'=>'This article has been merged into <a href="'.esc_url($target_url).'">'.esc_html(get_the_title($target_id)).'</a>.'));
         } elseif ($outcome==='delete') {
             $trashed=wp_trash_post($article_id);
             if (!$trashed) wp_die('The article could not be moved to Trash.',500);
@@ -127,7 +137,7 @@ final class BSW_Phase56_Editorial_Workflows {
     }
 
     public static function review_article() {
-        if (!current_user_can('edit_others_posts')) wp_die('Editorial permission required.',403);
+        if (!self::can_manage_workflow()) wp_die('Editorial permission required.',403);
         $id=absint($_POST['article_id']??0);
         check_admin_referer('bsw56_review_'.$id);
         $post=get_post($id);
@@ -146,7 +156,7 @@ final class BSW_Phase56_Editorial_Workflows {
     }
 
     public static function restore_article() {
-        if (!current_user_can('edit_others_posts')) wp_die('Editorial permission required.',403);
+        if (!self::can_manage_workflow()) wp_die('Editorial permission required.',403);
         $id=absint($_POST['article_id']??0);
         check_admin_referer('bsw56_restore_'.$id);
         $post=get_post($id);
@@ -177,7 +187,7 @@ final class BSW_Phase56_Editorial_Workflows {
     }
 
     public static function dashboard() {
-        if (!current_user_can('edit_others_posts')) wp_die('Not authorised.',403);
+        if (!self::can_manage_workflow()) wp_die('Not authorised.',403);
         $tab=sanitize_key($_GET['tab']??'queue');
         echo '<div class="wrap"><h1>BIGSHOR Editorial Workflow</h1><nav class="nav-tab-wrapper">';
         foreach(array('queue'=>'Approval queue','deletion'=>'Deletion discussions','trash'=>'Restore deleted articles') as $key=>$label) {

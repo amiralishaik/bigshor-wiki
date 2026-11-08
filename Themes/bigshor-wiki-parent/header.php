@@ -66,6 +66,13 @@ if ( ! function_exists('has_site_icon') || ! has_site_icon() ) {
     </div>
   </section>
 </header>
+<nav class="mw-primary-navigation" aria-label="Primary navigation">
+  <div class="mw-primary-navigation-inner">
+    <?php if (has_nav_menu('primary')) : ?>
+      <?php wp_nav_menu(array('theme_location'=>'primary','container'=>false,'menu_class'=>'mw-primary-menu','fallback_cb'=>'bigshor_wiki_sidebar_fallback')); ?>
+    <?php else : bigshor_wiki_sidebar_fallback(); endif; ?>
+  </div>
+</nav>
 <div class="mw-site-layout">
   <aside id="mw-sidebar" class="mw-sidebar" aria-label="Main navigation">
     <div class="mw-sidebar-section"><h2>Navigation</h2>

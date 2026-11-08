@@ -1006,3 +1006,11 @@ body{background:#fff;color:#202122}
 img{max-width:100%;height:auto}figure{max-width:100%}picture{display:block;max-width:100%}picture img{display:block;width:auto;max-width:100%;height:auto}
 @media(max-width:600px){.bsw-account-portal{width:calc(100% - 24px);padding:18px;margin:14px auto}.bsw-account-form button{width:100%}.bsw-account-links{flex-direction:column;gap:10px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+
+/* Phase 1 — article foundation: visible interaction states and compact mobile tools. */
+.bsw-page-tools a:hover,.bsw-page-tools button:hover{background:#eaecf0;border-color:#72777d;text-decoration:none}
+.bsw-page-tools a:focus-visible,.bsw-page-tools button:focus-visible{outline:3px solid #36c;outline-offset:2px;position:relative;z-index:1}
+.bsw-article-header time,.bsw-article-bottom-meta time{font-variant-numeric:tabular-nums}
+@media(max-width:640px){.bsw-page-tools{gap:6px;margin:12px 0;padding:8px 0}.bsw-page-tools a,.bsw-page-tools button{padding:8px 9px;font-size:12px}.bsw-article-byline{gap:6px 12px}.bsw-article-header .page-title{overflow-wrap:anywhere}}
+@media print{.bsw-page-tools,.bsw-reading-progress{display:none!important}}

@@ -1,17 +1,9 @@
 <?php
-/**
- * Plugin Name: BIGSHOR WIKI Article Studio
- * Description: Custom visual and wiki-source article editor for BIGSHOR WIKI.
- * Version: 1.3.0
- * Requires at least: 6.2
- * Requires PHP: 7.4
- * Author: BIGSHOR WIKI
- * Text Domain: bigshor-wiki-article-studio
- */
+/** BIGSHOR WIKI Article Studio module, bundled with BIGSHOR WIKI Core. */
 if (!defined('ABSPATH')) exit;
 
-define('BSW_STUDIO_VERSION', '1.3.0');
-define('BSW_STUDIO_FILE', __FILE__);
+if (!defined('BSW_STUDIO_VERSION')) define('BSW_STUDIO_VERSION', '1.4.0');
+if (!defined('BSW_STUDIO_FILE')) define('BSW_STUDIO_FILE', dirname(__FILE__) . '/../bigshor-wiki-core.php');
 
 final class BSW_Article_Studio {
     const PAGE = 'bsw-article-studio';
@@ -76,8 +68,8 @@ final class BSW_Article_Studio {
         if (strpos((string)$hook, self::PAGE) === false) return;
         wp_enqueue_editor();
         wp_enqueue_media();
-        wp_enqueue_style('bsw-studio', plugins_url('assets/article-studio.css', __FILE__), array(), BSW_STUDIO_VERSION);
-        wp_enqueue_script('bsw-studio', plugins_url('assets/article-studio.js', __FILE__), array('jquery', 'wp-tinymce'), BSW_STUDIO_VERSION, true);
+        wp_enqueue_style('bsw-studio', plugins_url('assets/article-studio.css', dirname(__FILE__) . '/../bigshor-wiki-core.php'), array(), BSW_STUDIO_VERSION);
+        wp_enqueue_script('bsw-studio', plugins_url('assets/article-studio.js', dirname(__FILE__) . '/../bigshor-wiki-core.php'), array('jquery', 'wp-tinymce'), BSW_STUDIO_VERSION, true);
         wp_localize_script('bsw-studio', 'BSWStudio', array(
             'postId' => isset($_GET['id']) ? absint($_GET['id']) : 0,
             'storageKey' => 'bsw-studio-recovery-' . get_current_user_id() . '-' . (isset($_GET['id']) ? absint($_GET['id']) : 'new'),
@@ -339,11 +331,5 @@ final class BSW_Article_Studio {
     }
 
 }
-register_activation_hook(__FILE__, function () {
-    if (!defined('BSW_CORE_PLUGIN_VERSION') || version_compare(BSW_CORE_PLUGIN_VERSION, '34.2.0', '<')) {
-        deactivate_plugins(plugin_basename(__FILE__));
-        wp_die('BIGSHOR WIKI Article Studio requires BIGSHOR WIKI Core v34.2.0 or later.', 'BIGSHOR WIKI Core required', array('back_link'=>true));
-    }
-});
 BSW_Article_Studio::init();
 

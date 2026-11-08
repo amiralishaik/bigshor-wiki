@@ -1,4 +1,4 @@
-BIGSHOR WIKI ADMIN UI v1.4.0
+BIGSHOR WIKI ADMIN UI v1.5.0
 
 - Unified BIGSHOR design system across all administration and edit screens, not only Article Studio.
 - Covers native post-type editors and lists, knowledge entities, wiki templates, talk pages, deletion discussions, standard pages, taxonomy editors, media library, contributor profiles, comments, moderation, plugins and settings.

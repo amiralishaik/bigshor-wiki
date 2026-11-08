@@ -61,6 +61,14 @@ final class BSW_Infobox_Editor {
         echo '<input class="widefat" type="text" id="bsw_infobox_title" name="bsw_infobox_title" value="' . esc_attr(isset($data['title']) ? $data['title'] : '') . '" placeholder="e.g. Amir Ali Shaik">';
         echo '<p><label for="bsw_infobox_image"><strong>Image URL</strong></label></p>';
         echo '<input class="widefat" type="url" id="bsw_infobox_image" name="bsw_infobox_image" value="' . esc_attr(isset($data['image']) && is_string($data['image']) ? $data['image'] : '') . '" placeholder="https://example.com/image.jpg">';
+        echo '<p><label for="bsw_infobox_image_alt"><strong>Image alternative text</strong></label></p>';
+        echo '<input class="widefat" type="text" id="bsw_infobox_image_alt" name="bsw_infobox_image_alt" value="' . esc_attr($data['image_alt'] ?? '') . '" placeholder="Describe the image for screen readers">';
+        echo '<p><label for="bsw_infobox_image_caption"><strong>Image caption</strong></label></p>';
+        echo '<input class="widefat" type="text" id="bsw_infobox_image_caption" name="bsw_infobox_image_caption" value="' . esc_attr($data['image_caption'] ?? '') . '" placeholder="Caption displayed below the image">';
+        echo '<p><label for="bsw_infobox_image_credit"><strong>Image credit / creator</strong></label></p>';
+        echo '<input class="widefat" type="text" id="bsw_infobox_image_credit" name="bsw_infobox_image_credit" value="' . esc_attr($data['image_credit'] ?? '') . '">';
+        echo '<p><label for="bsw_infobox_image_source"><strong>Image source URL</strong></label></p>';
+        echo '<input class="widefat" type="url" id="bsw_infobox_image_source" name="bsw_infobox_image_source" value="' . esc_attr($data['image_source'] ?? '') . '">';
         echo '<p><label for="bsw_infobox_fields"><strong>Infobox fields</strong></label></p>';
         echo '<textarea class="widefat" rows="9" id="bsw_infobox_fields" name="bsw_infobox_fields" placeholder="Born: 26 July 2001&#10;Occupation: Actor and entrepreneur&#10;Nationality: Indian">' . esc_textarea(implode("\n", $lines)) . '</textarea>';
         echo '<p class="description">Enter one field per line in <code>Label: Value</code> format. Leave the heading, image and fields empty to remove the infobox. The infobox appears beside the article introduction on the published article page.</p>';
@@ -86,7 +94,12 @@ final class BSW_Infobox_Editor {
             if ($key !== '') $fields[$key] = sanitize_text_field($value);
         }
 
-        if ($title === '' && $image === '' && !$fields) {
+        $image_alt = sanitize_text_field(wp_unslash($_POST['bsw_infobox_image_alt'] ?? ''));
+        $image_caption = sanitize_text_field(wp_unslash($_POST['bsw_infobox_image_caption'] ?? ''));
+        $image_credit = sanitize_text_field(wp_unslash($_POST['bsw_infobox_image_credit'] ?? ''));
+        $image_source = esc_url_raw(wp_unslash($_POST['bsw_infobox_image_source'] ?? ''));
+
+        if ($title === '' && $image === '' && !$fields && $image_alt === '' && $image_caption === '' && $image_credit === '' && $image_source === '') {
             delete_post_meta($post_id, '_bsw_infobox');
             return;
         }
@@ -94,6 +107,10 @@ final class BSW_Infobox_Editor {
             'title' => $title,
             'image' => $image,
             'fields' => $fields,
+            'image_alt' => $image_alt,
+            'image_caption' => $image_caption,
+            'image_credit' => $image_credit,
+            'image_source' => $image_source,
         ));
     }
 

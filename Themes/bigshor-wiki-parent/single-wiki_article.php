@@ -6,23 +6,39 @@ while ( have_posts() ) : the_post();
     $terms = get_the_term_list( $article_id, 'wiki_topic', '', ' · ' );
     $history_url = add_query_arg( 'bsw_history', 1, get_permalink( $article_id ) );
     $edit_url = add_query_arg( 'bsw_edit', $article_id, get_permalink( $article_id ) );
+    $published_iso = get_the_date( DATE_W3C, $article_id );
+    $modified_iso = get_the_modified_date( DATE_W3C, $article_id );
+    $author_id = (int) get_post_field( 'post_author', $article_id );
+    $author_url = get_author_posts_url( $author_id );
     if ( function_exists( 'bigshor_wiki_breadcrumbs' ) ) bigshor_wiki_breadcrumbs();
 ?>
 <header class="bsw-article-header">
   <div class="bsw-article-kicker">From BIGSHOR Wiki, the free knowledge encyclopedia</div>
-  <h1 class="page-title"><?php the_title(); ?></h1>
+  <h1 id="article-title" class="page-title"><?php the_title(); ?></h1>
   <?php if ( has_excerpt() ) : ?><p class="bsw-article-deck"><?php echo esc_html( get_the_excerpt() ); ?></p><?php endif; ?>
-  <div class="bsw-article-byline"><span>Last updated <?php echo esc_html( get_the_modified_date() ); ?></span><span><?php echo esc_html( get_the_author() ); ?></span></div>
+  <div class="bsw-article-byline"><span>Published <time datetime="<?php echo esc_attr( $published_iso ); ?>"><?php echo esc_html( get_the_date() ); ?></time></span><span>Last updated <time datetime="<?php echo esc_attr( $modified_iso ); ?>"><?php echo esc_html( get_the_modified_date() ); ?></time></span><span>By <a href="<?php echo esc_url( $author_url ); ?>"><?php echo esc_html( get_the_author() ); ?></a></span></div>
 </header>
 <div class="bsw-article-language-row">
   <span>BIGSHOR Wiki article</span>
-  <span class="bsw-article-page-meta">Article · <a href="<?php echo esc_url( add_query_arg( 'bsw_history', 1, get_permalink( $article_id ) ) ); ?>">Revision history</a></span>
+  <span class="bsw-article-page-meta">Article · <a href="<?php echo esc_url( $history_url ); ?>">Revision history</a></span>
 </div>
-<div class="bsw-reading-progress" aria-hidden="true"><span></span></div>
-<article id="article-content" <?php post_class( 'article-body bsw-article-content' ); ?>>
+<nav class="bsw-page-tools" aria-label="Article tools" aria-describedby="article-title">
+  <a href="<?php echo esc_url( get_permalink( $article_id ) ); ?>" aria-current="page">Read</a>
+  <?php if ( current_user_can( 'edit_post', $article_id ) ) : ?>
+    <a href="<?php echo esc_url( $edit_url ); ?>">Edit</a>
+  <?php endif; ?>
+  <a href="<?php echo esc_url( $history_url ); ?>">View history</a>
+  <a href="#comments">Talk</a>
+  <button type="button" data-bsw-copy-link aria-label="Copy this article link">Copy link</button>
+  <button type="button" data-bsw-print>Print</button>
+</nav>
+<article id="article-content" aria-labelledby="article-title" <?php post_class( 'article-body bsw-article-content' ); ?>>
   <?php the_content(); wp_link_pages( array( 'before' => '<nav class="bsw-page-links" aria-label="Article pages">Pages: ', 'after' => '</nav>' ) ); ?>
 </article>
-<div class="bsw-article-bottom-meta"><div><strong>Topics:</strong> <?php echo $terms ? wp_kses_post( $terms ) : esc_html__( 'Not yet categorised', 'bigshor-wiki' ); ?></div><div>First published <?php echo esc_html( get_the_date() ); ?> · Last updated <?php echo esc_html( get_the_modified_date() ); ?></div></div>
+<section class="bsw-article-bottom-meta" aria-label="Article metadata">
+  <div class="bsw-article-topics"><strong>Topics:</strong> <?php echo $terms ? wp_kses_post( $terms ) : esc_html__( 'Not yet categorised', 'bigshor-wiki' ); ?></div>
+  <div class="bsw-article-dates">First published <time datetime="<?php echo esc_attr( $published_iso ); ?>"><?php echo esc_html( get_the_date() ); ?></time> · Last updated <time datetime="<?php echo esc_attr( $modified_iso ); ?>"><?php echo esc_html( get_the_modified_date() ); ?></time></div>
+</section>
 <?php if ( ! function_exists( 'bsw_theme_get_settings' ) || ( bsw_theme_get_settings()['show_related'] ?? '1' ) === '1' ) : ?>
 <section class="bsw-related-section"><h2>Related articles</h2><?php echo do_shortcode( '[bigshor_wiki_related limit="5"]' ); ?></section>
 <?php endif; ?>

@@ -3,8 +3,10 @@
 $root = dirname(__DIR__);
 $main = file_get_contents($root . '/bigshor-wiki-core.php');
 $module = file_get_contents($root . '/includes/phase63-production-readiness.php');
+$governance = file_get_contents($root . '/includes/phase55-editorial-governance.php');
+$legacy_governance = file_get_contents($root . '/includes/phase51-advanced-platform.php');
 $checks = array(
-    'release_version' => strpos($main, "Version: 33.6.0") !== false && strpos($main, "BSW_CORE_PLUGIN_VERSION', '33.6.0'") !== false,
+    'release_version' => strpos($main, "Version: 34.12.0") !== false && strpos($main, "BSW_CORE_PLUGIN_VERSION', '34.12.0'") !== false,
     'module_bootstrap' => strpos($main, "phase63-production-readiness.php") !== false,
     'admin_capability' => strpos($module, "current_user_can('manage_options')") !== false,
     'nonce_protection' => strpos($module, 'check_admin_referer') !== false,
@@ -20,6 +22,8 @@ $checks = array(
     'weighted_search_signals' => strpos($module, 'title_exact') !== false && strpos($module, 'content_match') !== false,
     'language_filter' => strpos($module, "_bsw_p7_language") !== false,
     'federation_monitoring' => strpos($module, 'bsw_phase60_federation_peers') !== false && strpos($module, 'last_sync_gmt') !== false,
+    'oversighter_can_view_suppressed_revisions' => strpos($governance, "current_user_can('bsw_view_suppressed_content')") !== false && strpos($legacy_governance, "current_user_can('bsw_view_suppressed_content')") !== false,
+    'suppression_uses_dedicated_capabilities' => strpos($governance, "'bsw_suppress_revisions'") !== false && strpos($governance, "'bsw_unsuppress_revisions'") !== false,
 );
 $failed = 0;
 foreach ($checks as $name => $passed) {

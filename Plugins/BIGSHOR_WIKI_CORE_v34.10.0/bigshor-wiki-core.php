@@ -2,7 +2,7 @@
 /*
 Plugin Name: BIGSHOR Wiki Core
 Description: Independent content and community engine for BIGSHOR Wiki. Keeps wiki data and workflows active independently of the theme.
-Version: 34.10.0
+Version: 34.12.0
 Author: BIGSHOR
 Requires at least: 6.4
 Requires PHP: 7.4
@@ -10,7 +10,7 @@ License: GPL-2.0-or-later
 */
 if (!defined('ABSPATH')) exit;
 if (!defined('BSW_CORE_PLUGIN_ACTIVE')) define('BSW_CORE_PLUGIN_ACTIVE', true);
-if (!defined('BSW_CORE_PLUGIN_VERSION')) define('BSW_CORE_PLUGIN_VERSION', '34.10.0');
+if (!defined('BSW_CORE_PLUGIN_VERSION')) define('BSW_CORE_PLUGIN_VERSION', '34.12.0');
 $bsw_core_dir = plugin_dir_path(__FILE__) . 'includes/';
 
 /*
@@ -182,6 +182,26 @@ if (is_readable($bsw_phase44_path)) require_once $bsw_phase44_path;
 $bsw_phase45_path = $bsw_core_dir . 'phase45-article-layout.php';
 if (is_readable($bsw_phase45_path)) require_once $bsw_phase45_path;
 
+ // Article-page Phase 8: discussion topics, replies and personal watchlist controls.
+$bsw_article_phase8_path = $bsw_core_dir . 'phase8-article-community.php';
+if (is_readable($bsw_article_phase8_path)) require_once $bsw_article_phase8_path;
+
+// Article-page Phase 9: advanced article metadata, page information and citation tools.
+$bsw_article_phase9_path = $bsw_core_dir . 'phase9-advanced-article.php';
+if (is_readable($bsw_article_phase9_path)) require_once $bsw_article_phase9_path;
+
+// Article-page Phase 10: search, topic discovery, related articles and backlinks.
+$bsw_article_phase10_path = $bsw_core_dir . 'phase10-article-discovery.php';
+if (is_readable($bsw_article_phase10_path)) require_once $bsw_article_phase10_path;
+
+// Article-page Phase 11: bounded discovery caching, invalidation and media hardening.
+$bsw_article_phase11_path = $bsw_core_dir . 'phase11-article-hardening.php';
+if (is_readable($bsw_article_phase11_path)) require_once $bsw_article_phase11_path;
+
+// Article-page Phase 12: read-only final integration and release readiness checks.
+$bsw_article_phase12_path = $bsw_core_dir . 'phase12-article-release-integration.php';
+if (is_readable($bsw_article_phase12_path)) require_once $bsw_article_phase12_path;
+
 // Phase 3: frontend editor framework enhancements (preview, recovery, summaries).
 $bsw_phase46_path = $bsw_core_dir . 'phase46-frontend-editor.php';
 if (is_readable($bsw_phase46_path)) require_once $bsw_phase46_path;
@@ -310,3 +330,11 @@ if (is_readable($bsw_phase69_path)) require_once $bsw_phase69_path;
 // Phase 70: automatic upload-time AVIF/WebP sidecar generation; originals are preserved.
 $bsw_phase70_path = $bsw_core_dir . 'phase70-media-optimizer.php';
 if (is_readable($bsw_phase70_path)) require_once $bsw_phase70_path;
+
+// Native Tools Hub: curated third-party resources inside BIGSHOR Control Centre.
+$bsw_tools_hub_path = $bsw_core_dir . 'tools-hub.php';
+if (is_readable($bsw_tools_hub_path)) require_once $bsw_tools_hub_path;
+
+// Native Article Studio: full visual/source editor and editorial collaboration workflow.
+$bsw_article_studio_path = $bsw_core_dir . 'article-studio.php';
+if (is_readable($bsw_article_studio_path)) require_once $bsw_article_studio_path;

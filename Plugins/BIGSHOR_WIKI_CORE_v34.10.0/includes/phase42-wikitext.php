@@ -79,8 +79,22 @@ final class BSW_Phase42_Wikitext {
             }
             $box_title = sanitize_text_field(wp_unslash($_POST['bsw42_box_title'] ?? ''));
             $box_image = esc_url_raw(wp_unslash($_POST['bsw42_box_image'] ?? ''));
-            if ($box_title === '' && $box_image === '' && !$box_fields) delete_post_meta($id, '_bsw_infobox');
-            else update_post_meta($id, '_bsw_infobox', array('title'=>$box_title,'image'=>$box_image,'fields'=>$box_fields));
+            $existing_box = get_post_meta($id, '_bsw_infobox', true);
+            if (!is_array($existing_box)) $existing_box = array();
+            if ($box_title === '' && $box_image === '' && !$box_fields) {
+                if (empty($existing_box['image_alt']) && empty($existing_box['image_caption']) && empty($existing_box['image_credit']) && empty($existing_box['image_source'])) delete_post_meta($id, '_bsw_infobox');
+                else {
+                    $existing_box['title'] = '';
+                    $existing_box['image'] = '';
+                    $existing_box['fields'] = array();
+                    update_post_meta($id, '_bsw_infobox', $existing_box);
+                }
+            } else {
+                $existing_box['title'] = $box_title;
+                $existing_box['image'] = $box_image;
+                $existing_box['fields'] = $box_fields;
+                update_post_meta($id, '_bsw_infobox', $existing_box);
+            }
         }
         $edit_summary=sanitize_text_field(wp_unslash($_POST['bsw42_edit_summary']??'')); if($edit_summary!==''){ update_post_meta($id,'_bsw_last_edit_summary',$edit_summary); update_post_meta($id,'_bsw_last_edit_summary_user',get_current_user_id()); update_post_meta($id,'_bsw_last_edit_summary_time',current_time('mysql',true)); }
         wp_safe_redirect(add_query_arg('bsw_saved','1',get_permalink($id))); exit;

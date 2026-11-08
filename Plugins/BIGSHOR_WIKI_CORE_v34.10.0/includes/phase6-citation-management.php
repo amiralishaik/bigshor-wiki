@@ -10,6 +10,7 @@ final class BSW_Phase6_Citation_Manager {
     const META_KEY = '_bsw_phase6_sources';
     const NONCE_ACTION = 'bsw_phase6_save_sources';
     private static $used = array();
+    private static $occurrences = array();
     private static $rendered = array();
 
     public static function init() {
@@ -92,9 +93,14 @@ final class BSW_Phase6_Citation_Manager {
         if (!isset($sources[$id])) return current_user_can('edit_post', $post_id) ? '<span class="bsw6-citation-missing">[Missing source: '.esc_html($id).']</span>' : '';
         if (!isset(self::$used[$post_id])) self::$used[$post_id] = array();
         if (!isset(self::$used[$post_id][$id])) self::$used[$post_id][$id] = count(self::$used[$post_id]) + 1;
+        if (!isset(self::$occurrences[$post_id])) self::$occurrences[$post_id] = array();
+        if (!isset(self::$occurrences[$post_id][$id])) self::$occurrences[$post_id][$id] = array();
         $number = self::$used[$post_id][$id];
+        $occurrence = count(self::$occurrences[$post_id][$id]) + 1;
+        $citation_id = 'bsw6-cite-' . $id . '-' . $occurrence;
+        self::$occurrences[$post_id][$id][] = $citation_id;
         $label = trim((string)$atts['label']);
-        return '<sup class="bsw6-citation" id="bsw6-cite-'.esc_attr($id).'"><a href="#bsw6-ref-'.esc_attr($id).'" aria-label="Reference '.$number.'">'.($label !== '' ? esc_html($label) : '['.$number.']').'</a></sup>';
+        return '<sup class="bsw6-citation" id="'.esc_attr($citation_id).'"><a href="#bsw6-ref-'.esc_attr($id).'" aria-label="Reference '.$number.', citation '.$occurrence.'">'.($label !== '' ? esc_html($label) : '['.$number.']').'</a></sup>';
     }
 
     public static function references_shortcode($atts = array()) {
@@ -119,7 +125,12 @@ final class BSW_Phase6_Citation_Manager {
             if (!empty($s['page'])) $parts[] = esc_html($s['page']).'.';
             if (!empty($s['doi'])) $parts[] = 'DOI: '.esc_html($s['doi']).'.';
             if (!empty($s['accessed'])) $parts[] = 'Accessed '.esc_html($s['accessed']).'.';
-            $html .= '<li id="bsw6-ref-'.esc_attr($id).'" value="'.(int)$number.'"><span>'.implode(' ', $parts).'</span> <a class="bsw6-backlink" href="#bsw6-cite-'.esc_attr($id).'" aria-label="Return to citation">↩</a></li>';
+            $html .= '<li id="bsw6-ref-'.esc_attr($id).'" value="'.(int)$number.'"><span>'.implode(' ', $parts).'</span>';
+            $citation_ids = isset(self::$occurrences[$post_id][$id]) ? self::$occurrences[$post_id][$id] : array();
+            foreach ($citation_ids as $occurrence => $citation_id) {
+                $html .= ' <a class="bsw6-backlink" href="#'.esc_attr($citation_id).'" aria-label="Return to citation '.(int)($occurrence + 1).'">↩'.(count($citation_ids) > 1 ? (int)($occurrence + 1) : '').'</a>';
+            }
+            $html .= '</li>';
         }
         return $html.'</ol></section>';
     }

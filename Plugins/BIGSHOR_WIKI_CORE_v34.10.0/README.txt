@@ -1,4 +1,4 @@
-BIGSHOR WIKI CORE — VERSION 33.6.0
+BIGSHOR WIKI CORE — VERSION 34.10.0
 
 Phase 9 adds contributor reputation, assigned multi-stage editorial review, optional publication gating, safe source URL availability checks, weighted-lexical public knowledge search, and WordPress privacy exporter/eraser integration. See PHASE9-COMPLETION-v33.5.0.md in the release package.
 
