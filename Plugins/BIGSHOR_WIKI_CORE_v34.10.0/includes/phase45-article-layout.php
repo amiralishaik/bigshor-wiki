@@ -27,7 +27,7 @@ final class BSW_Phase45_Article_Layout {
     private static function tabs($id) {
         $base = get_permalink($id); $items = array('Read' => $base);
         if (current_user_can('edit_post', $id)) { $items['Edit'] = add_query_arg('bsw_edit', $id, $base); $items['Edit source'] = add_query_arg(array('bsw_edit'=>$id,'bsw_source'=>1), $base); }
-        $items['View history'] = add_query_arg('bsw_history', 1, $base); $items['Talk'] = $base . '#comments';
+        $items['View history'] = add_query_arg('bsw_history', 1, $base); $items['Talk'] = $base . '#bsw-article-discussion';
         $active = isset($_GET['bsw_history']) ? 'View history' : (isset($_GET['bsw_edit']) ? (isset($_GET['bsw_source']) ? 'Edit source' : 'Edit') : 'Read');
         $out = '<nav class="bsw45-tabs" aria-label="Article actions">';
         foreach ($items as $label=>$url) $out .= '<a href="'.esc_url($url).'"'.($active===$label?' aria-current="page"':'').'>'.esc_html($label).'</a>';
