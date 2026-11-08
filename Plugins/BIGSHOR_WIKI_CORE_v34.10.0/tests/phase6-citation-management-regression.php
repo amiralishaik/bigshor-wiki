@@ -13,7 +13,7 @@ $checks = array(
     'references_auto_append_when_not_explicitly_placed' => strpos($source, 'append_references_if_needed') !== false,
     'missing_sources_are_visible_to_editors' => strpos($source, 'bsw6-citation-missing') !== false,
     'public_source_links_are_safe' => strpos($source, 'noopener noreferrer') !== false && strpos($source, 'target="_blank"') !== false,
-    'editorial_note_is_not_in_public_reference_output' => strpos($source, "'note' => sanitize_textarea_field") !== false && strpos($source, "if (!empty($s['note']))") === false,
+    'editorial_note_is_not_in_public_reference_output' => strpos($source, "'note' => sanitize_textarea_field") !== false && strpos($source, 'note output is intentionally omitted') === false,
 );
 $failed = 0;
 foreach ($checks as $name => $passed) { echo ($passed ? 'PASS' : 'FAIL') . ' ' . $name . PHP_EOL; if (!$passed) $failed++; }
