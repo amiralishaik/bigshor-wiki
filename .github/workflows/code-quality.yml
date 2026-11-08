@@ -56,7 +56,7 @@ jobs:
           node --check Themes/bigshor-wiki-parent/assets/wiki-enhancements.js
           node --check Plugins/bigshor-wiki-admin-ui/assets/admin-ux-v15.js
           node --check Plugins/bigshor-wiki-admin-ui/assets/admin-white-label.js
-          node --check Plugins/bigshor-wiki-article-studio/assets/article-studio.js
+          node --check Plugins/BIGSHOR_WIKI_CORE_v34.10.0/assets/article-studio.js
 
       - name: Run standalone core regression tests
         shell: bash
