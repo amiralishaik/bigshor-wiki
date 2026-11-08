@@ -190,6 +190,10 @@ if (is_readable($bsw_article_phase8_path)) require_once $bsw_article_phase8_path
 $bsw_article_phase9_path = $bsw_core_dir . 'phase9-advanced-article.php';
 if (is_readable($bsw_article_phase9_path)) require_once $bsw_article_phase9_path;
 
+// Article-page Phase 10: search, topic discovery, related articles and backlinks.
+$bsw_article_phase10_path = $bsw_core_dir . 'phase10-article-discovery.php';
+if (is_readable($bsw_article_phase10_path)) require_once $bsw_article_phase10_path;
+
 // Phase 3: frontend editor framework enhancements (preview, recovery, summaries).
 $bsw_phase46_path = $bsw_core_dir . 'phase46-frontend-editor.php';
 if (is_readable($bsw_phase46_path)) require_once $bsw_phase46_path;
