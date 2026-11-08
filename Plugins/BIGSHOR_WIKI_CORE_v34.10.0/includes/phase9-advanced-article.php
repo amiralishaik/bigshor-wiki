@@ -57,7 +57,8 @@ final class BSW_Phase9_Advanced_Article {
     private static function render_information($id) {
         $post=get_post($id);if(!$post)return '';
         $body=wp_strip_all_tags(strip_shortcodes($post->post_content));
-        $word_parts=preg_split('/\\s+/u',trim($body),-1,PREG_SPLIT_NO_EMPTY);\n        $words=is_array($word_parts)?count($word_parts):0;
+        $word_parts=preg_split('/\\s+/u',trim($body),-1,PREG_SPLIT_NO_EMPTY);
+        $words=is_array($word_parts)?count($word_parts):0;
         $minutes=max(1,(int)ceil($words/200));
         $author=get_userdata($post->post_author);
         $aliases=get_post_meta($id,'_bsw_p9_aliases',true);
