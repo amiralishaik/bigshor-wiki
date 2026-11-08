@@ -84,7 +84,7 @@ final class BSW_Phase45_Article_Layout {
     private static function toc($items, $post_id) {
         if (!$items) return '';
         $tree = self::toc_tree($items);
-        return '<nav class="bsw45-toc" aria-label="Contents"><div class="bsw45-toc-title"><strong>Contents</strong><button type="button" class="bsw45-toc-toggle" aria-expanded="true">hide</button></div><div class="bsw45-toc-body">'.self::toc_nodes($tree, $post_id).'</div></nav>';
+        return '<nav class="bsw45-toc" aria-labelledby="bsw45-toc-title-'.(int)$post_id.'"><div class="bsw45-toc-title"><strong id="bsw45-toc-title-'.(int)$post_id.'">Contents</strong><button type="button" class="bsw45-toc-toggle" aria-expanded="true" aria-controls="bsw45-toc-body-'.(int)$post_id.'">hide</button></div><div class="bsw45-toc-body" id="bsw45-toc-body-'.(int)$post_id.'">'.self::toc_nodes($tree, $post_id).'</div></nav>';
     }
     private static function headings($content) {
         $items=array(); $n=0;
