@@ -70,6 +70,7 @@ jobs:
           php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/theme-plugin-integration-regression.php
           php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/tools-hub-regression.php
           php Plugins/BIGSHOR_WIKI_CORE_v34.10.0/tests/article-studio-core-regression.php
+          php Themes/bigshor-wiki-parent/tests/article-page-regression.php
 
 
   package-core:
