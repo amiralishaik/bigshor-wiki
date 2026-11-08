@@ -3,7 +3,7 @@
 $source=file_get_contents(dirname(__DIR__).'/includes/phase9-advanced-article.php');
 $checks=array(
  'advanced_article_metabox_is_registered'=>strpos($source,'add_meta_box(')!==false,
- 'metadata_save_checks_nonce_and_capability'=>strpos($source,'wp_verify_nonce(')!==false&&strpos($source,"current_user_can('edit_post',$post_id)")!==false,
+ 'metadata_save_checks_nonce_and_capability'=>strpos($source,'wp_verify_nonce(')!==false&&strpos($source,'current_user_can(\\'edit_post\\',$post_id)')!==false,
  'alternative_names_are_bounded'=>strpos($source,'array_slice(array_values(array_unique($aliases)),0,30)')!==false,
  'external_links_require_valid_http_urls'=>strpos($source,'wp_http_validate_url($parts[1])')!==false&&strpos($source,"array('http','https')")!==false,
  'page_information_includes_word_count_and_reading_time'=>strpos($source,'number_format_i18n($words)')!==false&&strpos($source,'$minutes')!==false,
