@@ -18,7 +18,7 @@ final class BSW_Phase12_Article_Release_Integration {
         $core = defined('BSW_CORE_PLUGIN_VERSION') ? BSW_CORE_PLUGIN_VERSION : 'unknown';
         $checks = array();
         $checks[] = self::row('BIGSHOR Core bootstrap', defined('BSW_CORE_PLUGIN_ACTIVE') && BSW_CORE_PLUGIN_ACTIVE, 'Core active flag is present.');
-        $checks[] = self::row('Core release version', $core === '34.12.0', 'Detected Core version: '.$core.'. Expected 34.12.0.');
+        $checks[] = self::row('Core release version', $core === '34.12.1', 'Detected Core version: '.$core.'. Expected 34.12.1.');
         $checks[] = self::row('Canonical article layout', class_exists('BSW_Phase45_Article_Layout'), 'Phase 45 article layout class is loaded.');
         $checks[] = self::row('Article community module', class_exists('BSW_Phase8_Article_Community'), 'Phase 8 discussion and watchlist module is loaded.');
         $checks[] = self::row('Advanced article tools', class_exists('BSW_Phase9_Advanced_Article'), 'Phase 9 information and citation tools are loaded.');

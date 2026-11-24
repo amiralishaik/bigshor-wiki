@@ -160,15 +160,19 @@ final class BSW_Phase52_Search_Routing {
         $out .= '<label>Language <input name="bsw_language" value="'.esc_attr($lang).'" maxlength="16" placeholder="en"></label><button type="submit">Search</button></form>';
         if ($term === '') return $out;
         if (strlen($term) < 2) return $out . '<p>Enter at least two characters.</p>';
+        $term = BSW_Phase38_Reader_Experience::city_search_term($term);
         $ids = self::indexed_ids($term, $ns, $lang, min(100,max(1,absint($atts['per_page']))));
         if (!$ids) {
             // A bounded fallback keeps newly published articles discoverable before the index catches up.
-            $fallback = new WP_Query(array('post_type'=>'wiki_article','post_status'=>'publish','s'=>$term,'posts_per_page'=>min(30,max(1,absint($atts['per_page']))),'no_found_rows'=>true));
+            $args = array('post_type'=>'wiki_article','post_status'=>'publish','has_password'=>false,'s'=>$term,'posts_per_page'=>min(30,max(1,absint($atts['per_page']))),'no_found_rows'=>true);
+            if ($ns !== '') $args['tax_query'][] = array('taxonomy'=>'wiki_namespace','field'=>'slug','terms'=>$ns);
+            if ($lang !== '') $args['meta_query'][] = array('key'=>'_bsw_language_code','value'=>$lang);
+            $fallback = new WP_Query($args);
             $ids = wp_list_pluck($fallback->posts, 'ID');
         }
         if ($ids) {
             $out .= '<h2>Search results</h2><ol class="bsw52-search-results">';
-            foreach ($ids as $id) { $p=get_post($id); if (!$p || $p->post_status !== 'publish') continue; $out .= '<li><a href="'.esc_url(get_permalink($id)).'">'.esc_html(get_the_title($id)).'</a><p>'.esc_html(wp_trim_words(wp_strip_all_tags(get_the_excerpt($id)),30)).'</p></li>'; }
+            foreach ($ids as $id) { $p=get_post($id); if (!$p || $p->post_status !== 'publish' || $p->post_password !== '') continue; $out .= '<li><a href="'.esc_url(get_permalink($id)).'">'.esc_html(get_the_title($id)).'</a><p>'.esc_html(wp_trim_words(wp_strip_all_tags(get_the_excerpt($id)),30)).'</p></li>'; }
             $out .= '</ol>';
         } else $out .= '<p>No matching articles found.</p>';
         return $out;

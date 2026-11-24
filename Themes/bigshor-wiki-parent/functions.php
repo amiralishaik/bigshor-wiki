@@ -2,7 +2,7 @@
 if (!defined('ABSPATH')) exit;
 
 /** BIGSHOR Wiki stable parent theme. Persistent content types and platform engine live here. */
-if (!defined('BSW_VERSION')) define('BSW_VERSION', '23.5.0');
+if (!defined('BSW_VERSION')) define('BSW_VERSION', '23.5.1');
 if (!defined('BSW_THEME_DIR')) define('BSW_THEME_DIR', get_template_directory());
 if (!defined('BSW_THEME_URL')) define('BSW_THEME_URL', get_template_directory_uri());
 

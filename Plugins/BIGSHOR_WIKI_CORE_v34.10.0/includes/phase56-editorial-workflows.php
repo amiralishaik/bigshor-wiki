@@ -6,7 +6,7 @@
 if (!defined('ABSPATH')) exit;
 if (!class_exists('BSW_Phase56_Editorial_Workflows')) {
 final class BSW_Phase56_Editorial_Workflows {
-    const DISCUSSION_TYPE = 'bsw_deletion_discussion';
+    const DISCUSSION_TYPE = 'bsw_deletion_discuss';
     const AUDIT_OPTION = 'bsw_phase56_editorial_audit';
 
     public static function boot() {
@@ -77,7 +77,11 @@ final class BSW_Phase56_Editorial_Workflows {
             $out.='<section class="bsw-deletion-discussion"><h3>'.esc_html($discussion->post_title).'</h3><p><strong>Status:</strong> '.esc_html(ucfirst($state)).'</p>';
             $out.=wpautop(esc_html($discussion->post_content));
             $out.='<p><strong>Discussion comments</strong></p>';
-            if ($state==='open' && is_user_logged_in()) $out.=get_comment_form(array('title_reply'=>'Add to this deletion discussion','label_submit'=>'Post comment','logged_in_as'=>'','comment_notes_before'=>'','comment_notes_after'=>'','comment_field'=>'<p class="comment-form-comment"><label for="comment">Your contribution</label><textarea id="comment" name="comment" rows="4" required></textarea></p>'),$discussion->ID);
+            if ($state==='open' && is_user_logged_in()) {
+                ob_start();
+                comment_form(array('title_reply'=>'Add to this deletion discussion','label_submit'=>'Post comment','logged_in_as'=>'','comment_notes_before'=>'','comment_notes_after'=>'','comment_field'=>'<p class="comment-form-comment"><label for="comment">Your contribution</label><textarea id="comment" name="comment" rows="4" required></textarea></p>'),$discussion->ID);
+                $out .= ob_get_clean();
+            }
             $comments=get_comments(array('post_id'=>$discussion->ID,'status'=>'approve','order'=>'ASC','orderby'=>'comment_date_gmt'));
             if ($comments) { $out.='<ol>'; foreach($comments as $comment) $out.='<li><strong>'.esc_html($comment->comment_author).'</strong> — '.esc_html($comment->comment_date).wpautop(esc_html($comment->comment_content)).'</li>'; $out.='</ol>'; }
             $out.='</section>';

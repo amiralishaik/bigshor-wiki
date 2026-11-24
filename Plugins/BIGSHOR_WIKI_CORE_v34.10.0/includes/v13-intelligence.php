@@ -94,7 +94,7 @@ function bsw_v13_verification_box($post) {
     $notes = get_post_meta($post->ID, '_bsw_v13_review_notes', true);
     echo '<p><label for="bsw_v13_verification">Editorial assessment</label><select id="bsw_v13_verification" name="bsw_v13_verification" style="width:100%">';
     foreach (array('not_checked'=>'Not checked','needs_sources'=>'Needs sources','in_review'=>'In review','reviewed'=>'Reviewed','fact_checked'=>'Fact-checked by editor','disputed'=>'Disputed') as $key=>$label) echo '<option value="' . esc_attr($key) . '" ' . selected($status,$key,false) . '>' . esc_html($label) . '</option>';
-    echo '</select></p><p><label>Last editorial review</label><input type="date" name="bsw_v13_last_reviewed" value="' . esc_attr($date) . '" style="width:100%"></p><p><label>Review notes (internal)</label><textarea name="bsw_v13_review_notes" rows="3" style="width:100%">' . esc_textarea($notes) . '</textarea></p><p class="description">This is an editorial workflow label, not an automatic truth score. Only an authorised editor should mark an article fact-checked.</p>';
+    echo '</select></p><p><label><input type="checkbox" name="bsw_confirm_review" value="1"> I reviewed this revision</label></p><p><label>Last editorial review</label><input type="date" name="bsw_v13_last_reviewed" value="' . esc_attr($date) . '" style="width:100%"></p><p><label>Review notes (internal)</label><textarea name="bsw_v13_review_notes" rows="3" style="width:100%">' . esc_textarea($notes) . '</textarea></p><p class="description">This is an editorial workflow label, not an automatic truth score. Only an authorised editor should mark an article fact-checked.</p>';
 }
 function bsw_v13_event_box($post) {
     wp_nonce_field('bsw_v13_event_save', 'bsw_v13_event_nonce');
@@ -107,8 +107,16 @@ add_action('save_post_wiki_article', function ($post_id) {
         $status = sanitize_key(wp_unslash($_POST['bsw_v13_verification'] ?? 'not_checked'));
         $allowed = array('not_checked','needs_sources','in_review','reviewed','fact_checked','disputed');
         if (!in_array($status,$allowed,true)) $status='not_checked';
-        if ($status === 'fact_checked' && !current_user_can('publish_posts')) $status='reviewed';
+        $approved = in_array($status, array('reviewed', 'fact_checked'), true);
+        $confirm = !empty($_POST['bsw_confirm_review']) && current_user_can('edit_others_posts');
+        if ($approved && !$confirm) {
+            $status = get_post_meta($post_id, '_bsw_v13_verification', true) ?: 'in_review';
+        }
         update_post_meta($post_id,'_bsw_v13_verification',$status);
+        if ($approved && $confirm) {
+            $fingerprint = hash('sha256', get_post_field('post_title', $post_id, 'raw') . "\n" . get_post_field('post_content', $post_id, 'raw'));
+            update_post_meta($post_id, '_bsw_reviewed_content_hash', $fingerprint);
+        }
         update_post_meta($post_id,'_bsw_v13_last_reviewed',sanitize_text_field(wp_unslash($_POST['bsw_v13_last_reviewed'] ?? '')));
         update_post_meta($post_id,'_bsw_v13_review_notes',sanitize_textarea_field(wp_unslash($_POST['bsw_v13_review_notes'] ?? '')));
     }
@@ -118,11 +126,24 @@ add_action('save_post_wiki_article', function ($post_id) {
         update_post_meta($post_id,'_bsw_event_date',$date);
     }
 }, 50);
+add_action('post_updated', static function ($id, $after, $before) {
+    if ($after->post_type !== 'wiki_article') return;
+    if ($before->post_content === $after->post_content && $before->post_title === $after->post_title) return;
+    $status = get_post_meta($id, '_bsw_v13_verification', true);
+    if (in_array($status, array('reviewed', 'fact_checked'), true)) {
+        update_post_meta($id, '_bsw_v13_verification', 'in_review');
+    }
+}, 10, 3);
 add_filter('the_content', function ($content) {
     if (!is_singular('wiki_article') || !in_the_loop() || !is_main_query()) return $content;
     $status = get_post_meta(get_the_ID(),'_bsw_v13_verification',true) ?: 'not_checked';
     $date = get_post_meta(get_the_ID(),'_bsw_v13_last_reviewed',true);
-    $labels = array('not_checked'=>'Not independently reviewed','needs_sources'=>'Additional sources requested','in_review'=>'Under editorial review','reviewed'=>'Editorially reviewed','fact_checked'=>'Fact-checked by an editor','disputed'=>'Disputed — see article discussion');
+    if (in_array($status, array('reviewed', 'fact_checked'), true)) {
+        $reviewed = get_post_meta(get_the_ID(), '_bsw_reviewed_content_hash', true);
+        $current = hash('sha256', get_post_field('post_title', get_the_ID(), 'raw') . "\n" . get_post_field('post_content', get_the_ID(), 'raw'));
+        if ($reviewed && !hash_equals($reviewed, $current)) $status = 'updated_since_review';
+    }
+    $labels = array('not_checked'=>'Not independently reviewed','needs_sources'=>'Additional sources requested','in_review'=>'Under editorial review','reviewed'=>'Editorially reviewed','fact_checked'=>'Fact-checked by an editor','updated_since_review'=>'Updated since editorial review','disputed'=>'Disputed — see article discussion');
     $out = '<aside class="bsw-v13-quality"><strong>Editorial status:</strong> ' . esc_html($labels[$status] ?? $labels['not_checked']);
     if ($date) $out .= ' <span>· Last reviewed: ' . esc_html($date) . '</span>';
     return $out . '</aside>' . $content;

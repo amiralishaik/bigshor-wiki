@@ -34,7 +34,7 @@ function bsw_white_label_navigation_items() {
         array('Talk pages', 'edit.php?post_type=wiki_talk', 'edit_posts', 'messages'),
         array('Editorial governance', 'admin.php?page=bsw-p36-governance', 'edit_others_posts', 'shield'),
         array('Moderation', 'admin.php?page=bsw-advanced-controls', 'moderate_comments', 'flag'),
-        array('Deletion discussions', 'edit.php?post_type=bsw_deletion_discussion', 'edit_others_posts', 'messages'),
+        array('Deletion discussions', 'edit.php?post_type=bsw_deletion_discuss', 'edit_others_posts', 'messages'),
         array('Founder collection', 'admin.php?page=bigshor-founders', 'manage_options', 'users'),
         array('Contributors', 'users.php', 'list_users', 'users'),
         array('Comments', 'edit-comments.php', 'moderate_comments', 'messages'),
