@@ -8,7 +8,7 @@
 if (!defined('ABSPATH')) exit;
 if (!class_exists('BSW_Phase63_Production_Readiness')) {
 final class BSW_Phase63_Production_Readiness {
-    const VERSION = '34.12.0';
+    const VERSION = '34.12.1';
     const REPORT_OPTION = 'bsw_p63_last_preflight_report';
     const MAX_ARTICLES = 500;
 

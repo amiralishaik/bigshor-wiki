@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
     root.setAttribute('data-mw-text-size', prefs.text || 'standard');
     root.setAttribute('data-mw-content-width', prefs.width || 'standard');
     root.setAttribute('data-mw-colour', prefs.colour || 'light');
-    doc.querySelectorAll('[data-mw-text],[data-mw-width],[data-mw-colour]').forEach(function (button) {
+    doc.querySelectorAll('button[data-mw-text],button[data-mw-width],button[data-mw-colour]').forEach(function (button) {
       var active = (button.hasAttribute('data-mw-text') && button.getAttribute('data-mw-text') === (prefs.text || 'standard')) ||
         (button.hasAttribute('data-mw-width') && button.getAttribute('data-mw-width') === (prefs.width || 'standard')) ||
         (button.hasAttribute('data-mw-colour') && button.getAttribute('data-mw-colour') === (prefs.colour || 'light'));

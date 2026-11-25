@@ -2,7 +2,7 @@
 /*
 Plugin Name: BIGSHOR Wiki Core
 Description: Independent content and community engine for BIGSHOR Wiki. Keeps wiki data and workflows active independently of the theme.
-Version: 34.12.0
+Version: 34.12.1
 Author: BIGSHOR
 Requires at least: 6.4
 Requires PHP: 7.4
@@ -10,7 +10,7 @@ License: GPL-2.0-or-later
 */
 if (!defined('ABSPATH')) exit;
 if (!defined('BSW_CORE_PLUGIN_ACTIVE')) define('BSW_CORE_PLUGIN_ACTIVE', true);
-if (!defined('BSW_CORE_PLUGIN_VERSION')) define('BSW_CORE_PLUGIN_VERSION', '34.12.0');
+if (!defined('BSW_CORE_PLUGIN_VERSION')) define('BSW_CORE_PLUGIN_VERSION', '34.12.1');
 $bsw_core_dir = plugin_dir_path(__FILE__) . 'includes/';
 
 /*
@@ -338,3 +338,15 @@ if (is_readable($bsw_tools_hub_path)) require_once $bsw_tools_hub_path;
 // Native Article Studio: full visual/source editor and editorial collaboration workflow.
 $bsw_article_studio_path = $bsw_core_dir . 'article-studio.php';
 if (is_readable($bsw_article_studio_path)) require_once $bsw_article_studio_path;
+
+add_action('plugins_loaded', static function () {
+    if (defined('BSW_ADMIN_UI_FILE')) return;
+    $module = __DIR__ . '/admin-ui';
+    if (!is_readable($module . '/includes/admin-white-label.php')) {
+        $module = dirname(__DIR__) . '/bigshor-wiki-admin-ui';
+    }
+    if (is_readable($module . '/includes/admin-white-label.php')) {
+        define('BSW_ADMIN_UI_FILE', $module . '/bigshor-wiki-admin-ui.php');
+        require_once $module . '/includes/admin-white-label.php';
+    }
+}, 21);

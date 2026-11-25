@@ -5,7 +5,7 @@ $core=file_get_contents($base.'/bigshor-wiki-core.php');
 $gate=file_get_contents($base.'/includes/phase12-article-release-integration.php');
 $readiness=file_get_contents($base.'/includes/phase63-production-readiness.php');
 $checks=array(
-    'core_release_version_is_34_12_0' => strpos($core,"Version: 34.12.0")!==false && strpos($core,"define('BSW_CORE_PLUGIN_VERSION', '34.12.0')")!==false,
+    'core_release_version_is_34_12_1' => strpos($core,"Version: 34.12.1")!==false && strpos($core,"define('BSW_CORE_PLUGIN_VERSION', '34.12.1')")!==false,
     'phase11_is_bootstrapped' => strpos($core,"phase11-article-hardening.php")!==false,
     'phase12_is_bootstrapped' => strpos($core,"phase12-article-release-integration.php")!==false,
     'phase10_precedes_phase11_and_phase12' => strpos($core,'phase10-article-discovery.php') < strpos($core,'phase11-article-hardening.php') && strpos($core,'phase11-article-hardening.php') < strpos($core,'phase12-article-release-integration.php'),
@@ -14,7 +14,7 @@ $checks=array(
     'release_gate_checks_article_modules' => strpos($gate,'BSW_Phase45_Article_Layout')!==false && strpos($gate,'BSW_Phase8_Article_Community')!==false && strpos($gate,'BSW_Phase9_Advanced_Article')!==false && strpos($gate,'BSW_Phase10_Article_Discovery')!==false && strpos($gate,'BSW_Phase11_Article_Hardening')!==false,
     'release_gate_checks_media_conversion_conflict' => strpos($gate,'No duplicate synchronous image conversion')!==false,
     'release_gate_does_not_claim_production_certification' => strpos($gate,'does not replace WordPress staging tests')!==false,
-    'production_readiness_version_matches_core' => strpos($readiness,"const VERSION = '34.12.0'")!==false && strpos($readiness,"expected ' . self::VERSION")!==false,
+    'production_readiness_version_matches_core' => strpos($readiness,"const VERSION = '34.12.1'")!==false && strpos($readiness,"expected ' . self::VERSION")!==false,
 );
 $failed=0;
 foreach($checks as $name=>$passed){echo ($passed?'PASS':'FAIL').' '.$name.PHP_EOL;if(!$passed)$failed++;}

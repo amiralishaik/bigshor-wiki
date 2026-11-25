@@ -6,8 +6,8 @@
 <?php
 if ( ! function_exists('has_site_icon') || ! has_site_icon() ) {
     $bsw_icon_uri = get_template_directory_uri() . '/assets/brand/bigshor-bs-monogram.jpg';
-    echo '<link rel="icon" href="' . esc_url($bsw_icon_uri) . '" type="image/jpeg" sizes="512x512">' . "\\n";
-    echo '<link rel="apple-touch-icon" href="' . esc_url($bsw_icon_uri) . '">' . "\\n";
+    echo '<link rel="icon" href="' . esc_url($bsw_icon_uri) . '" type="image/jpeg" sizes="512x512">' . "\n";
+    echo '<link rel="apple-touch-icon" href="' . esc_url($bsw_icon_uri) . '">' . "\n";
 }
 ?>
 <?php wp_head(); ?>
@@ -94,6 +94,7 @@ if ( ! function_exists('has_site_icon') || ! has_site_icon() ) {
     </div>
   </aside>
   <div class="mw-main-column">
+    <?php if (!is_singular('wiki_article')) : ?>
     <div class="mw-page-tabs">
       <div class="mw-tabs-left"><a class="<?php echo is_front_page() ? 'is-active' : ''; ?>" href="<?php echo esc_url(home_url('/')); ?>">Main page</a><a href="<?php echo esc_url(is_singular('wiki_article') ? get_comments_link() : home_url('/community-portal/')); ?>"><?php echo is_singular('wiki_article') ? 'Talk' : 'Community'; ?></a></div>
       <div class="mw-tabs-right">
@@ -110,4 +111,5 @@ if ( ! function_exists('has_site_icon') || ! has_site_icon() ) {
         <a href="<?php echo esc_url(home_url('/recent-changes/')); ?>">Recent changes</a><?php if (is_user_logged_in()) : ?><a href="<?php echo esc_url(home_url('/my-watchlist/')); ?>">Watchlist</a><?php endif; ?>
       </div>
     </div>
+    <?php endif; ?>
     <main id="main-content" class="mw-content" tabindex="-1">

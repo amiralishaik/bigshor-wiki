@@ -15,17 +15,14 @@ while ( have_posts() ) : the_post();
 <header class="bsw-article-header">
   <div class="bsw-article-kicker">From BIGSHOR Wiki, the free knowledge encyclopedia</div>
   <h1 id="article-title" class="page-title"><?php the_title(); ?></h1>
-  <?php if ( has_excerpt() ) : ?><p class="bsw-article-deck"><?php echo esc_html( get_the_excerpt() ); ?></p><?php endif; ?>
   <div class="bsw-article-byline"><span>Published <time datetime="<?php echo esc_attr( $published_iso ); ?>"><?php echo esc_html( get_the_date() ); ?></time></span><span>Last updated <time datetime="<?php echo esc_attr( $modified_iso ); ?>"><?php echo esc_html( get_the_modified_date() ); ?></time></span><span>By <a href="<?php echo esc_url( $author_url ); ?>"><?php echo esc_html( get_the_author() ); ?></a></span></div>
 </header>
-<div class="bsw-article-language-row">
-  <span>BIGSHOR Wiki article</span>
-  <span class="bsw-article-page-meta">Article · <a href="<?php echo esc_url( $history_url ); ?>">Revision history</a></span>
-</div>
 <nav class="bsw-page-tools" aria-label="Article tools" aria-describedby="article-title">
   <a href="<?php echo esc_url( get_permalink( $article_id ) ); ?>" aria-current="page">Read</a>
   <?php if ( current_user_can( 'edit_post', $article_id ) ) : ?>
     <a href="<?php echo esc_url( $edit_url ); ?>">Edit</a>
+  <?php else : ?>
+    <a href="<?php echo esc_url( home_url( '/contribute/' ) ); ?>">Suggest an edit</a>
   <?php endif; ?>
   <a href="<?php echo esc_url( $history_url ); ?>">View history</a>
   <a href="#comments">Talk</a>
@@ -40,7 +37,15 @@ while ( have_posts() ) : the_post();
   <div class="bsw-article-dates">First published <time datetime="<?php echo esc_attr( $published_iso ); ?>"><?php echo esc_html( get_the_date() ); ?></time> · Last updated <time datetime="<?php echo esc_attr( $modified_iso ); ?>"><?php echo esc_html( get_the_modified_date() ); ?></time></div>
 </section>
 <?php if ( ! function_exists( 'bsw_theme_get_settings' ) || ( bsw_theme_get_settings()['show_related'] ?? '1' ) === '1' ) : ?>
-<section class="bsw-related-section"><h2>Related articles</h2><?php echo do_shortcode( '[bigshor_wiki_related limit="5"]' ); ?></section>
+<?php echo do_shortcode( '[bigshor_wiki_related limit="5"]' ); ?>
 <?php endif; ?>
-<section class="bsw-related-section bsw-article-talk"><h2>Talk</h2><p>Discuss improvements to this article and suggest reliable sources.</p><?php echo do_shortcode( '[bigshor_wiki_discussion]' ); ?></section>
-<?php comments_template(); endwhile; get_footer();
+<div id="comments">
+<?php
+if ( shortcode_exists( 'bigshor_wiki_discussion' ) ) {
+    echo do_shortcode( '[bigshor_wiki_discussion]' );
+} else {
+    comments_template();
+}
+?>
+</div>
+<?php endwhile; get_footer();

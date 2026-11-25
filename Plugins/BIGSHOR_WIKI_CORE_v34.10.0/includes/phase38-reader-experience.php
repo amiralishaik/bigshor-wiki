@@ -40,13 +40,22 @@ final class BSW_Phase38_Reader_Experience {
         ));
     }
 
+    public static function city_search_term($term) {
+        $aliases = array(
+            'bangalore' => 'Bengaluru', 'vizag' => 'Visakhapatnam',
+            'bombay' => 'Mumbai', 'madras' => 'Chennai',
+            'calcutta' => 'Kolkata', 'mysuru' => 'Mysore',
+        );
+        return $aliases[strtolower(trim($term))] ?? $term;
+    }
+
     public static function rest_search($request) {
         $term = trim((string) $request->get_param('q'));
         if (strlen($term) < 2) return rest_ensure_response(array('items'=>array(), 'total'=>0, 'pages'=>0));
         $type = $request->get_param('type');
         $post_types = ($type === 'news') ? array('bsw_news') : (($type === 'knowledge') ? array('wiki_article') : array('wiki_article','bsw_news'));
         $args = array(
-            'post_type'=>$post_types, 'post_status'=>'publish', 's'=>$term,
+            'post_type'=>$post_types, 'post_status'=>'publish', 's'=>self::city_search_term($term),
             'posts_per_page'=>10, 'paged'=>max(1,absint($request->get_param('page'))),
             'orderby'=>'relevance', 'no_found_rows'=>false,
         );
@@ -67,7 +76,11 @@ final class BSW_Phase38_Reader_Experience {
 
     public static function search_post_types($query) {
         if (is_admin() || !$query->is_main_query() || !$query->is_search()) return;
-        $query->set('post_type', array('wiki_article','bsw_news'));
+        $scope = $query->get('post_type');
+        if (!$scope) $query->set('post_type', array('wiki_article','bsw_news'));
+        if (!$scope || $scope === 'wiki_article') {
+            $query->set('s', self::city_search_term((string) $query->get('s')));
+        }
     }
 
     public static function search_shortcode($atts=array()) {
@@ -87,7 +100,7 @@ final class BSW_Phase38_Reader_Experience {
         $out .= '</div></form>';
         if ($term !== '') {
             $types=$type==='news'?array('bsw_news'):($type==='knowledge'?array('wiki_article'):array('wiki_article','bsw_news'));
-            $args=array('post_type'=>$types,'post_status'=>'publish','s'=>$term,'posts_per_page'=>10,'paged'=>$page,'orderby'=>'relevance');
+            $args=array('post_type'=>$types,'post_status'=>'publish','s'=>self::city_search_term($term),'posts_per_page'=>10,'paged'=>$page,'orderby'=>'relevance');
             if ($topic && taxonomy_exists('wiki_topic')) $args['tax_query']=array(array('taxonomy'=>'wiki_topic','field'=>'term_id','terms'=>$topic));
             $q=new WP_Query($args);
             $out.='<p class="bsw-search-count">'.number_format_i18n($q->found_posts).' results</p>';

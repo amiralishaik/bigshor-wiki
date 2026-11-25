@@ -5,9 +5,15 @@ get_header();
 $settings = function_exists('bsw_theme_get_settings') ? bsw_theme_get_settings() : array();
 $counts = wp_count_posts('wiki_article'); $published = $counts && isset($counts->publish) ? (int)$counts->publish : 0;
 $users = count_users(); $contributors = isset($users['total_users']) ? (int)$users['total_users'] : 0;
-$featured = new WP_Query(array('post_type'=>'wiki_article','post_status'=>'publish','posts_per_page'=>1,'meta_key'=>'_bsw_featured','meta_value'=>'1','no_found_rows'=>true));
-if (!$featured->have_posts()) $featured = new WP_Query(array('post_type'=>'wiki_article','post_status'=>'publish','posts_per_page'=>1,'orderby'=>'modified','order'=>'DESC','no_found_rows'=>true));
-$recent = new WP_Query(array('post_type'=>'wiki_article','post_status'=>'publish','posts_per_page'=>8,'orderby'=>'modified','order'=>'DESC','no_found_rows'=>true));
+$featured = new WP_Query(array(
+    'post_type'=>'wiki_article', 'post_status'=>'publish', 'has_password'=>false,
+    'posts_per_page'=>1, 'no_found_rows'=>true,
+    'meta_query'=>array(
+        array('key'=>'_bsw_featured','value'=>'1'),
+        array('key'=>'_bsw_v13_verification','value'=>array('reviewed','fact_checked'),'compare'=>'IN')
+    ),
+));
+$recent = new WP_Query(array('post_type'=>'wiki_article','post_status'=>'publish','has_password'=>false,'posts_per_page'=>8,'orderby'=>'modified','order'=>'DESC','post__not_in'=>wp_list_pluck($featured->posts,'ID'),'no_found_rows'=>true));
 $popular = new WP_Query(array('post_type'=>'wiki_article','post_status'=>'publish','posts_per_page'=>6,'orderby'=>'comment_count','order'=>'DESC','no_found_rows'=>true));
 ?>
 <section class="bsw-home-intro">
@@ -19,7 +25,21 @@ $popular = new WP_Query(array('post_type'=>'wiki_article','post_status'=>'publis
 <div class="bsw-home-main-grid">
  <section class="mw-panel bsw-home-featured"><div class="bsw-section-heading"><h2>Featured article</h2><a href="<?php echo esc_url(home_url('/featured-articles/')); ?>">More featured articles</a></div>
  <?php if($featured->have_posts()):while($featured->have_posts()):$featured->the_post(); ?><div class="bsw-featured-layout"><?php if(has_post_thumbnail()):?><a class="bsw-featured-image" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large'); ?></a><?php endif; ?><div><h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3><p><?php echo esc_html(wp_trim_words(get_the_excerpt()?:wp_strip_all_tags(get_the_content()),65)); ?></p><a class="bsw-read-more" href="<?php the_permalink(); ?>">Read the full article →</a></div></div><?php endwhile;else:?><p>Featured articles will appear here when selected by editors.</p><?php endif;wp_reset_postdata(); ?></section>
- <section class="mw-panel bsw-home-dyk"><div class="bsw-section-heading"><h2>Did you know?</h2></div><?php $dyk=new WP_Query(array('post_type'=>'wiki_article','post_status'=>'publish','posts_per_page'=>5,'orderby'=>'rand','no_found_rows'=>true));if($dyk->have_posts()):?><ul class="bsw-home-list"><?php while($dyk->have_posts()):$dyk->the_post();?><li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a><?php if(get_the_excerpt()):?><p><?php echo esc_html(wp_trim_words(get_the_excerpt(),18));?></p><?php endif;?></li><?php endwhile;?></ul><?php else:?><p>Explore the encyclopedia to discover something new.</p><?php endif;wp_reset_postdata();?></section>
+ <?php
+ $facts = new WP_Query(array(
+     'post_type'=>'bsw_portal_item', 'post_status'=>'publish', 'has_password'=>false,
+     'posts_per_page'=>5, 'no_found_rows'=>true,
+     'meta_query'=>array(
+         array('key'=>'_bsw_portal_kind','value'=>'did_you_know'),
+         array('key'=>'_bsw_portal_source','value'=>'','compare'=>'!=')
+     ),
+ ));
+ if ($facts->have_posts()) : ?>
+ <section class="mw-panel bsw-home-dyk"><h2>Did you know?</h2><ul class="bsw-home-list">
+ <?php foreach ($facts->posts as $fact) : ?>
+ <li><a href="<?php echo esc_url(get_permalink($fact)); ?>"><?php echo esc_html(get_the_title($fact)); ?></a>
+ <p><?php echo esc_html(get_the_excerpt($fact)); ?> <a href="<?php echo esc_url(get_post_meta($fact->ID,'_bsw_portal_source',true)); ?>">Source</a></p></li>
+ <?php endforeach; ?></ul></section><?php endif; ?>
  <section class="mw-panel bsw-home-recent"><div class="bsw-section-heading"><h2>Recently updated</h2><a href="<?php echo esc_url(home_url('/recent-changes/')); ?>">View all changes</a></div><?php if($recent->have_posts()):?><ul class="bsw-home-list bsw-recent-list"><?php while($recent->have_posts()):$recent->the_post();?><li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a><time datetime="<?php echo esc_attr(get_the_modified_date('c')); ?>">Updated <?php echo esc_html(get_the_modified_date()); ?></time><p><?php echo esc_html(wp_trim_words(get_the_excerpt()?:wp_strip_all_tags(get_the_content()),20));?></p></li><?php endwhile;?></ul><?php else:?><p>New articles will appear here.</p><?php endif;wp_reset_postdata();?></section>
  <section class="mw-panel bsw-home-popular"><div class="bsw-section-heading"><h2>Popular knowledge</h2><a href="<?php echo esc_url(home_url('/wiki/')); ?>">Explore all articles</a></div><?php if($popular->have_posts()):?><ol class="bsw-home-list"><?php while($popular->have_posts()):$popular->the_post();?><li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a><p><?php echo esc_html(wp_trim_words(get_the_excerpt()?:wp_strip_all_tags(get_the_content()),16));?></p></li><?php endwhile;?></ol><?php else:?><p>Popular articles will appear as the community grows.</p><?php endif;wp_reset_postdata();?></section>
  <section class="mw-panel bsw-home-explore"><h2>Explore BIGSHOR Wiki</h2><div class="bsw-explore-cards"><a href="<?php echo esc_url(home_url('/browse-topics/')); ?>"><strong>Topics</strong><span>Explore knowledge by subject</span></a><a href="<?php echo esc_url(home_url('/knowledge-entities/')); ?>"><strong>People &amp; organisations</strong><span>Discover notable entities</span></a><a href="<?php echo esc_url(home_url('/media-library/')); ?>"><strong>Media library</strong><span>Images and media resources</span></a><a href="<?php echo esc_url(home_url('/wiki-languages/')); ?>"><strong>Languages</strong><span>Explore multilingual content</span></a></div></section>
