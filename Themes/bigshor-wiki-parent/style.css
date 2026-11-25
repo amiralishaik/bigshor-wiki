@@ -1014,3 +1014,18 @@ img{max-width:100%;height:auto}figure{max-width:100%}picture{display:block;max-w
 .bsw-article-header time,.bsw-article-bottom-meta time{font-variant-numeric:tabular-nums}
 @media(max-width:640px){.bsw-page-tools{gap:6px;margin:12px 0;padding:8px 0}.bsw-page-tools a,.bsw-page-tools button{padding:8px 9px;font-size:12px}.bsw-article-byline{gap:6px 12px}.bsw-article-header .page-title{overflow-wrap:anywhere}}
 @media print{.bsw-page-tools,.bsw-reading-progress{display:none!important}}
+
+/* Keep reader links distinguishable within navigation and running text. */
+body nav.mw-primary-navigation .mw-primary-navigation-inner ul.side-nav {
+    background: #f8f9fa;
+}
+body nav.mw-primary-navigation .mw-primary-navigation-inner ul.side-nav > li > a {
+    background: #f8f9fa;
+    color: #0645ad;
+}
+#main-content .breadcrumbs a,
+#main-content .bsw-article-topics a,
+#main-content p a {
+    text-decoration: underline;
+    text-underline-offset: 0.12em;
+}

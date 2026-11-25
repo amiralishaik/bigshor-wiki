@@ -1,7 +1,10 @@
 <?php
 /** Static regression assertions for Phase 56 editorial workflows. */
 $source = file_get_contents(dirname(__DIR__) . '/includes/phase56-editorial-workflows.php');
+$registered = preg_match("/const DISCUSSION_TYPE = '([^']+)'/", $source, $matches);
 $checks = array(
+    'discussion_type_fits_wordpress_limit' => $registered && strlen($matches[1]) <= 20,
+    'discussion_uses_wordpress_comment_form' => strpos($source, 'comment_form(') !== false && strpos($source, 'get_comment_form(') === false,
     'workflow_authorization_helper' => strpos($source, 'function can_manage_workflow()') !== false,
     'self_adjudication_prevented' => strpos($source, 'A different editor must resolve your deletion proposal.') !== false,
     'administrator_self_adjudication_override' => strpos($source, "!current_user_can('manage_options')") !== false,

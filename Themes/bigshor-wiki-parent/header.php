@@ -6,8 +6,8 @@
 <?php
 if ( ! function_exists('has_site_icon') || ! has_site_icon() ) {
     $bsw_icon_uri = get_template_directory_uri() . '/assets/brand/bigshor-bs-monogram.jpg';
-    echo '<link rel="icon" href="' . esc_url($bsw_icon_uri) . '" type="image/jpeg" sizes="512x512">' . "\\n";
-    echo '<link rel="apple-touch-icon" href="' . esc_url($bsw_icon_uri) . '">' . "\\n";
+    echo '<link rel="icon" href="' . esc_url($bsw_icon_uri) . '" type="image/jpeg" sizes="512x512">' . "\n";
+    echo '<link rel="apple-touch-icon" href="' . esc_url($bsw_icon_uri) . '">' . "\n";
 }
 ?>
 <?php wp_head(); ?>
